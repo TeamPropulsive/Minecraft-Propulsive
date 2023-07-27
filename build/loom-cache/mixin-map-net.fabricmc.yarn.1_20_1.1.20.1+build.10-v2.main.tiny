@@ -1,3 +1,0 @@
-v1	named	intermediary
-FIELD	com/june/propulsive/mixin/PlayerMixin	Lnet/minecraft/server/MinecraftServer;	server	field_13995
-METHOD	com/june/propulsive/mixin/PlayerMixin	()Lnet/minecraft/server/world/ServerWorld;	getServerWorld	method_51469
