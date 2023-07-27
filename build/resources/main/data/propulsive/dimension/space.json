@@ -1,0 +1,16 @@
+{
+  "type": "propulsive:space",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "propulsive:space",
+      "lakes": false,
+      "layers": [
+        {
+          "block": "minecraft:air",
+          "height": 128
+        }
+      ]
+    }
+  }
+}

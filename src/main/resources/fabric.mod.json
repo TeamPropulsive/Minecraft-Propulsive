@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "propulsive",
+  "version": "${version}",
+  "name": "Propulsive",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/june/Propulsive"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/propulsive/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.june.propulsive.Propulsive"
+    ]
+  },
+  "mixins": [
+    "propulsive.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
