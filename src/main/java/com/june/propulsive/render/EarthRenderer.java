@@ -17,7 +17,7 @@ public class EarthRenderer {
     // TODO : Fix weird texturing
     public static void render() {
         WorldRenderEvents.END.register(context -> {
-            RenderSystem.depthMask(false);
+            RenderSystem.depthMask(true);
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             RenderSystem.enableCull();
