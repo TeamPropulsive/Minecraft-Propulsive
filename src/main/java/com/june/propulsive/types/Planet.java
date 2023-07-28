@@ -1,8 +1,5 @@
 package com.june.propulsive.types;
 
-import com.june.propulsive.Propulsive;
-import com.june.propulsive.handler.DimensionHandler;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -20,22 +17,13 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
-import org.joml.Matrix4f;
-import org.lwjgl.opengl.GL11;
 
-import javax.swing.*;
 import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.List;
-
-import static com.june.propulsive.Propulsive.*;
-import static net.minecraft.world.World.OVERWORLD;
 
 import static com.june.propulsive.Propulsive.PLANET_3D_RENDER_DIST;
 import static com.june.propulsive.Propulsive.SPACE;
@@ -60,7 +48,7 @@ public class Planet {
 
     // TODO use an entity or something instead of individual quads
     @Environment(EnvType.CLIENT)
-    protected void buildPlantQuads() {
+    protected void buildPlanetQuads() {
         Renderer renderer = RendererAccess.INSTANCE.getRenderer();
         MeshBuilder builder = renderer.meshBuilder();
         QuadEmitter emitter = builder.getEmitter();
@@ -102,7 +90,7 @@ public class Planet {
         WorldRenderEvents.START.register(context -> {
             if (context.world().getRegistryKey() == SPACE) {
                 if (this.planetQuads.isEmpty())
-                    this.buildPlantQuads();
+                    this.buildPlanetQuads();
 
                 MinecraftClient client = MinecraftClient.getInstance();
                 assert client.player != null;
