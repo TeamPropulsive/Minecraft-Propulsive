@@ -38,7 +38,7 @@ public class MapScreen extends Screen {
                 buffer.vertex(positionMatrix, (float) (x + planetScale), (float) (z + planetScale), 0).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
                 buffer.vertex(positionMatrix, (float) (x + planetScale), (float) (z - planetScale), 0).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
                 RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
-                RenderSystem.setShaderTexture(0, new Identifier("examplemod", "icon.png"));
+                RenderSystem.setShaderTexture(0, planet.texture2d);
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                 tessellator.draw();
             }

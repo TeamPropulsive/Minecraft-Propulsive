@@ -21,16 +21,18 @@ import static net.minecraft.world.World.OVERWORLD;
 
 public class Planet {
     public double planetSize;
-    Identifier texture;
-    float[] planetRot = { 0.0f, 0.0f };
+    public Identifier texture2d;
+    public Identifier texture3d;
+    public float[] planetRot = { 0.0f, 0.0f };
     public Vec3d planetPos;
     boolean is3D = true;
 
-    public Planet(double scale, double posX, double posY, double posZ, float horizontalRotation, float verticalRotation, Identifier texture) {
+    public Planet(double scale, double posX, double posY, double posZ, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
         // Will add more args in the future (Link a dimension, textures, etc)
         this.planetSize = scale;
         this.planetPos = new Vec3d(posX, posY, posZ);
-        this.texture = texture;
+        this.texture2d = texture2d;
+        this.texture3d = texture3d;
         this.planetRot[0] = horizontalRotation;
         this.planetRot[1] = verticalRotation;
     }
@@ -108,7 +110,7 @@ public class Planet {
                     buffer.vertex(positionMatrix, -planetSize, planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
                     buffer.vertex(positionMatrix, -planetSize, -planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
                     buffer.vertex(positionMatrix, -planetSize, -planetSize, planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
-
+                    RenderSystem.setShaderTexture(0, this.texture3d);
                 } else {
                     // Makes the 2d render of the planet face you
                     Vec3d directionVector = new Vec3d( this.planetPos.x - client.player.getX(), this.planetPos.y - client.player.getY(), this.planetPos.z - client.player.getZ()).normalize();
@@ -125,11 +127,12 @@ public class Planet {
                     buffer.vertex(positionMatrix, planetSize, planetSize, -planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
                     Vec3d skyboxPos = directionVector.multiply(Math.sqrt(PLANET_3D_RENDER_DIST)).subtract(camera.getPos());
                     matrixStack.translate(skyboxPos.x, skyboxPos.y, skyboxPos.z);
+                    RenderSystem.setShaderTexture(0, this.texture2d);
                 }
 
                 RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
                 RenderSystem.enableDepthTest();
-                RenderSystem.setShaderTexture(0, this.texture);
+
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                 RenderSystem.disableCull();
 
