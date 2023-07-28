@@ -20,6 +20,8 @@ import java.util.List;
 import static com.june.propulsive.Propulsive.*;
 import static net.minecraft.world.World.OVERWORLD;
 
+import static com.june.propulsive.Propulsive.PLANET_3D_RENDER_DIST;
+import static com.june.propulsive.Propulsive.SPACE;
 public class Planet {
     public double planetSize;
     public Identifier texture2d;
