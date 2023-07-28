@@ -1,5 +1,6 @@
 package com.june.propulsive;
 
+import com.june.propulsive.celestial.Star;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
@@ -86,10 +87,10 @@ public class Propulsive implements ModInitializer {
     // Misc config
     public static final double PLANET_3D_RENDER_DIST = 1000.0; // Distance at which planets go from 3D to 2D
     // Actually creating the planets
-    public static Terrestrial SUN = new Terrestrial(
+    public static Star SUN = new Star(
             10.0,
             0.0,
-            -30.0,
+            45.0,
             0.0,
             -87.0f,
             23.0f,

@@ -20,7 +20,7 @@ public class Star extends Planet {
         for (ServerPlayerEntity player : players) {
             if (player.getWorld().getRegistryKey() == SPACE) {
                 double distance = player.getPos().subtract(this.planetPos).length();
-                if (distance > (this.planetSize) + (this.planetSize / 10.0)) {
+                if (distance < (this.planetSize * 2.01)) {
                     player.kill();
                 }
             }
