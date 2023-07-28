@@ -36,7 +36,7 @@ public abstract class PlayerMixin {
 
             // Checks if a player leaves the planet or not
             // TODO : Make it work on entities too
-            // TODO : Implement better projection
+            // TODO : Implement a flat -> cube projection
 
 
             if (y > OVERWORLD_HEIGHT) {
@@ -54,5 +54,5 @@ public abstract class PlayerMixin {
 
 
     }
- 
+
 }
