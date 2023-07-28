@@ -48,8 +48,6 @@ public class Propulsive implements ModInitializer {
     // Actually creating the planets
     public static Planet EARTH = new Planet(OVERWORLD_SPACE_SIZE, OVERWORLD_SPACE_POSX, OVERWORLD_SPACE_POSY, OVERWORLD_SPACE_POSZ, 16.0f, -20.0f, new Identifier("propulsive:textures/planets/earth.png"),  new Identifier("propulsive:textures/planets/earth_icon.png"));
     public static Planet MOON = new Planet(MOON_SPACE_SIZE, MOON_SPACE_POSX, MOON_SPACE_POSY, MOON_SPACE_POSZ, 45.0f, 25.0f, new Identifier("propulsive:textures/planets/moon.png"),  new Identifier("propulsive:textures/planets/moon_icon.png"));
-    public static Planet EARTH = new Planet(OVERWORLD_SPACE_SIZE, OVERWORLD_SPACE_POSX, OVERWORLD_SPACE_POSY, OVERWORLD_SPACE_POSZ, 16.0f, -20.0f, new Identifier("propulsive:textures/planets/earth.png"));
-    public static Planet MOON = new Planet(MOON_SPACE_SIZE, MOON_SPACE_POSX, MOON_SPACE_POSY, MOON_SPACE_POSZ, 45.0f, 25.0f, new Identifier("propulsive:textures/planets/moon.png"));
 
     public static Identifier id(String path) {
         return new Identifier("propulsive", path);
