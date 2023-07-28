@@ -1,5 +1,6 @@
 package com.june.propulsive.celestial;
 
+import com.june.propulsive.Propulsive;
 import com.june.propulsive.types.Planet;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -21,7 +22,7 @@ public class Star extends Planet {
             if (player.getWorld().getRegistryKey() == SPACE) {
                 double distance = player.getPos().subtract(this.planetPos).length();
                 if (distance < (this.planetSize * 2.01)) {
-                    player.kill();
+                    player.damage(player.getWorld().getDamageSources().create(Propulsive.STAR_DAMAGE_TYPE), Float.MAX_VALUE);
                 }
             }
 

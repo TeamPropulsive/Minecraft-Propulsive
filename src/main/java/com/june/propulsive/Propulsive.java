@@ -5,12 +5,13 @@ import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.ArrayList;
 
 import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
 
@@ -148,6 +149,8 @@ public class Propulsive implements ModInitializer {
             new Identifier("propulsive:textures/celestial/terrestrial/mars.png"),
             new Identifier("propulsive:textures/celestial/terrestrial/mars_icon.png")
     );
+
+    public static RegistryKey<DamageType> STAR_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("star"));
 
     public static Identifier id(String path) {
         return new Identifier("propulsive", path);
