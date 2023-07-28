@@ -6,27 +6,29 @@ import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
+import java.util.List;
+
 import static com.june.propulsive.Propulsive.*;
 public class Planet {
     double planetSize;
     Identifier texture;
     float[] planetRot = { 0.0f, 0.0f };
-    double[] planetPos = { 0.0, 0.0, 0.0 };
-
+    //double[] planetPos = { 0.0, 0.0, 0.0 };
+    Vec3d planetPos = new Vec3d(0.0, 0.0, 0.0);
     boolean is3D = true;
 
     public Planet(double scale, double posX, double posY, double posZ, float horizontalRotation, float verticalRotation, Identifier texture) {
         // Will add more args in the future (Link a dimension, textures, etc)
         this.planetSize = scale;
-        this.planetPos[0] = posX;
-        this.planetPos[1] = posY;
-        this.planetPos[2] = posZ;
+        this.planetPos = new Vec3d(posX, posY, posZ);
         this.texture = texture;
         this.planetRot[0] = horizontalRotation;
         this.planetRot[1] = verticalRotation;
@@ -38,12 +40,10 @@ public class Planet {
             if (context.world().getRegistryKey() == SPACE) {
                 MinecraftClient client = MinecraftClient.getInstance();
                 assert client.player != null;
-                double distance = Math.pow(client.player.getX() - planetPos[0], 2) + Math.pow(client.player.getY() - planetPos[1], 2) + Math.pow((client.player.getZ() - planetPos[2]), 2);
-                if (distance > PLANET_3D_RENDER_DIST && this.is3D) {
-                    this.is3D = false;
-                } else if (distance < PLANET_3D_RENDER_DIST && !this.is3D) {
-                    this.is3D = true;
-                }
+                double distance = client.player.getPos().subtract(this.planetPos).length();
+                if (distance > PLANET_3D_RENDER_DIST && this.is3D) this.is3D = false;
+                else if (distance < PLANET_3D_RENDER_DIST && !this.is3D) this.is3D = true;
+
 
                 RenderSystem.depthMask(true);
                 RenderSystem.enableBlend();
@@ -51,8 +51,7 @@ public class Planet {
                 RenderSystem.enableCull();
                 Camera camera = context.camera();
                 RenderSystem.enableDepthTest();
-                Vec3d targetPosition = new Vec3d(this.planetPos[0], this.planetPos[1], this.planetPos[2]);
-                Vec3d transformedPosition = targetPosition.subtract(camera.getPos());
+                Vec3d transformedPosition = this.planetPos.subtract(camera.getPos());
 
                 MatrixStack matrixStack = new MatrixStack();
                 matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
@@ -111,7 +110,7 @@ public class Planet {
 
                 } else {
                     // Makes the 2d render of the planet face you
-                    Vec3d directionVector = new Vec3d( this.planetPos[0] - client.player.getX(), this.planetPos[1] - client.player.getY(), this.planetPos[2] - client.player.getZ()).normalize();
+                    Vec3d directionVector = new Vec3d( this.planetPos.x - client.player.getX(), this.planetPos.y - client.player.getY(), this.planetPos.z - client.player.getZ()).normalize();
                     float horizontalAngle = (float) Math.toDegrees(Math.atan2(directionVector.z, directionVector.x)) - 90.0F;
                     float verticalAngle = (float) Math.toDegrees(Math.asin(directionVector.y));
 
@@ -143,9 +142,18 @@ public class Planet {
 
     // Planet tick
     // *WARNING* Code here can have a large impact on performance! You have been warned!
-    public void tick() {
+    // This code is on the server, not the client
+    public void tick(MinecraftServer server) {
+        List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
+        for (ServerPlayerEntity player : players) {
+            if (player.getWorld().getRegistryKey() == SPACE) {
+                double distance = player.getPos().subtract(this.planetPos).length();
+                if (distance > (this.planetSize) + (this.planetSize / 10.0)) {
+                    // Collision!
+                }
+            }
 
-
+        }
     }
 
 
