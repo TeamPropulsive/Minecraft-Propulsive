@@ -1,6 +1,6 @@
 package com.june.propulsive.types;
 
-import com.june.propulsive.Propulsive;
+import com.june.propulsive.handler.DimensionHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
@@ -17,12 +17,13 @@ import org.lwjgl.opengl.GL11;
 import java.util.List;
 
 import static com.june.propulsive.Propulsive.*;
+import static net.minecraft.world.World.OVERWORLD;
+
 public class Planet {
-    double planetSize;
+    public double planetSize;
     Identifier texture;
     float[] planetRot = { 0.0f, 0.0f };
-    //double[] planetPos = { 0.0, 0.0, 0.0 };
-    Vec3d planetPos = new Vec3d(0.0, 0.0, 0.0);
+    public Vec3d planetPos;
     boolean is3D = true;
 
     public Planet(double scale, double posX, double posY, double posZ, float horizontalRotation, float verticalRotation, Identifier texture) {
@@ -149,7 +150,7 @@ public class Planet {
             if (player.getWorld().getRegistryKey() == SPACE) {
                 double distance = player.getPos().subtract(this.planetPos).length();
                 if (distance > (this.planetSize) + (this.planetSize / 10.0)) {
-                    // Collision!
+                    //DimensionHandler.TeleportDimension(player, OVERWORLD, 0, 100, 0);
                 }
             }
 

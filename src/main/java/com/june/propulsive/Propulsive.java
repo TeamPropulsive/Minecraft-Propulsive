@@ -6,8 +6,11 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.minecraft.world.tick.Tick;
 
 import java.util.*;
+
+import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
 
 
 public class Propulsive implements ModInitializer {
@@ -17,6 +20,8 @@ public class Propulsive implements ModInitializer {
     public void onInitialize() {
         EARTH.render();
         MOON.render();
+        MapScreenKeybindRegister();
+        TickablePlanets.add(MOON);
         TickablePlanets.add(EARTH);
     }
 
