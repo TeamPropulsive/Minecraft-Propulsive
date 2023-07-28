@@ -18,10 +18,11 @@ public class Planet {
 
     public Planet(double scale, double posX, double posY, double posZ, Identifier texture) {
         // Will add more args in the future (Link a dimension, textures, etc)
-        planetSize = scale;
-        planetPos[0] = posX;
-        planetPos[1] = posY;
-        planetPos[2] = posZ;
+        this.planetSize = scale;
+        this.planetPos[0] = posX;
+        this.planetPos[1] = posY;
+        this.planetPos[2] = posZ;
+        this.texture = texture;
     }
 
     // Renders planet in space
