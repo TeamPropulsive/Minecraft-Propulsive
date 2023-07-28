@@ -1,6 +1,5 @@
 package com.june.propulsive.types;
 
-import com.june.propulsive.Propulsive;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
@@ -17,7 +16,8 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-import static com.june.propulsive.Propulsive.*;
+import static com.june.propulsive.Propulsive.PLANET_3D_RENDER_DIST;
+import static com.june.propulsive.Propulsive.SPACE;
 public class Planet {
     double planetSize;
     Identifier texture;
