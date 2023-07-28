@@ -39,8 +39,8 @@ public class Propulsive implements ModInitializer {
     public static final double MOON_HEIGHT = 128.0;
 
     // Misc config
-    public static final double PLANET_3D_RENDER_DIST = 10000.0; // Distance at which planets go from 3D to 2D
+    public static final double PLANET_3D_RENDER_DIST = 1000.0; // Distance at which planets go from 3D to 2D
     // Actually creating the planets
-    public static Planet EARTH = new Planet(OVERWORLD_SPACE_SIZE, OVERWORLD_SPACE_POSX, OVERWORLD_SPACE_POSY, OVERWORLD_SPACE_POSZ, new Identifier("propulsive:textures/planets/earth.png"));
-    public static Planet MOON = new Planet(MOON_SPACE_SIZE, MOON_SPACE_POSX, MOON_SPACE_POSY, MOON_SPACE_POSZ, new Identifier("propulsive:textures/planets/moon.png"));
+    public static Planet EARTH = new Planet(OVERWORLD_SPACE_SIZE, OVERWORLD_SPACE_POSX, OVERWORLD_SPACE_POSY, OVERWORLD_SPACE_POSZ, 16.0f, -20.0f, new Identifier("propulsive:textures/planets/earth.png"));
+    public static Planet MOON = new Planet(MOON_SPACE_SIZE, MOON_SPACE_POSX, MOON_SPACE_POSY, MOON_SPACE_POSZ, 45.0f, 25.0f, new Identifier("propulsive:textures/planets/moon.png"));
 }

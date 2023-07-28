@@ -1,5 +1,6 @@
 package com.june.propulsive.types;
 
+import com.june.propulsive.Propulsive;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
@@ -15,17 +16,20 @@ import static com.june.propulsive.Propulsive.*;
 public class Planet {
     double planetSize;
     Identifier texture;
+    float[] planetRot = { 0.0f, 0.0f };
     double[] planetPos = { 0.0, 0.0, 0.0 };
 
     boolean is3D = true;
 
-    public Planet(double scale, double posX, double posY, double posZ, Identifier texture) {
+    public Planet(double scale, double posX, double posY, double posZ, float horizontalRotation, float verticalRotation, Identifier texture) {
         // Will add more args in the future (Link a dimension, textures, etc)
         this.planetSize = scale;
         this.planetPos[0] = posX;
         this.planetPos[1] = posY;
         this.planetPos[2] = posZ;
         this.texture = texture;
+        this.planetRot[0] = horizontalRotation;
+        this.planetRot[1] = verticalRotation;
     }
 
     // Renders planet in space
@@ -53,7 +57,7 @@ public class Planet {
                 MatrixStack matrixStack = new MatrixStack();
                 matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
                 matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0F));
-                matrixStack.translate(transformedPosition.x, transformedPosition.y, transformedPosition.z);
+
 
                 Matrix4f positionMatrix = matrixStack.peek().getPositionMatrix();
                 Tessellator tessellator = Tessellator.getInstance();
@@ -65,6 +69,11 @@ public class Planet {
 
                 if (this.is3D) {
                     // Back
+                    matrixStack.translate(transformedPosition.x, transformedPosition.y, transformedPosition.z);
+
+                    matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.planetRot[0]));
+                    matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(this.planetRot[1]));
+
                     buffer.vertex(positionMatrix, -planetSize, planetSize, -planetSize).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
                     buffer.vertex(positionMatrix, -planetSize, -planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
                     buffer.vertex(positionMatrix, planetSize, -planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
@@ -99,6 +108,7 @@ public class Planet {
                     buffer.vertex(positionMatrix, -planetSize, planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
                     buffer.vertex(positionMatrix, -planetSize, -planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
                     buffer.vertex(positionMatrix, -planetSize, -planetSize, planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
+
                 } else {
                     // Makes the 2d render of the planet face you
                     Vec3d directionVector = new Vec3d( this.planetPos[0] - client.player.getX(), this.planetPos[1] - client.player.getY(), this.planetPos[2] - client.player.getZ()).normalize();
@@ -113,7 +123,8 @@ public class Planet {
                     buffer.vertex(positionMatrix, -planetSize, -planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
                     buffer.vertex(positionMatrix, planetSize, -planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
                     buffer.vertex(positionMatrix, planetSize, planetSize, -planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
-
+                    Vec3d skyboxPos = directionVector.multiply(Math.sqrt(PLANET_3D_RENDER_DIST)).subtract(camera.getPos());
+                    matrixStack.translate(skyboxPos.x, skyboxPos.y, skyboxPos.z);
                 }
 
                 RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
