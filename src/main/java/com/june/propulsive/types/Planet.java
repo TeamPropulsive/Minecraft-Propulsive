@@ -171,16 +171,7 @@ public class Planet {
     // *WARNING* Code here can have a large impact on performance! You have been warned!
     // This code is on the server, not the client
     public void tick(MinecraftServer server) {
-        List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
-        for (ServerPlayerEntity player : players) {
-            if (player.getWorld().getRegistryKey() == SPACE) {
-                double distance = player.getPos().subtract(this.planetPos).length();
-                if (distance > (this.planetSize) + (this.planetSize / 10.0)) {
-                    //DimensionHandler.TeleportDimension(player, OVERWORLD, 0, 100, 0);
-                }
-            }
 
-        }
     }
 
 
