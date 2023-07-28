@@ -4,6 +4,7 @@
   "package": "com.june.propulsive.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "PlanetMixin",
     "PlayerMixin",
     "SpaceSkyMixin"
   ],
