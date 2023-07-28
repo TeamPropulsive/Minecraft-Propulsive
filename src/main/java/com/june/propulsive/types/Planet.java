@@ -1,20 +1,37 @@
 package com.june.propulsive.types;
 
+import com.june.propulsive.Propulsive;
 import com.june.propulsive.handler.DimensionHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.renderer.v1.Renderer;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.mesh.Mesh;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MeshBuilder;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
+import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
+import javax.swing.*;
+import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.june.propulsive.Propulsive.*;
@@ -29,6 +46,7 @@ public class Planet {
     public float[] planetRot = { 0.0f, 0.0f };
     public Vec3d planetPos;
     boolean is3D = true;
+    protected EnumMap<Direction, BakedQuad> planetQuads = new EnumMap<>(Direction.class);
 
     public Planet(double scale, double posX, double posY, double posZ, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
         // Will add more args in the future (Link a dimension, textures, etc)
@@ -38,6 +56,25 @@ public class Planet {
         this.texture3d = texture3d;
         this.planetRot[0] = horizontalRotation;
         this.planetRot[1] = verticalRotation;
+    }
+
+    // TODO use an entity or something instead of individual quads
+    @Environment(EnvType.CLIENT)
+    protected void buildPlantQuads() {
+        Renderer renderer = RendererAccess.INSTANCE.getRenderer();
+        MeshBuilder builder = renderer.meshBuilder();
+        QuadEmitter emitter = builder.getEmitter();
+
+        SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, this.texture3d);
+        Sprite sprite = spriteId.getSprite();
+        for (Direction direction : Direction.values()) {
+            emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+            emitter.spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV);
+            emitter.spriteColor(0, -1, -1, -1, -1);
+            emitter.emit();
+            Mesh mesh = builder.build();
+            mesh.forEach(quadView -> this.planetQuads.put(direction, quadView.toBakedQuad(sprite)));
+        }
     }
 
     // Assuming all worlds are 60,000,000 blocks for now
@@ -62,107 +99,57 @@ public class Planet {
 
     // Renders planet in space
     public void render() {
-        WorldRenderEvents.END.register(context -> {
+        WorldRenderEvents.START.register(context -> {
             if (context.world().getRegistryKey() == SPACE) {
+                if (this.planetQuads.isEmpty())
+                    this.buildPlantQuads();
+
                 MinecraftClient client = MinecraftClient.getInstance();
                 assert client.player != null;
-                double distance = client.player.getPos().subtract(this.planetPos).length();
-                if (distance > PLANET_3D_RENDER_DIST && this.is3D) this.is3D = false;
-                else if (distance < PLANET_3D_RENDER_DIST && !this.is3D) this.is3D = true;
+                double distance = client.player.getPos().subtract(this.planetPos).lengthSquared();
+                if (this.is3D && distance > PLANET_3D_RENDER_DIST*PLANET_3D_RENDER_DIST) this.is3D = false;
+                else if (!this.is3D && distance < PLANET_3D_RENDER_DIST*PLANET_3D_RENDER_DIST) this.is3D = true;
 
-
-                RenderSystem.depthMask(true);
-                RenderSystem.enableBlend();
-                RenderSystem.defaultBlendFunc();
-                RenderSystem.enableCull();
                 Camera camera = context.camera();
-                RenderSystem.enableDepthTest();
                 Vec3d transformedPosition = this.planetPos.subtract(camera.getPos());
-
-                MatrixStack matrixStack = new MatrixStack();
-                matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(camera.getPitch()));
-                matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(camera.getYaw() + 180.0F));
-
-
-                Matrix4f positionMatrix = matrixStack.peek().getPositionMatrix();
-                Tessellator tessellator = Tessellator.getInstance();
-                BufferBuilder buffer = tessellator.getBuffer();
-
-                buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR_TEXTURE);
 
                 float planetSize = (float) this.planetSize;
 
                 if (this.is3D) {
-                    // Back
-                    matrixStack.translate(transformedPosition.x, transformedPosition.y, transformedPosition.z);
+                    MatrixStack matrices = context.matrixStack();
+                    matrices.push();
+                    matrices.translate(transformedPosition.x, transformedPosition.y, transformedPosition.z);
 
-                    matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.planetRot[0]));
-                    matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(this.planetRot[1]));
-
-                    buffer.vertex(positionMatrix, -planetSize, planetSize, -planetSize).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-                    buffer.vertex(positionMatrix, -planetSize, -planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, -planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, planetSize, -planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
-
-                    //Front
-                    buffer.vertex(positionMatrix, -planetSize, planetSize, planetSize).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-                    buffer.vertex(positionMatrix, -planetSize, -planetSize, planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, -planetSize, planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, planetSize, planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
-
-                    // Top
-                    buffer.vertex(positionMatrix, planetSize, planetSize, -planetSize).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-                    buffer.vertex(positionMatrix, planetSize, planetSize, planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-                    buffer.vertex(positionMatrix, -planetSize, planetSize, planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-                    buffer.vertex(positionMatrix, -planetSize, planetSize, -planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
-
-                    // Bottom
-                    buffer.vertex(positionMatrix, -planetSize, -planetSize, planetSize).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-                    buffer.vertex(positionMatrix, -planetSize, -planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, -planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, -planetSize, planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
-
-                    // Left
-                    buffer.vertex(positionMatrix, planetSize, -planetSize, planetSize).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-                    buffer.vertex(positionMatrix, planetSize, -planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, planetSize, planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
-
-                    // Right
-                    buffer.vertex(positionMatrix, -planetSize, planetSize, planetSize).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-                    buffer.vertex(positionMatrix, -planetSize, planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-                    buffer.vertex(positionMatrix, -planetSize, -planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-                    buffer.vertex(positionMatrix, -planetSize, -planetSize, planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
-                    RenderSystem.setShaderTexture(0, this.texture3d);
+                    for (Direction direction : Direction.values()) {
+                        matrices.push();
+                        Vec3i vec = direction.getVector();
+                        matrices.scale(planetSize, planetSize, planetSize);
+                        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(this.planetRot[1]));
+                        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.planetRot[0]));
+                        matrices.translate(vec.getX(), vec.getY(), vec.getZ());
+                        context.consumers().getBuffer(RenderLayer.getSolid()).quad(matrices.peek(), this.planetQuads.get(direction), 1.0f, 1.0f, 1.0f, 9999, OverlayTexture.DEFAULT_UV);
+                        matrices.pop();
+                    }
+                    matrices.pop();
                 } else {
+                    MatrixStack matrices = context.matrixStack();
+                    matrices.push();
+
                     // Makes the 2d render of the planet face you
-                    Vec3d directionVector = new Vec3d( this.planetPos.x - client.player.getX(), this.planetPos.y - client.player.getY(), this.planetPos.z - client.player.getZ()).normalize();
+                    Vec3d directionVector = transformedPosition.normalize();
                     float horizontalAngle = (float) Math.toDegrees(Math.atan2(directionVector.z, directionVector.x)) - 90.0F;
                     float verticalAngle = (float) Math.toDegrees(Math.asin(directionVector.y));
 
-                    matrixStack.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(horizontalAngle));
-                    matrixStack.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(verticalAngle));
+                    matrices.scale(planetSize, planetSize, planetSize);
+                    matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(horizontalAngle));
+                    matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(verticalAngle));
 
                     // Add the quad
-                    buffer.vertex(positionMatrix, -planetSize, planetSize, -planetSize).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-                    buffer.vertex(positionMatrix, -planetSize, -planetSize, -planetSize).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, -planetSize, -planetSize).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-                    buffer.vertex(positionMatrix, planetSize, planetSize, -planetSize).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
+                    context.consumers().getBuffer(RenderLayer.getSolid()).quad(matrices.peek(), this.planetQuads.get(Direction.NORTH), 1.0f, 1.0f, 1.0f, 9999, OverlayTexture.DEFAULT_UV);
                     Vec3d skyboxPos = directionVector.multiply(Math.sqrt(PLANET_3D_RENDER_DIST)).subtract(camera.getPos());
-                    matrixStack.translate(skyboxPos.x, skyboxPos.y, skyboxPos.z);
-                    RenderSystem.setShaderTexture(0, this.texture2d);
+                    matrices.translate(skyboxPos.x, skyboxPos.y, skyboxPos.z);
+                    matrices.pop();
                 }
-
-                RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
-                RenderSystem.enableDepthTest();
-
-                RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-                RenderSystem.disableCull();
-
-                tessellator.draw();
-
-                RenderSystem.depthFunc(GL11.GL_LEQUAL);
-                RenderSystem.enableCull();
             }
         });
     }
