@@ -21,7 +21,7 @@ public class Propulsive implements ModInitializer {
     public static final float OVERWORLD_SPACE_SIZE = 1.0f;
     public static final double OVERWORLD_FACE_SIZE = 16.0;
     public static final double OVERWORLD_HEIGHT = 128.0;
-
+    public static final double OVERWORLD_RADIUS = 100.0;
     // Dimensions
     public static RegistryKey<World> SPACE = RegistryKey.of(RegistryKeys.WORLD, new Identifier("propulsive:space"));
     public static Identifier BLANK_TEX = new Identifier("textures/blank.png");

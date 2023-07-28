@@ -36,71 +36,23 @@ public abstract class PlayerMixin {
 
             // Checks if a player leaves the planet or not
             // TODO : Make it work on entities too
-            int faceX = (int) (x / OVERWORLD_FACE_SIZE);
-            int faceZ = (int) (z / OVERWORLD_FACE_SIZE);
+            // TODO : Implement better projection
 
-            ServerWorld serverWorld = this.getServerWorld();
-            RegistryKey<World> registryKey = serverWorld.getRegistryKey();
-            if (registryKey == World.OVERWORLD && y > OVERWORLD_HEIGHT) {
-                double preciseFaceX = (x / OVERWORLD_FACE_SIZE) - faceX;
-                double preciseFaceZ = (z / OVERWORLD_FACE_SIZE) - faceZ;
-                double relativeCubicPosX = 0.0;
-                double relativeCubicPosY = 0.0;
-                double relativeCubicPosZ = 0.0;
 
-                switch (faceX) {
-                    case 0:
-                        switch (faceZ) {
-                            case 0: // Top
-                                relativeCubicPosY = 1.0;
-                                relativeCubicPosX = preciseFaceX;
-                                relativeCubicPosZ = preciseFaceZ;
-                                break;
-                            case 1: // Left
-                                relativeCubicPosZ = 1.0;
-                                relativeCubicPosX = preciseFaceX;
-                                relativeCubicPosY = preciseFaceZ;
-                                break;
-                            case -1: // Right
-                                relativeCubicPosZ = -1.0;
-                                relativeCubicPosX = -preciseFaceX;
-                                relativeCubicPosY = -preciseFaceZ;
-                                break;
-                            default:
-                                System.err.println("Invalid chunk! ");
-                                return;
-                        }
-                        break;
-                    case -1: // Front
-                        relativeCubicPosX = 1.0;
-                        relativeCubicPosY = preciseFaceX;
-                        relativeCubicPosZ = preciseFaceZ;
-                        break;
-                    case 1: // Back
-                        relativeCubicPosX = -1.0;
-                        relativeCubicPosY = -preciseFaceX;
-                        relativeCubicPosZ = -preciseFaceZ;
-                        break;
-                    case 2: // Base
-                        relativeCubicPosY = -1.0;
-                        relativeCubicPosX = -preciseFaceX;
-                        relativeCubicPosZ = -preciseFaceZ;
-                        break;
-                    default:
-                        System.err.println("Invalid chunk! ");
-                        return;
-                }
-
+            if (y > OVERWORLD_HEIGHT) {
                 DimensionHandler.TeleportDimension(
                         player,
                         SPACE,
-                        OVERWORLD_SPACE_POSX + (relativeCubicPosX * OVERWORLD_SPACE_SIZE),
-                        OVERWORLD_SPACE_POSY + (relativeCubicPosY * OVERWORLD_SPACE_SIZE),
-                        OVERWORLD_SPACE_POSZ + (relativeCubicPosZ * OVERWORLD_SPACE_SIZE)
+                        0,
+                        0,
+                        0
                 );
             }
 
-        }
+            }
+
+
 
     }
+
 }
