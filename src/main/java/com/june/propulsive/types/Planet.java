@@ -9,6 +9,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
@@ -19,6 +20,8 @@ import java.util.List;
 import static com.june.propulsive.Propulsive.*;
 import static net.minecraft.world.World.OVERWORLD;
 
+import static com.june.propulsive.Propulsive.PLANET_3D_RENDER_DIST;
+import static com.june.propulsive.Propulsive.SPACE;
 public class Planet {
     public double planetSize;
     public Identifier texture2d;
@@ -35,6 +38,26 @@ public class Planet {
         this.texture3d = texture3d;
         this.planetRot[0] = horizontalRotation;
         this.planetRot[1] = verticalRotation;
+    }
+
+    // Assuming all worlds are 60,000,000 blocks for now
+    private static final float PLANET_DIM_RADIUS = 30_000_000f;
+    private static final float FRONT_PERCENT = 0.3f;
+    private static final float BACK_PERCENT = 0.2f;
+    public Direction xzToSide(double x, double z) {
+        if (Math.abs(x) > PLANET_DIM_RADIUS * (1-BACK_PERCENT) || Math.abs(z) > PLANET_DIM_RADIUS * (1-BACK_PERCENT)) {
+            return Direction.DOWN;
+        } else if (Math.abs(x) < PLANET_DIM_RADIUS * FRONT_PERCENT && Math.abs(z) < PLANET_DIM_RADIUS * FRONT_PERCENT) {
+            return Direction.UP;
+        } else if (z >= Math.abs(x)) {
+            return Direction.NORTH;
+        } else if (x >= Math.abs(z)) {
+            return Direction.EAST;
+        } else if (z < x) {
+            return Direction.SOUTH;
+        } else {
+            return Direction.WEST;
+        }
     }
 
     // Renders planet in space

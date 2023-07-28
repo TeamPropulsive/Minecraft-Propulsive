@@ -2,11 +2,9 @@ package com.june.propulsive.mixin;
 
 import com.june.propulsive.handler.DimensionHandler;
 import com.june.propulsive.handler.GravityHandler;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,7 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-import static com.june.propulsive.Propulsive.*;
+import static com.june.propulsive.Propulsive.OVERWORLD_HEIGHT;
+import static com.june.propulsive.Propulsive.SPACE;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class PlayerMixin {
