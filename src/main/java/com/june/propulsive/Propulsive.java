@@ -2,6 +2,7 @@ package com.june.propulsive;
 
 import com.june.propulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -18,6 +19,14 @@ public class Propulsive implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
+        if (FabricLoader.getInstance().isModLoaded("ad_astra")) {
+            // Ad Astra compatibility
+        }
+        if (FabricLoader.getInstance().isModLoaded("galacticraft")) {
+            // GC5 Compatibility
+        }
+
         MERCURY.render();
         VENUS.render();
         EARTH.render();
