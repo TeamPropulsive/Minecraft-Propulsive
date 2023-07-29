@@ -1,7 +1,5 @@
 package com.june.propulsive;
 
-import com.june.propulsive.planet.PlanetBlock;
-import com.june.propulsive.planet.PlanetBlockEntity;
 import com.june.propulsive.celestial.Star;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
@@ -11,6 +9,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -27,13 +26,8 @@ import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegis
 
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TickablePlanets = new ArrayList<>();
-    public static BlockEntityType<PlanetBlockEntity> PLANET_BLOCK_ENTITY_TYPE;
 
-
-    public static final Block PLANET_BLOCK = PlanetBlock.register(
-            new PlanetBlock(
-                    AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS)
-            ), "test_planet", true);
+    public static final EntityModelLayer MODEL_CUBE_LAYER = new EntityModelLayer(new Identifier("entitytesting", "cube"), "main");
 
 
     @Override
@@ -45,10 +39,6 @@ public class Propulsive implements ModInitializer {
         if (FabricLoader.getInstance().isModLoaded("galacticraft")) {
             // GC5 Compatibility
         }
-        PLANET_BLOCK_ENTITY_TYPE = Registry.register(
-                Registries.BLOCK_ENTITY_TYPE, new Identifier("propulsive", "test_planet_blockentity"),
-                FabricBlockEntityTypeBuilder.create(PlanetBlockEntity::new, PLANET_BLOCK).build()
-        );
 
 
         //SUN.render();
