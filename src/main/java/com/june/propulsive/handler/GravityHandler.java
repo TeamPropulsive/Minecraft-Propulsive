@@ -7,7 +7,7 @@ import static com.june.propulsive.Propulsive.SPACE;
 public class GravityHandler {
     public static void CalculateGravity(ServerPlayerEntity player) {
         if (player.getWorld().getRegistryKey() == SPACE) {
-            // TODO
+            player.setNoGravity(true);
         }
     }
 }
