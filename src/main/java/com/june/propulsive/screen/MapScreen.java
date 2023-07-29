@@ -8,7 +8,9 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.*;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec2f;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
@@ -25,16 +27,18 @@ public class MapScreen extends Screen {
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         double zoom = 1.0; // TODO : Make configurable (Scroll wheel?)
-
+        Vec2f rot = this.client.player.getRotationClient();
+        context.getMatrices();
         double[] p = worldToMapCoords(this.client.player.getX(), this.client.player.getZ(), 1);
+        Matrix4f rotMatrix = new Matrix4f().rotate(rot.y, new Vector3f(1.0f, 0.0f, 0.0f));
         Matrix4f positionMatrix = context.getMatrices().peek().getPositionMatrix();
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
-        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR_TEXTURE);
-        buffer.vertex(positionMatrix, (float) (p[0] - 10.0), (float) (p[1] - 10.0), 0).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-        buffer.vertex(positionMatrix, (float) (p[0] - 10.0), (float) (p[1] + 10.0), 0).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-        buffer.vertex(positionMatrix, (float) (p[0] + 10.0), (float) (p[1] + 10.0), 0).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-        buffer.vertex(positionMatrix, (float) (p[0] + 10.0), (float) (p[1] - 10.0), 0).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
+        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
+        buffer.vertex(positionMatrix, (float) (p[0] - 5.0), (float) (p[1] - 5.0), 0).texture(0f, 0f).next();
+        buffer.vertex(positionMatrix, (float) (p[0] - 5.0), (float) (p[1] + 5.0), 0).texture(0f, 1f).next();
+        buffer.vertex(positionMatrix, (float) (p[0] + 5.0), (float) (p[1] + 5.0), 0).texture(1f, 1f).next();
+        buffer.vertex(positionMatrix, (float) (p[0] + 5.0), (float) (p[1] - 5.0), 0).texture(1f, 0f).next();
         RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
         RenderSystem.setShaderTexture(0, new Identifier("propulsive:textures/gui/player.png"));
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
