@@ -17,6 +17,7 @@ import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
@@ -24,6 +25,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
 import java.util.EnumMap;
+import java.util.List;
 
 import static com.june.propulsive.Propulsive.PLANET_3D_RENDER_DIST;
 import static com.june.propulsive.Propulsive.SPACE;
@@ -145,7 +147,19 @@ public abstract class Planet {
     // Planet tick
     // *WARNING* Code here can have a large impact on performance! You have been warned!
     // This code is on the server, not the client
-    public abstract void tick(MinecraftServer server);
+    public void tick(MinecraftServer server) {
+        List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
+        for (ServerPlayerEntity player : players) {
+            if (player.getWorld().getRegistryKey() == SPACE) {
+                double distance = player.getPos().subtract(this.planetPos).length();
+                if (distance < (this.planetSize * 2.01)) {
+                    collisionDetected(player);
+                }
+            }
 
+        }
+    };
+
+    public abstract void collisionDetected(ServerPlayerEntity player);
 
 }

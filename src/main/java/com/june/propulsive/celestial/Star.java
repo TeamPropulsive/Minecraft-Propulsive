@@ -16,16 +16,7 @@ public class Star extends Planet {
     }
 
     @Override
-    public void tick(MinecraftServer server) {
-        List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
-        for (ServerPlayerEntity player : players) {
-            if (player.getWorld().getRegistryKey() == SPACE) {
-                double distance = player.getPos().subtract(this.planetPos).length();
-                if (distance < (this.planetSize * 2.01)) {
-                    player.damage(player.getWorld().getDamageSources().create(Propulsive.STAR_DAMAGE_TYPE), Float.MAX_VALUE);
-                }
-            }
-
-        }
+    public void collisionDetected(ServerPlayerEntity player) {
+        player.damage(player.getWorld().getDamageSources().create(Propulsive.STAR_DAMAGE_TYPE), Float.MAX_VALUE);
     }
 }
