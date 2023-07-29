@@ -1,13 +1,22 @@
 package com.june.propulsive;
 
+import com.june.propulsive.planet.PlanetBlock;
+import com.june.propulsive.planet.PlanetBlockEntity;
 import com.june.propulsive.celestial.Star;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -18,6 +27,14 @@ import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegis
 
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TickablePlanets = new ArrayList<>();
+    public static BlockEntityType<PlanetBlockEntity> PLANET_BLOCK_ENTITY_TYPE;
+
+
+    public static final Block PLANET_BLOCK = PlanetBlock.register(
+            new PlanetBlock(
+                    AbstractBlock.Settings.create().sounds(BlockSoundGroup.GRASS)
+            ), "test_planet", true);
+
 
     @Override
     public void onInitialize() {
@@ -28,22 +45,27 @@ public class Propulsive implements ModInitializer {
         if (FabricLoader.getInstance().isModLoaded("galacticraft")) {
             // GC5 Compatibility
         }
+        PLANET_BLOCK_ENTITY_TYPE = Registry.register(
+                Registries.BLOCK_ENTITY_TYPE, new Identifier("propulsive", "test_planet_blockentity"),
+                FabricBlockEntityTypeBuilder.create(PlanetBlockEntity::new, PLANET_BLOCK).build()
+        );
 
-        SUN.render();
-        MERCURY.render();
-        VENUS.render();
+
+        //SUN.render();
+        //MERCURY.render();
+        //VENUS.render();
         EARTH.render();
-        MOON.render();
-        MARS.render();
+        //MOON.render();
+        //MARS.render();
 
         MapScreenKeybindRegister();
 
-        TickablePlanets.add(SUN);
-        TickablePlanets.add(MERCURY);
-        TickablePlanets.add(VENUS);
+        //TickablePlanets.add(SUN);
+        //TickablePlanets.add(MERCURY);
+        //TickablePlanets.add(VENUS);
         TickablePlanets.add(EARTH);
-        TickablePlanets.add(MOON);
-        TickablePlanets.add(MARS);
+        //TickablePlanets.add(MOON);
+        //TickablePlanets.add(MARS);
     }
 
     // Dimensions
@@ -66,7 +88,7 @@ public class Propulsive implements ModInitializer {
     public static final double OVERWORLD_SPACE_POSX = 0.0;
     public static final double OVERWORLD_SPACE_POSY = 12.0;
     public static final double OVERWORLD_SPACE_POSZ = 0.0;
-    public static final float OVERWORLD_SPACE_SIZE = 0.5f;
+    public static final float OVERWORLD_SPACE_SIZE = 8.0f;
     public static final double OVERWORLD_HEIGHT = 128.0;
 
     // MOON

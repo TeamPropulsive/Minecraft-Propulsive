@@ -27,7 +27,7 @@ import java.util.EnumMap;
 
 import static com.june.propulsive.Propulsive.PLANET_3D_RENDER_DIST;
 import static com.june.propulsive.Propulsive.SPACE;
-public class Planet {
+public abstract class Planet {
     public double planetSize;
     public Identifier texture2d;
     public Identifier texture3d;
@@ -145,9 +145,7 @@ public class Planet {
     // Planet tick
     // *WARNING* Code here can have a large impact on performance! You have been warned!
     // This code is on the server, not the client
-    public void tick(MinecraftServer server) {
-
-    }
+    public abstract void tick(MinecraftServer server);
 
 
 }
