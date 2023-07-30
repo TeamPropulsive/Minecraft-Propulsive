@@ -3,10 +3,10 @@
   "id": "propulsive",
   "version": "${version}",
   "name": "Propulsive",
-  "description": "",
+  "description": "Going to space one block at a time!",
   "authors": [],
   "contact": {
-    "repo": "https://github.com/june/Propulsive"
+    "repo": "https://github.com/JuneDeveloper/Minecraft-Propulsive"
   },
   "license": "All-Rights-Reserved",
   "icon": "assets/propulsive/icon.png",
