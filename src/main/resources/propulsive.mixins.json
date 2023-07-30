@@ -8,8 +8,10 @@
     "PlayerMixin",
     "WorldBorderMixin"
   ],
-
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "CapeTextureMixin"
+  ]
 }
