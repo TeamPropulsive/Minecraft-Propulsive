@@ -162,4 +162,96 @@ public abstract class Planet {
 
     public abstract void collisionDetected(ServerPlayerEntity player);
 
+
+
+
+    // x, y need to be between 0-1, divide by the size
+    public static double[] planeToCube(double x, double y) {
+        double normalizedX = (x - 0.5) * 2.0;
+        double normalizedY = (y - 0.5) * 2.0;
+        int face;
+        double u, v;
+
+        if (Math.abs(normalizedX) > Math.abs(normalizedY)) {
+            if (normalizedX > 0.0) {
+                // Right face
+                face = 0;
+                u = normalizedY / normalizedX;
+                v = 0.5;
+            } else {
+                // Left face
+                face = 1;
+                u = -normalizedY / normalizedX;
+                v = 0.5;
+            }
+        } else {
+            if (normalizedY > 0.0) face = 2;
+            else face = 3;
+            u = normalizedX / normalizedY;
+            v = 0.5;
+        }
+        double z = 1.0;
+        double[] cubeCoordinates = new double[3];
+        switch (face) {
+            case 0 -> {
+                cubeCoordinates[0] = z;
+                cubeCoordinates[1] = u;
+                cubeCoordinates[2] = v;
+            }
+            case 1 -> {
+                cubeCoordinates[0] = -z;
+                cubeCoordinates[1] = u;
+                cubeCoordinates[2] = v;
+            }
+            case 2 -> {
+                cubeCoordinates[0] = u;
+                cubeCoordinates[1] = z;
+                cubeCoordinates[2] = v;
+            }
+            case 3 -> {
+                cubeCoordinates[0] = u;
+                cubeCoordinates[1] = v;
+                cubeCoordinates[2] = -z;
+            }
+            default -> System.err.println("oh god");
+        }
+        return cubeCoordinates;
+    }
+    public static double[] cubeToPlane(double x, double y, double z) {
+        int face = 0;
+        if (Math.abs(x) > Math.abs(y) && Math.abs(x) > Math.abs(z)) {
+            if (x > 0.0) {
+                face = 0;
+            } else {
+                face = 1;
+            }
+        } else if (Math.abs(y) > Math.abs(x) && Math.abs(y) > Math.abs(z)) {
+            if (y > 0.0) face = 2;
+            else face = 3;
+        } else System.err.println("oh god");
+        double u, v;
+        v = switch (face) {
+            case 0 -> {
+                u = y / z;
+                yield 0.5;
+            }
+            case 1 -> {
+                u = -y / z;
+                yield 0.5;
+            }
+            case 2 -> {
+                u = x / z;
+                yield 0.5;
+            }
+            case 3 -> {
+                u = x / y;
+                yield 0.5;
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + face);
+        };
+        double xFlat = (u / 2.0) + 0.5;
+        double yFlat = (v / 2.0) + 0.5;
+        return new double[] { xFlat, yFlat };
+    }
+
 }
