@@ -1,3 +1,5 @@
+name: MC-Build
+on: push
 jobs:
   build:
     # ...
