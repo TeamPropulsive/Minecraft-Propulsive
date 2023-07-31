@@ -29,9 +29,9 @@ public final class CapeTextureMixin {
     // TODO : Make work properly on servers
     private void CustomCapes(CallbackInfo info) {
         if(texturesLoaded) return;
-        String playerName = this.profile.getName();
+        String playerId = this.profile.getId().toString();
         for (String[] capeinfo : PropulsiveClient.capes) {
-            if (Objects.equals(playerName, capeinfo[0])) {
+            if (Objects.equals(playerId, capeinfo[0])) {
                 this.textures.putIfAbsent(
                         MinecraftProfileTexture.Type.CAPE,
                         new Identifier("propulsive:textures/capes/" + capeinfo[1] + ".png")
