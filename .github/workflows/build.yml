@@ -13,5 +13,4 @@ jobs:
         with:
           name: Propulsive
           path: |
-            ~/*
-            !~/.*
+            ~/P*
