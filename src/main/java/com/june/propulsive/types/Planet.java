@@ -93,7 +93,6 @@ public abstract class Planet {
             if (context.world().getRegistryKey() == SPACE) {
                 if (this.planetQuads.isEmpty())
                     this.buildPlanetQuads();
-
                 MinecraftClient client = MinecraftClient.getInstance();
                 assert client.player != null;
                 double distance = client.player.getPos().subtract(this.planetPos).lengthSquared();
@@ -105,41 +104,22 @@ public abstract class Planet {
 
                 float planetSize = (float) this.planetSize;
 
-                if (this.is3D) {
-                    MatrixStack matrices = context.matrixStack();
+
+                MatrixStack matrices = context.matrixStack();
+                matrices.push();
+                matrices.translate(transformedPosition.x, transformedPosition.y, transformedPosition.z);
+
+                for (Direction direction : Direction.values()) {
                     matrices.push();
-                    matrices.translate(transformedPosition.x, transformedPosition.y, transformedPosition.z);
-
-                    for (Direction direction : Direction.values()) {
-                        matrices.push();
-                        Vec3i vec = direction.getVector();
-                        matrices.scale(planetSize, planetSize, planetSize);
-                        matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(this.planetRot[1]));
-                        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.planetRot[0]));
-                        matrices.translate(vec.getX(), vec.getY(), vec.getZ());
-                        context.consumers().getBuffer(RenderLayer.getSolid()).quad(matrices.peek(), this.planetQuads.get(direction), 1.0f, 1.0f, 1.0f, 9999, OverlayTexture.DEFAULT_UV);
-                        matrices.pop();
-                    }
-                    matrices.pop();
-                } else {
-                    MatrixStack matrices = context.matrixStack();
-                    matrices.push();
-
-                    // Makes the 2d render of the planet face you
-                    Vec3d directionVector = transformedPosition.normalize();
-                    float horizontalAngle = (float) Math.toDegrees(Math.atan2(directionVector.z, directionVector.x)) - 90.0F;
-                    float verticalAngle = (float) Math.toDegrees(Math.asin(directionVector.y));
-
+                    Vec3i vec = direction.getVector();
                     matrices.scale(planetSize, planetSize, planetSize);
-                    matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(horizontalAngle));
-                    matrices.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(verticalAngle));
-
-                    // Add the quad
-                    context.consumers().getBuffer(RenderLayer.getSolid()).quad(matrices.peek(), this.planetQuads.get(Direction.NORTH), 1.0f, 1.0f, 1.0f, 9999, OverlayTexture.DEFAULT_UV);
-                    Vec3d skyboxPos = directionVector.multiply(Math.sqrt(PLANET_3D_RENDER_DIST)).subtract(camera.getPos());
-                    matrices.translate(skyboxPos.x, skyboxPos.y, skyboxPos.z);
+                    matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(this.planetRot[1]));
+                    matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.planetRot[0]));
+                    matrices.translate(vec.getX(), vec.getY(), vec.getZ());
+                    context.consumers().getBuffer(RenderLayer.getSolid()).quad(matrices.peek(), this.planetQuads.get(direction), 1.0f, 1.0f, 1.0f, 9999, OverlayTexture.DEFAULT_UV);
                     matrices.pop();
                 }
+                matrices.pop();
             }
         });
     }

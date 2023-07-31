@@ -22,6 +22,7 @@ public class SpaceDimensionEffects extends DimensionEffects {
         return false;
     }
 
+
     @Override
     public float @Nullable [] getFogColorOverride(float skyAngle, float tickDelta) {
         return null;
