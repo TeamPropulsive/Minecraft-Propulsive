@@ -1,5 +1,6 @@
 package com.june.propulsive;
 
+import com.june.propulsive.celestial.Gas;
 import com.june.propulsive.celestial.Star;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
@@ -33,6 +34,19 @@ public class Propulsive implements ModInitializer {
             // GC5 Compatibility
         }
 
+       Gas test_gas_giant = new Gas(
+                10.0,
+                50.0,
+                -50.0,
+                0.0,
+                -87.0f,
+                23.0f,
+                new Identifier("propulsive:textures/celestial/gas/test.png"),
+                new Identifier("propulsive:textures/celestial/gas/test_icon.png")
+        );
+
+        test_gas_giant.render();
+        TickablePlanets.add(test_gas_giant);
 
         //SUN.render();
         //MERCURY.render();
