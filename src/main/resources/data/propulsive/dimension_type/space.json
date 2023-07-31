@@ -10,7 +10,7 @@
   "coordinate_scale": 1,
   "ambient_light": 0.0,
   "fixed_time": 0,
-  "logical_height": 30000000,
+  "logical_height": 2032,
   "effects": "propulsive:space",
   "infiniburn": "#minecraft:infiniburn_overworld",
   "min_y": -2032,
