@@ -14,5 +14,3 @@ jobs:
           name: Propulsive
           path: |
             build/libs/
-            !build/libs/*-sources.jar
-            !build/libs/*-dev.jar
