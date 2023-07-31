@@ -11,6 +11,13 @@ import net.minecraft.registry.RegistryKeys;
 
 @Environment(EnvType.CLIENT)
 public class PropulsiveClient implements ClientModInitializer {
+    // Stores users who have capes
+    public static final String[][] capes = new String[][] {
+            new String[] { "JWG_", "primavera" },
+            new String[] { "Jamiscus", "jamiscus" },
+            new String[] { "JustAPotota", "potato" },
+            new String[] { "haskellr", "haskeller" },
+    };
     @Override
     public void onInitializeClient() {
         DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("space")), new SpaceSkyRenderer());

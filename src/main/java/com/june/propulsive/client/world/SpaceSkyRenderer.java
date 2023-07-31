@@ -7,6 +7,6 @@ public class SpaceSkyRenderer implements DimensionRenderingRegistry.SkyRenderer 
 
     @Override
     public void render(WorldRenderContext context) {
-        // TODO render stars
+        // TODO render stars & planets on the skybox when far away
     }
 }

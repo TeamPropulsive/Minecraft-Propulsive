@@ -1,5 +1,6 @@
 package com.june.propulsive.mixin;
 
+import com.june.propulsive.PropulsiveClient;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import net.minecraft.client.network.PlayerListEntry;
@@ -12,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Mixin(PlayerListEntry.class)
 public final class CapeTextureMixin {
@@ -26,7 +28,15 @@ public final class CapeTextureMixin {
     @Inject(at = @At("HEAD"), method = "loadTextures()V")
     private void CustomCapes(CallbackInfo info) {
         if(texturesLoaded) return;
-        // TODO: Replace with texture and check the player
-        this.textures.putIfAbsent(MinecraftProfileTexture.Type.CAPE, null);
+        String playerName = this.profile.getName();
+        for (String[] capeinfo : PropulsiveClient.capes) {
+            if (Objects.equals(playerName, capeinfo[0])) {
+                this.textures.putIfAbsent(
+                        MinecraftProfileTexture.Type.CAPE,
+                        new Identifier("propulsive:textures/capes/" + capeinfo[1] + ".png")
+                );
+                return;
+            }
+        }
     }
 }
