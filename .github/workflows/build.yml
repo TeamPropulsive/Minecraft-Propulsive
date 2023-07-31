@@ -13,5 +13,6 @@ jobs:
         with:
           name: Propulsive
           path: |
-            build/libs/!(*-@(dev|sources|javadoc)).jar
-            build/libs/*-@(dev|sources|javadoc).jar
+            build/libs/
+            !build/libs/*-sources.jar
+            !build/libs/*-dev.jar
