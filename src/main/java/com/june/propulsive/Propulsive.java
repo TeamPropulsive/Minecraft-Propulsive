@@ -4,18 +4,11 @@ import com.june.propulsive.celestial.Star;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.entity.damage.DamageType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -56,6 +49,9 @@ public class Propulsive implements ModInitializer {
         TickablePlanets.add(EARTH);
         //TickablePlanets.add(MOON);
         //TickablePlanets.add(MARS);
+
+        Block.register();
+        Item.register();
     }
 
     // Dimensions

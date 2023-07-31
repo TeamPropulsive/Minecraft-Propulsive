@@ -26,6 +26,7 @@ public final class CapeTextureMixin {
     @Shadow
     private boolean texturesLoaded;
     @Inject(at = @At("HEAD"), method = "loadTextures()V")
+    // TODO : Make work properly on servers
     private void CustomCapes(CallbackInfo info) {
         if(texturesLoaded) return;
         String playerName = this.profile.getName();
