@@ -1,16 +1,40 @@
-name: MC-Build Build Test
-on: push
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
-    # ...
     steps:
-      - name: Build .jar
-        uses: Kir-Antipov/mc-publish@v3.3
-      
-#      - name: Upload build artifact
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: Propulsive
-#          path: |
-#            ~/*/build/
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Build
+        id: build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+        
+        env:
+          SNAPSHOT: true
+
+      - name: Capture build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Propulsive
+          path: |
+            build/libs/
+            !build/libs/*-sources.jar
+            !build/libs/*-dev.jar
