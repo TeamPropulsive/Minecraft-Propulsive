@@ -33,7 +33,7 @@ jobs:
       - name: Capture build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: Galacticraft
+          name: Propulsive
           path: |
             build/libs/
             !build/libs/*-sources.jar
