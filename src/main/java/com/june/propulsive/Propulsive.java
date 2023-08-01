@@ -21,7 +21,7 @@ import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegis
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TickablePlanets = new ArrayList<>();
 
-    public static final EntityModelLayer MODEL_CUBE_LAYER = new EntityModelLayer(new Identifier("entitytesting", "cube"), "main");
+    //public static final EntityModelLayer MODEL_CUBE_LAYER = new EntityModelLayer(new Identifier("entitytesting", "cube"), "main");
 
 
     @Override
@@ -34,36 +34,11 @@ public class Propulsive implements ModInitializer {
             // GC5 Compatibility
         }
 
-       Gas test_gas_giant = new Gas(
-                10.0,
-                50.0,
-                -50.0,
-                0.0,
-                -87.0f,
-                23.0f,
-                new Identifier("propulsive:textures/celestial/gas/test.png"),
-                new Identifier("propulsive:textures/celestial/gas/test_icon.png")
-        );
 
-        test_gas_giant.render();
-        TickablePlanets.add(test_gas_giant);
 
-        //SUN.render();
-        //MERCURY.render();
-        //VENUS.render();
-        EARTH.render();
-        //MOON.render();
-        //MARS.render();
 
-        MapScreenKeybindRegister();
 
-        //TickablePlanets.add(SUN);
-        //TickablePlanets.add(MERCURY);
-        //TickablePlanets.add(VENUS);
         TickablePlanets.add(EARTH);
-        //TickablePlanets.add(MOON);
-        //TickablePlanets.add(MARS);
-
         Block.register();
         Item.register();
     }
