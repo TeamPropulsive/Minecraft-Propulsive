@@ -14,4 +14,4 @@ jobs:
           name: Propulsive
           path: |
             /**/build/libs/
-            !/boot/
+            !/boot/*
