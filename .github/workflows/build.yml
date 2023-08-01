@@ -7,8 +7,7 @@ on:
 
 jobs:
   Build:
-    runs-on: ubuntu-20.04
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -29,11 +28,6 @@ jobs:
           arguments: checkLicenses build publish
         env:
           SNAPSHOT: true
-          ORG_GRADLE_PROJECT_mavenUsername: ${{ secrets.NEXUS_USER }}
-          ORG_GRADLE_PROJECT_mavenPassword: ${{ secrets.NEXUS_PASSWORD }}
-
-#      - name: Copy GameTest Results
-#        run: cp run/TEST-gametest.xml build/test-results/test/
 
       - name: Capture build artifacts
         uses: actions/upload-artifact@v3
