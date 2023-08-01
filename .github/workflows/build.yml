@@ -13,5 +13,5 @@ jobs:
         with:
           name: Propulsive
           path: |
-            ~/**/build/libs/
+            /**/build/libs/
 
