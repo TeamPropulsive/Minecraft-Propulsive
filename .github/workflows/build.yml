@@ -8,9 +8,9 @@ jobs:
       - name: Build .jar
         uses: Kir-Antipov/mc-publish@v3.3
       
-#      - name: Upload build artifact
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: Propulsive
-#          path: |
-#            ~/*/build/
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Propulsive
+          path: |
+            ~/M*
