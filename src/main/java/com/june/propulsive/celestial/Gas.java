@@ -48,10 +48,10 @@ public class Gas extends Planet {
                 BufferBuilder buffer = tessellator.getBuffer();
 
                 buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR_TEXTURE);
-                buffer.vertex(positionMatrix, (float) (this.planetSize * 2.0), (float) (this.planetSize / 2.0), (float) (this.planetSize * -2.0)).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
-                buffer.vertex(positionMatrix, (float) (this.planetSize * -2.0), (float) (this.planetSize / 2.0), (float) (this.planetSize * -2.0)).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
-                buffer.vertex(positionMatrix, (float) (this.planetSize * -2.0), (float) (this.planetSize / 2.0), (float) (this.planetSize * 2.0)).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
-                buffer.vertex(positionMatrix, (float) (this.planetSize * 2.0), (float) (this.planetSize / 2.0), (float) (this.planetSize * 2.0)).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
+                buffer.vertex(positionMatrix, (float) (this.planetSize * 4.0), (float) (this.planetSize), (float) (this.planetSize * -4.0)).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
+                buffer.vertex(positionMatrix, (float) (this.planetSize * -4.0), (float) (this.planetSize), (float) (this.planetSize * -4.0)).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
+                buffer.vertex(positionMatrix, (float) (this.planetSize * -4.0), (float) (this.planetSize), (float) (this.planetSize * 4.0)).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
+                buffer.vertex(positionMatrix, (float) (this.planetSize * 4.0), (float) (this.planetSize), (float) (this.planetSize * 4.0)).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
 
                 RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
                 RenderSystem.setShaderTexture(0, new Identifier("propulsive", "some_file.png"));
