@@ -1,0 +1,6 @@
+{
+  "category.propulsive.keys": "Atajos de teclado de Propulsive",
+  "key.propulsive.open": "Abrir pantalla del mapa",
+  "death.attack.star": "%s voló demasiado cerca del sol",
+  "death.attack.star.player": "%s voló demasiado cerca del sol mientras intentaba escapar de %s"
+}
