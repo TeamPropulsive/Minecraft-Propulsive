@@ -1,4 +1,6 @@
 # Minecraft-Propulsive
+[![Crowdin](https://badges.crowdin.net/propulsive/localized.svg)](https://crowdin.com/project/propulsive)
+
 Going to space one block at a time!
 
 [See our discord server](https://discord.gg/JBVHbYtTRS)
