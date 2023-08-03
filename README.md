@@ -1,4 +1,7 @@
 # Minecraft-Propulsive
+![GitHub issues](https://img.shields.io/github/issues/Team-Propulsive/Minecraft-Propulsive?color=green)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Team-Propulsive/Minecraft-Propulsive?color=yellow)
+![Discord](https://img.shields.io/discord/1134210976632283156?logo=discord&color=%235865F2)
 [![Crowdin](https://badges.crowdin.net/propulsive/localized.svg)](https://crowdin.com/project/propulsive)
 
 Going to space one block at a time!
