@@ -1,0 +1,6 @@
+{
+  "category.propulsive.keys": "Raccourcis Propulsive",
+  "key.propulsive.open": "Ouvrir l'écran Carte",
+  "death.attack.star": "%s a volé trop proche au soleil",
+  "death.attack.star.player": "%s flew too close to the sun whilst trying to escape %s (TBD: TRANSLATE TO FRENCH)"
+}
