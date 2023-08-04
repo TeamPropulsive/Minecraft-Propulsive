@@ -20,10 +20,6 @@ import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegis
 
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TickablePlanets = new ArrayList<>();
-
-    //public static final EntityModelLayer MODEL_CUBE_LAYER = new EntityModelLayer(new Identifier("entitytesting", "cube"), "main");
-
-
     @Override
     public void onInitialize() {
 
@@ -33,9 +29,6 @@ public class Propulsive implements ModInitializer {
         if (FabricLoader.getInstance().isModLoaded("galacticraft")) {
             // GC5 Compatibility
         }
-
-
-
 
 
         TickablePlanets.add(EARTH);
