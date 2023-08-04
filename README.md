@@ -11,3 +11,9 @@ Going to space one block at a time!
 Currently the mod is **in development** and there is no planned release date - it is ready when it is ready. You can contribute code, art, music, etc here on github.
 
 It will be available on Modrinth and (Hopefully) Curseforge after release.
+
+Contributors:
+
+<a href="https://github.com/Team-Propulsive/Minecraft-Propulsive/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Team-Propulsive/Minecraft-Propulsive" />
+</a>
