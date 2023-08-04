@@ -6,6 +6,7 @@
   "mixins": [
     "PlanetMixin",
     "PlayerMixin",
+    "FogMixin",
     "WorldBorderMixin"
   ],
   "injectors": {

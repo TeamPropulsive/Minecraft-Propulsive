@@ -54,7 +54,6 @@ public abstract class Planet {
         Renderer renderer = RendererAccess.INSTANCE.getRenderer();
         MeshBuilder builder = renderer.meshBuilder();
         QuadEmitter emitter = builder.getEmitter();
-
         SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, this.texture3d);
         Sprite sprite = spriteId.getSprite();
         for (Direction direction : Direction.values()) {
