@@ -1,4 +1,5 @@
 # Minecraft-Propulsive
+![Static Badge](https://img.shields.io/badge/latest_mc_version-1.20.1-blue)
 ![GitHub issues](https://img.shields.io/github/issues/Team-Propulsive/Minecraft-Propulsive?color=green)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Team-Propulsive/Minecraft-Propulsive?color=yellow)
 ![Discord](https://img.shields.io/discord/1134210976632283156?logo=discord&color=%235865F2)
