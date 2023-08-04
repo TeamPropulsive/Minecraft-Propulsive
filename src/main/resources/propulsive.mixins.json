@@ -4,9 +4,10 @@
   "package": "com.june.propulsive.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "EntityMixin",
+    "FogMixin",
     "PlanetMixin",
     "PlayerMixin",
-    "FogMixin",
     "WorldBorderMixin"
   ],
   "injectors": {
