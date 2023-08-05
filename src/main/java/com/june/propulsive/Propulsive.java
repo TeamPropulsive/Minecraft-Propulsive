@@ -1,7 +1,14 @@
 package com.june.propulsive;
 
 import com.june.propulsive.celestial.Star;
-import com.june.propul
+import com.june.propulsive.celestial.Terrestrial;
+import com.june.propulsive.types.Planet;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
