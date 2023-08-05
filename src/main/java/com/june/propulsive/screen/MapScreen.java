@@ -10,9 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import org.joml.Vector3fc;
 
 // TODO
 public class MapScreen extends Screen {
@@ -47,7 +45,7 @@ public class MapScreen extends Screen {
 
         for (Planet planet : Propulsive.TickablePlanets) {
 
-                double[] pos = worldToMapCoords(planet.planetPos.x, planet.planetPos.z, zoom);
+                double[] pos = worldToMapCoords(planet.currentPos.x, planet.currentPos.z, zoom);
                 double x = pos[0];
                 double z = pos[1];
                 double planetScale = planet.planetSize / zoom;

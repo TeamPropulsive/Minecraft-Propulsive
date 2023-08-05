@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 
 import static com.june.propulsive.Propulsive.SPACE;
 
-public class GravityHandler {
+public class EntityGravityHandler {
     public static float currentGravity(Entity entity) {
         if (entity.getWorld().getRegistryKey() == SPACE && !entity.isInSneakingPose())
             return 0f;
