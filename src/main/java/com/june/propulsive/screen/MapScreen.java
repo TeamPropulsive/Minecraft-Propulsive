@@ -8,12 +8,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.render.*;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec2f;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
-
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
 
 // TODO
 public class MapScreen extends Screen {
@@ -46,7 +41,7 @@ public class MapScreen extends Screen {
         tessellator.draw();
 
 
-        for (Planet planet : Propulsive.TickablePlanets) {
+        for (Planet planet : Propulsive.TICKABLE_PLANETS) {
 
                 double[] pos = worldToMapCoords(planet.currentPos.x, planet.currentPos.z, zoom);
                 double x = pos[0];

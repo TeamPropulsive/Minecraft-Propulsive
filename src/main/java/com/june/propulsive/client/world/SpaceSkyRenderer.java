@@ -1,16 +1,7 @@
 package com.june.propulsive.client.world;
 
-import com.june.propulsive.types.Planet;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
-import org.joml.Matrix4f;
-
-import static com.june.propulsive.Propulsive.TickablePlanets;
 
 public class SpaceSkyRenderer implements DimensionRenderingRegistry.SkyRenderer {
 

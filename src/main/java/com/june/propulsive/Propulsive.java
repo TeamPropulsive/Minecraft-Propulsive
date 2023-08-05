@@ -1,12 +1,10 @@
 package com.june.propulsive;
 
-import com.june.propulsive.celestial.Gas;
 import com.june.propulsive.celestial.Star;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -15,11 +13,9 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
-import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
-
 
 public class Propulsive implements ModInitializer {
-    public static ArrayList<Planet> TickablePlanets = new ArrayList<>();
+    public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
     @Override
     public void onInitialize() {
 
@@ -30,12 +26,12 @@ public class Propulsive implements ModInitializer {
             // GC5 Compatibility
         }
 
-        TickablePlanets.add(EARTH);
-        TickablePlanets.add(SUN);
+        TICKABLE_PLANETS.add(EARTH);
+        TICKABLE_PLANETS.add(SUN);
         EARTH.parent = SUN;
 
-        Block.register();
-        Item.register();
+        Blocks.register();
+        Items.register();
     }
 
     // Dimensions
