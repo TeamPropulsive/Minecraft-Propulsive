@@ -17,7 +17,7 @@ public abstract class PlayerMixin {
         ServerPlayerEntity self = (ServerPlayerEntity)(Object)this;
         if (self.getY() > OVERWORLD_HEIGHT)
             // TODO map overworld coordinates -> space coordinates
-            DimensionHandler.TeleportDimension(self, SPACE, 0, 0, 0);
+            DimensionHandler.TeleportDimension(self, self.server, SPACE, 0, 0, 0);
     }
 
 }
