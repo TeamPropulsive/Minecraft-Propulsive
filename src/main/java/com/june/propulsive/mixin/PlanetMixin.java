@@ -10,14 +10,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.june.propulsive.Propulsive.TickablePlanets;
+import static com.june.propulsive.Propulsive.TICKABLE_PLANETS;
 
 @Mixin(ServerWorld.class)
 public class PlanetMixin {
     @Shadow @Final private MinecraftServer server;
 
     @Inject(at = @At("HEAD"), method = "tick")
-    public void tick(CallbackInfo ci) { for (Planet planet : TickablePlanets) {
+    public void tick(CallbackInfo ci) { for (Planet planet : TICKABLE_PLANETS) {
         planet.tick(this.server);
     }
     }
