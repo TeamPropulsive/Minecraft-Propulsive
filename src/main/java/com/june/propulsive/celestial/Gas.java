@@ -3,24 +3,20 @@ package com.june.propulsive.celestial;
 import com.june.propulsive.types.Planet;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
-import static com.june.propulsive.Propulsive.PLANET_3D_RENDER_DIST;
 import static com.june.propulsive.Propulsive.SPACE;
 
 public class Gas extends Planet {
-    public Gas(double scale, double posX, double posY, double posZ, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
-        super(scale, posX, posY, posZ, horizontalRotation, verticalRotation, texture2d, texture3d);
+    public Gas(double scale, double posX, double posY, double posZ, float orbitTime, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
+        super(scale, posX, posY, posZ, orbitTime, horizontalRotation, verticalRotation, texture2d, texture3d);
     }
     @Override
     public void collisionDetected(ServerPlayerEntity player) {
@@ -35,7 +31,7 @@ public class Gas extends Planet {
             if (context.world().getRegistryKey() == SPACE) {
                 Camera camera = context.camera();
 
-                Vec3d targetPosition = this.planetPos;
+                Vec3d targetPosition = this.currentPos;
                 Vec3d transformedPosition = targetPosition.subtract(camera.getPos());
 
                 MatrixStack matrixStack = new MatrixStack();

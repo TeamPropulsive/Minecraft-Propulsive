@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.june.propulsive.Propulsive.EARTH;
+import static com.june.propulsive.Propulsive.SUN;
 import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
 
 @Environment(EnvType.CLIENT)
@@ -34,6 +35,7 @@ public class PropulsiveClient implements ClientModInitializer {
         // Rendering
         DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("space")), new SpaceSkyRenderer());
         DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("space"), new SpaceDimensionEffects());
+        SUN.render();
         EARTH.render();
         // Key binds
         MapScreenKeybindRegister();

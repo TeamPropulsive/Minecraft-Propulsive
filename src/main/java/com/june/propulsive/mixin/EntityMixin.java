@@ -1,15 +1,19 @@
 package com.june.propulsive.mixin;
 
-import com.june.propulsive.handler.GravityHandler;
+import com.june.propulsive.handler.EntityGravityHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.event.listener.EntityGameEventHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Objects;
+import java.util.function.BiConsumer;
 
 @Mixin(Entity.class)
 public class EntityMixin {
@@ -17,7 +21,7 @@ public class EntityMixin {
     @Inject(method = "hasNoGravity", at = @At("RETURN"), cancellable = true)
     private void hasNoGravity(CallbackInfoReturnable<Boolean> cir) {
         Entity self = (Entity)(Object) this;
-        cir.setReturnValue(cir.getReturnValue() || GravityHandler.currentGravity(self) == 0f);
+        cir.setReturnValue(cir.getReturnValue() || EntityGravityHandler.currentGravity(self) == 0f);
     }
 
     // Prevents the NoGravity tag from being modified while in space
@@ -26,9 +30,10 @@ public class EntityMixin {
     private void putBoolean(NbtCompound nbt, String key, boolean value) {
         if (Objects.equals(key, "NoGravity")) {
             Entity self = (Entity)(Object) this;
-            if (GravityHandler.currentGravity(self) == 0f)
+            if (EntityGravityHandler.currentGravity(self) == 0f)
                 return;
         }
         nbt.putBoolean(key, value);
     }
+
 }
