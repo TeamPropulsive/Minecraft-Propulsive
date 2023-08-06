@@ -26,9 +26,9 @@ public class Propulsive implements ModInitializer {
             // GC5 Compatibility
         }
 
+        TICKABLE_PLANETS.add(MOON);
         TICKABLE_PLANETS.add(EARTH);
-        TICKABLE_PLANETS.add(SUN);
-        EARTH.parent = SUN;
+        MOON.parent = EARTH;
 
         Blocks.register();
         Items.register();
@@ -42,7 +42,7 @@ public class Propulsive implements ModInitializer {
     // Misc config
     public static final double PLANET_3D_RENDER_DIST = 1000.0; // Distance at which planets go from 3D to 2D
     // Actually creating the planets
-    public static Star SUN = new Star(
+    public static Star EARTH = new Star(
             10.0,
             0.0,
             0.0,
@@ -50,10 +50,10 @@ public class Propulsive implements ModInitializer {
             0.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/star/sun.png"),
-            new Identifier("propulsive:textures/celestial/star/sun_icon.png")
+            new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png"),
+            new Identifier("propulsive:textures/celestial/terrestrial/earth.png")
     );
-    public static Terrestrial EARTH = new Terrestrial(
+    public static Terrestrial MOON = new Terrestrial(
             5.0,
             0.0,
             0.0,
@@ -61,8 +61,8 @@ public class Propulsive implements ModInitializer {
             200.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/earth.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png")
+            new Identifier("propulsive:textures/celestial/terrestrial/moon_icon.png"),
+            new Identifier("propulsive:textures/celestial/terrestrial/moon.png")
     );
 
     public static RegistryKey<DamageType> STAR_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("star"));
