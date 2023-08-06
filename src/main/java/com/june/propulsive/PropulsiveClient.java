@@ -12,12 +12,11 @@ import net.minecraft.registry.RegistryKeys;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.june.propulsive.Propulsive.EARTH;
+import static com.june.propulsive.Propulsive.*;
 import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
 
 @Environment(EnvType.CLIENT)
@@ -34,6 +33,7 @@ public class PropulsiveClient implements ClientModInitializer {
         // Rendering
         DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("space")), new SpaceSkyRenderer());
         DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("space"), new SpaceDimensionEffects());
+        MOON.render();
         EARTH.render();
         // Key binds
         MapScreenKeybindRegister();

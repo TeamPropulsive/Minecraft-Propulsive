@@ -1,5 +1,6 @@
 package com.june.propulsive.types;
 
+import com.june.propulsive.handler.PlanetGravityHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -27,21 +28,26 @@ import net.minecraft.util.math.Vec3i;
 import java.util.EnumMap;
 import java.util.List;
 
-import static com.june.propulsive.Propulsive.PLANET_3D_RENDER_DIST;
-import static com.june.propulsive.Propulsive.SPACE;
+import static com.june.propulsive.Propulsive.*;
+
 public abstract class Planet {
     public double planetSize;
     public Identifier texture2d;
     public Identifier texture3d;
     public float[] planetRot = { 0.0f, 0.0f };
-    public Vec3d planetPos;
+    public Vec3d currentPos;
+    public Vec3d startingPos;
     boolean is3D = true;
+    public double orbitalPeriod = 1.0;
+    public Planet parent = null;
     protected EnumMap<Direction, BakedQuad> planetQuads = new EnumMap<>(Direction.class);
 
-    public Planet(double scale, double posX, double posY, double posZ, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
+    public Planet(double scale, double posX, double posY, double posZ, double orbitTime, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
         // Will add more args in the future (Link a dimension, textures, etc)
         this.planetSize = scale;
-        this.planetPos = new Vec3d(posX, posY, posZ);
+        this.orbitalPeriod = orbitTime;
+        this.startingPos = new Vec3d(posX, posY, posZ);
+        this.currentPos = new Vec3d(posX, posY, posZ);
         this.texture2d = texture2d;
         this.texture3d = texture3d;
         this.planetRot[0] = horizontalRotation;
@@ -54,7 +60,6 @@ public abstract class Planet {
         Renderer renderer = RendererAccess.INSTANCE.getRenderer();
         MeshBuilder builder = renderer.meshBuilder();
         QuadEmitter emitter = builder.getEmitter();
-
         SpriteIdentifier spriteId = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, this.texture3d);
         Sprite sprite = spriteId.getSprite();
         for (Direction direction : Direction.values()) {
@@ -95,12 +100,12 @@ public abstract class Planet {
                     this.buildPlanetQuads();
                 MinecraftClient client = MinecraftClient.getInstance();
                 assert client.player != null;
-                double distance = client.player.getPos().subtract(this.planetPos).lengthSquared();
+                double distance = client.player.getPos().subtract(this.currentPos).lengthSquared();
                 if (this.is3D && distance > PLANET_3D_RENDER_DIST*PLANET_3D_RENDER_DIST) this.is3D = false;
                 else if (!this.is3D && distance < PLANET_3D_RENDER_DIST*PLANET_3D_RENDER_DIST) this.is3D = true;
 
                 Camera camera = context.camera();
-                Vec3d transformedPosition = this.planetPos.subtract(camera.getPos());
+                Vec3d transformedPosition = this.currentPos.subtract(camera.getPos());
 
                 float planetSize = (float) this.planetSize;
 
@@ -128,21 +133,22 @@ public abstract class Planet {
     // *WARNING* Code here can have a large impact on performance! You have been warned!
     // This code is on the server, not the client
     public void tick(MinecraftServer server) {
+        // Collision
         List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
         for (ServerPlayerEntity player : players) {
             if (player.getWorld().getRegistryKey() == SPACE) {
-                double distance = player.getPos().subtract(this.planetPos).length();
-                if (distance < (this.planetSize * 2.01)) {
+                double distance = player.getPos().subtract(this.currentPos).length();
+                if (distance < (this.planetSize * 2.01))
                     collisionDetected(player);
-                }
             }
-
         }
+        // Gravity
+        if (this.parent != null)
+            this.currentPos = PlanetGravityHandler.currentPosition(this, this.parent, server.getWorld(SPACE).getTime());
+
     };
 
     public abstract void collisionDetected(ServerPlayerEntity player);
-
-
 
 
     // x, y need to be between 0-1, divide by the size

@@ -1,12 +1,10 @@
 package com.june.propulsive;
 
-import com.june.propulsive.celestial.Gas;
 import com.june.propulsive.celestial.Star;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -15,15 +13,9 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
-import static com.june.propulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
-
 
 public class Propulsive implements ModInitializer {
-    public static ArrayList<Planet> TickablePlanets = new ArrayList<>();
-
-    //public static final EntityModelLayer MODEL_CUBE_LAYER = new EntityModelLayer(new Identifier("entitytesting", "cube"), "main");
-
-
+    public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
     @Override
     public void onInitialize() {
 
@@ -34,120 +26,47 @@ public class Propulsive implements ModInitializer {
             // GC5 Compatibility
         }
 
+        TICKABLE_PLANETS.add(MOON);
+        TICKABLE_PLANETS.add(EARTH);
+        MOON.parent = EARTH;
 
-
-
-
-        TickablePlanets.add(EARTH);
-        Block.register();
-        Item.register();
+        Blocks.register();
+        Items.register();
     }
 
     // Dimensions
     public static RegistryKey<World> SPACE = RegistryKey.of(RegistryKeys.WORLD, new Identifier("propulsive:space"));
 
-    // Actually creating the planets
-    // Mercury
-    public static final double MERCURY_SPACE_POSX = 0.0;
-    public static final double MERCURY_SPACE_POSY = 0.0;
-    public static final double MERCURY_SPACE_POSZ = 0.0;
-    public static final float MERCURY_SPACE_SIZE = 0.5f;
-    public static final double MERCURY_HEIGHT = 128.0;
-    // Venus
-    public static final double VENUS_SPACE_POSX = 0.0;
-    public static final double VENUS_SPACE_POSY = 6.0;
-    public static final double VENUS_SPACE_POSZ = 0.0;
-    public static final float VENUS_SPACE_SIZE = 0.5f;
-    public static final double VENUS_HEIGHT = 128.0;
-    // EARTH
-    public static final double OVERWORLD_SPACE_POSX = 0.0;
-    public static final double OVERWORLD_SPACE_POSY = 12.0;
-    public static final double OVERWORLD_SPACE_POSZ = 0.0;
-    public static final float OVERWORLD_SPACE_SIZE = 8.0f;
     public static final double OVERWORLD_HEIGHT = 128.0;
-
-    // MOON
-    public static final double MOON_SPACE_POSX = 0.0;
-    public static final double MOON_SPACE_POSY = 18.0;
-    public static final double MOON_SPACE_POSZ = 0.0;
-    public static final float MOON_SPACE_SIZE = 0.5f;
-    public static final double MOON_HEIGHT = 128.0;
-
-    // Mars
-    public static final double MARS_SPACE_POSX = 0.0;
-    public static final double MARS_SPACE_POSY = 24.0;
-    public static final double MARS_SPACE_POSZ = 0.0;
-    public static final float MARS_SPACE_SIZE = 0.5f;
-    public static final double MARS_HEIGHT = 128.0;
-
-
 
     // Misc config
     public static final double PLANET_3D_RENDER_DIST = 1000.0; // Distance at which planets go from 3D to 2D
     // Actually creating the planets
-    public static Star SUN = new Star(
+    public static Star EARTH = new Star(
             10.0,
             0.0,
-            45.0,
             0.0,
-            -87.0f,
-            23.0f,
-            new Identifier("propulsive:textures/celestial/star/sun.png"),
-            new Identifier("propulsive:textures/celestial/star/sun_icon.png")
-    );
-    public static Terrestrial MERCURY = new Terrestrial(
-            MERCURY_SPACE_SIZE,
-            MERCURY_SPACE_POSX,
-            MERCURY_SPACE_POSY,
-            MERCURY_SPACE_POSZ,
+            0.0,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/mercury.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/mercury_icon.png")
-    );
-
-    public static Terrestrial VENUS = new Terrestrial(
-            VENUS_SPACE_SIZE,
-            VENUS_SPACE_POSX,
-            VENUS_SPACE_POSY,
-            VENUS_SPACE_POSZ,
             0.0f,
-            0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/venus.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/venus_icon.png")
-    );
-    public static Terrestrial EARTH = new Terrestrial(
-            OVERWORLD_SPACE_SIZE,
-            OVERWORLD_SPACE_POSX,
-            OVERWORLD_SPACE_POSY,
-            OVERWORLD_SPACE_POSZ,
-            0.0f,
-            0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/earth.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png")
+            new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png"),
+            new Identifier("propulsive:textures/celestial/terrestrial/earth.png")
     );
     public static Terrestrial MOON = new Terrestrial(
-            MOON_SPACE_SIZE,
-            MOON_SPACE_POSX,
-            MOON_SPACE_POSY,
-            MOON_SPACE_POSZ,
+            5.0,
+            0.0,
+            0.0,
+            50.0,
+            200.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/moon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/moon_icon.png")
-    );
-    public static Terrestrial MARS = new Terrestrial(
-            MARS_SPACE_SIZE,
-            MARS_SPACE_POSX,
-            MARS_SPACE_POSY,
-            MARS_SPACE_POSZ,
-            0.0f,
-            0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/mars.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/mars_icon.png")
+            new Identifier("propulsive:textures/celestial/terrestrial/moon_icon.png"),
+            new Identifier("propulsive:textures/celestial/terrestrial/moon.png")
     );
 
     public static RegistryKey<DamageType> STAR_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("star"));
+    public static RegistryKey<DamageType> OXYGEN_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("oxygen"));
 
     public static Identifier id(String path) {
         return new Identifier("propulsive", path);
