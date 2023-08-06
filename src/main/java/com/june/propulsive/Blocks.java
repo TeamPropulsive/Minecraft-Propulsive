@@ -14,6 +14,7 @@ public class Blocks {
     }
 
     private static void registerBlock(Block block, String name) {
+        Propulsive.LOGGER.info("Registering Blocks for Propulsive");
         Registry.register(Registries.BLOCK, Propulsive.id(name), block);
     }
 }

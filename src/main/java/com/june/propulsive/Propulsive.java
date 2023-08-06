@@ -13,9 +13,16 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 public class Propulsive implements ModInitializer {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger("propulsive");
     public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
+
     @Override
     public void onInitialize() {
 
@@ -31,6 +38,7 @@ public class Propulsive implements ModInitializer {
         EARTH.parent = SUN;
 
         Blocks.register();
+        ItemGroups.register();
         Items.register();
     }
 
