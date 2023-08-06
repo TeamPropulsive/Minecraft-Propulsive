@@ -5,6 +5,12 @@
 ![Discord](https://img.shields.io/discord/1134210976632283156?logo=discord&color=%235865F2)
 [![Crowdin](https://badges.crowdin.net/propulsive/localized.svg)](https://crowdin.com/project/propulsive)
 
+
+<img src="https://i.imgur.com/Ol1Tcf8.png" width="250" title="hover text">
+<br>
+<img src="https://cdn.discordapp.com/attachments/1134211614166487190/1137829402567254166/quilt_available_dark.png" width="250" title="hover text">
+
+
 Going to space one block at a time!
 > [!NOTE]
 > [See our discord server](https://discord.gg/JBVHbYtTRS)
