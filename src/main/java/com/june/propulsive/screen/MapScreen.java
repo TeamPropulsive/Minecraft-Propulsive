@@ -59,23 +59,18 @@ public class MapScreen extends Screen {
                 RenderSystem.setShaderTexture(0, planet.texture2d);
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                 t.draw();
-                System.out.println(pos[0]);
             }
     }
 
     public double[] worldToMapCoords(double x, double y, double zoom) {
         double cosYaw = Math.cos(Math.toRadians(this.client.player.getYaw()));
         double sinYaw = Math.sin(Math.toRadians(this.client.player.getYaw()));
-
         double adjustedX = x - this.client.player.getX();
         double adjustedY = y - this.client.player.getZ();
-
         double rotatedX = -(adjustedX * cosYaw - adjustedY * sinYaw);
         double rotatedY = -(adjustedX * sinYaw + adjustedY * cosYaw);
-
         double screenX = (rotatedX / zoom + this.client.currentScreen.width / 2);
         double screenY = (rotatedY / zoom + this.client.currentScreen.height / 2);
-
         return new double[] { screenX, screenY };
     }
 
