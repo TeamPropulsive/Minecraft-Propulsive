@@ -30,13 +30,13 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Immersive Portals Core
-    modImplementation ("com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:${immersive_portals_version}"){
+    modImplementation ("com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:${immersive_portals_version}") {
         exclude(group: "net.fabricmc.fabric-api")
         transitive(false)
     }
 
     // Immersive Portals utility library
-    modImplementation ("com.github.iPortalTeam.ImmersivePortalsMod:q_misc_util:${immersive_portals_version}"){
+    modImplementation ("com.github.iPortalTeam.ImmersivePortalsMod:q_misc_util:${immersive_portals_version}") {
         exclude(group: "net.fabricmc.fabric-api")
         transitive(false)
     }
