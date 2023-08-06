@@ -22,6 +22,17 @@ Going to space one block at a time!
 
 Propulsive is a Minecraft mod that plans to bring a much more interactive environment - Most other mods lack the ability to explore space itself, they usually have some kind of a map screen and you select where you want to go. Propulsive allows you to physically travel to you destination as well as build stuff in space!
 
+
+## Building
+
+The mod requires nothing special to build. You can simply clone the mod and run the following:
+
+`./gradlew build` (Linux)
+
+`gradlew.bat` (Windows)
+
+However, doing this means there is more than likely going to be many problematic bugs/issues, so be warned! It is recommended to stick to the builds in the releases tab, or use the ones on Modrinth/Curseforge (As of writing, the mod is not on Curseforge or Modrinth yet)
+
 Contributors:
 
 <a href="https://github.com/Team-Propulsive/Minecraft-Propulsive/graphs/contributors">
