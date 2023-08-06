@@ -6,9 +6,9 @@
   "description": "Going to space one block at a time!",
   "authors": [],
   "contact": {
-    "repo": "https://github.com/JuneDeveloper/Minecraft-Propulsive"
+    "repo": "https://github.com/Team-Propulsive/Minecraft-Propulsive"
   },
-  "license": "All-Rights-Reserved",
+  "license": "MIT",
   "icon": "assets/propulsive/icon.png",
   "environment": "*",
   "entrypoints": {
