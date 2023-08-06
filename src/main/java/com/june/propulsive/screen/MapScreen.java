@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
 
 public class MapScreen extends Screen {
-    double zoom = 1.0;
+    double zoom = 0.5;
     public MapScreen() { super(Text.of("Map Screen")); }
 
     @Override
