@@ -13,10 +13,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.june.propulsive.Propulsive"
+      "io.github.teampropulsive.Propulsive"
     ],
     "client": [
-      "com.june.propulsive.PropulsiveClient"
+      "io.github.teampropulsive.PropulsiveClient"
     ]
   },
   "mixins": [
