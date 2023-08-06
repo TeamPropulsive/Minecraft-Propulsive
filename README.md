@@ -6,11 +6,12 @@
 [![Crowdin](https://badges.crowdin.net/propulsive/localized.svg)](https://crowdin.com/project/propulsive)
 
 Going to space one block at a time!
-
-> [!NOTE] [See our discord server](https://discord.gg/JBVHbYtTRS)\
-> [!IMPORTANT] [Contribution guidelines](CONTRIBUTING.md)
-> 
-> [!WARNING] Currently the mod is **in development** and there is no planned release date - it is ready when it is ready. You can contribute code, art, music, etc here on github.
+> [!NOTE]
+> [See our discord server](https://discord.gg/JBVHbYtTRS)\
+> [!IMPORTANT]
+> [Contribution guidelines](CONTRIBUTING.md)\
+> [!WARNING]
+> Currently the mod is **in development** and there is no planned release date - it is ready when it is ready. You can contribute code, art, music, etc here on github.
 
 
 ## FAQ
