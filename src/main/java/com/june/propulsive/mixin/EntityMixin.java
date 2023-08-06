@@ -1,6 +1,7 @@
 package com.june.propulsive.mixin;
 
 import com.june.propulsive.handler.EntityGravityHandler;
+import com.june.propulsive.handler.LifeSupportHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
@@ -35,5 +36,9 @@ public class EntityMixin {
         }
         nbt.putBoolean(key, value);
     }
-
+    @Inject(at = @At("HEAD"), method = "tick")
+    public void tick(CallbackInfo ci) {
+        Entity self = (Entity)(Object) this;
+        LifeSupportHandler.LifeSupport(self);
+    }
 }

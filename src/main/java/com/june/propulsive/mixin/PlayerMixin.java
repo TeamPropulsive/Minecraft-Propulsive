@@ -1,6 +1,7 @@
 package com.june.propulsive.mixin;
 
 import com.june.propulsive.handler.DimensionHandler;
+import com.june.propulsive.handler.LifeSupportHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,6 +19,8 @@ public abstract class PlayerMixin {
         if (self.getY() > OVERWORLD_HEIGHT)
             // TODO map overworld coordinates -> space coordinates
             DimensionHandler.TeleportDimension(self, self.server, SPACE, 0, 0, 0);
+
+        LifeSupportHandler.LifeSupport(self);
     }
 
 }

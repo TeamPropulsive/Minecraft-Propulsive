@@ -66,6 +66,7 @@ public class Propulsive implements ModInitializer {
     );
 
     public static RegistryKey<DamageType> STAR_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("star"));
+    public static RegistryKey<DamageType> OXYGEN_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("oxygen"));
 
     public static Identifier id(String path) {
         return new Identifier("propulsive", path);
