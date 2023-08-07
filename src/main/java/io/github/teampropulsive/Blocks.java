@@ -1,16 +1,21 @@
 package io.github.teampropulsive;
 
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 public class Blocks {
-//    public static final Block MOON_SURFACE = new Block(
-//            FabricBlockSettings.create().requiresTool().strength(3.0f, 9.0f)
-//    );
+    public static final Block MOON_REGOLITH = new Block( // Surface block
+           FabricBlockSettings.create().requiresTool().strength(3.0f, 9.0f)
+    );
+    public static final Block VOLCANIC_MOON_REGOLITH = new Block( // Surface block for select biomes
+            FabricBlockSettings.create().requiresTool().strength(4.0f, 10.0f)
+    );
 
     public static void register() {
-//        registerBlock(MOON_SURFACE, "moon_surface");
+        registerBlock(MOON_REGOLITH, "lunar_regolith");
+        registerBlock(VOLCANIC_MOON_REGOLITH, "volcanic_lunar_regolith");
     }
 
     private static void registerBlock(Block block, String name) {
