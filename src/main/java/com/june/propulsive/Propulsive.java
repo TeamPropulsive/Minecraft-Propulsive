@@ -6,10 +6,17 @@ import com.june.propulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionOptions;
+import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+import qouteall.q_misc_util.LifecycleHack;
+import qouteall.q_misc_util.api.DimensionAPI;
 
 import java.util.ArrayList;
 
@@ -30,12 +37,35 @@ public class Propulsive implements ModInitializer {
         TICKABLE_PLANETS.add(EARTH);
         MOON.parent = EARTH;
 
+        // prevent experimental features warning when creating world
+        LifecycleHack.markNamespaceStable("propulsive");
+
+        DimensionAPI.serverDimensionsLoadEvent.register((generatorOptions, registryManager) -> {
+            Registry<DimensionOptions> levelStemRegistry = registryManager.get(RegistryKeys.DIMENSION);
+            DimensionOptions levelStem = levelStemRegistry.get(DimensionOptions.OVERWORLD);
+            RegistryEntry<DimensionType> dimTypeEntry = levelStem.dimensionTypeEntry();
+            ChunkGenerator overworldGenerator = levelStem.chunkGenerator();
+
+            DimensionAPI.addDimension(levelStemRegistry, DIM_OW_TOP.getValue(), dimTypeEntry, overworldGenerator);
+            DimensionAPI.addDimension(levelStemRegistry, DIM_OW_BOTTOM.getValue(), dimTypeEntry, overworldGenerator);
+            DimensionAPI.addDimension(levelStemRegistry, DIM_OW_LEFT.getValue(), dimTypeEntry, overworldGenerator);
+            DimensionAPI.addDimension(levelStemRegistry, DIM_OW_RIGHT.getValue(), dimTypeEntry, overworldGenerator);
+            DimensionAPI.addDimension(levelStemRegistry, DIM_OW_BACK.getValue(), dimTypeEntry, overworldGenerator);
+        });
+
         Blocks.register();
         Items.register();
     }
 
     // Dimensions
-    public static RegistryKey<World> SPACE = RegistryKey.of(RegistryKeys.WORLD, new Identifier("propulsive:space"));
+    public static RegistryKey<World> SPACE = RegistryKey.of(RegistryKeys.WORLD, id("space"));
+
+    // Overworld faces
+    public static RegistryKey<World> DIM_OW_TOP = RegistryKey.of(RegistryKeys.WORLD, id("ow_top"));
+    public static RegistryKey<World> DIM_OW_BOTTOM = RegistryKey.of(RegistryKeys.WORLD, id("ow_bottom"));
+    public static RegistryKey<World> DIM_OW_LEFT = RegistryKey.of(RegistryKeys.WORLD, id("ow_left"));
+    public static RegistryKey<World> DIM_OW_RIGHT = RegistryKey.of(RegistryKeys.WORLD, id("ow_right"));
+    public static RegistryKey<World> DIM_OW_BACK = RegistryKey.of(RegistryKeys.WORLD, id("ow_back"));
 
     public static final double OVERWORLD_HEIGHT = 128.0;
 
