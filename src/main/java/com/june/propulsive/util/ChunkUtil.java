@@ -3,6 +3,7 @@ package com.june.propulsive.util;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.gen.chunk.BlendingData;
@@ -44,7 +45,13 @@ public class ChunkUtil {
                             }
                             default -> throw new IllegalArgumentException("cannot copy chunk: invalid rotation");
                         }
-                        dstSection.setBlockState(dstX, y, dstZ, srcSection.getBlockState(x, y, z));
+                        dstSection.setBlockState(dstX, y, dstZ, srcSection.getBlockState(x, y, z).rotate(switch (rotation) {
+                            case 0 -> BlockRotation.NONE;
+                            case 1 -> BlockRotation.COUNTERCLOCKWISE_90;
+                            case 2 -> BlockRotation.CLOCKWISE_180;
+                            case 3 -> BlockRotation.CLOCKWISE_90;
+                            default -> throw new IllegalArgumentException("cannot copy chunk: invalid rotation");
+                        }));
                     }
                 }
             }
