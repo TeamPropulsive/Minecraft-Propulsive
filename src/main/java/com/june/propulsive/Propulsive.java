@@ -3,6 +3,7 @@ package com.june.propulsive;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
 import com.june.propulsive.types.PlanetDimensions;
+import com.june.propulsive.util.ChunkUtil;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.damage.DamageType;
@@ -55,6 +56,8 @@ public class Propulsive implements ModInitializer {
 
         Blocks.register();
         Items.register();
+
+        ChunkUtil.registerLoadEvent();
     }
 
     // Dimensions

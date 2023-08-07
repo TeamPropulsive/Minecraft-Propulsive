@@ -10,4 +10,8 @@ public record PlanetDimensions(
         RegistryKey<World> right,
         RegistryKey<World> front,
         RegistryKey<World> back
-) {}
+) {
+    public boolean isOneOf(RegistryKey<World> world) {
+        return world.equals(top) || world.equals(bottom) || world.equals(left) || world.equals(right) || world.equals(front) || world.equals(back);
+    }
+}

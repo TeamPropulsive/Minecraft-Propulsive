@@ -1,14 +1,26 @@
 package com.june.propulsive.util;
 
+import com.june.propulsive.Propulsive;
 import com.mojang.serialization.Dynamic;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.gen.chunk.BlendingData;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.HashSet;
+import java.util.List;
 
 public class ChunkUtil {
+    private static final HashSet<ChunkPos> IGNORED_CHUNKS = new HashSet<>();
+
     public static void copyChunkBlocksAndBlend(Chunk src, Chunk dst, int rotation) {
         ChunkSection[] srcArray = src.getSectionArray();
         ChunkSection[] dstArray = dst.getSectionArray();
@@ -60,5 +72,29 @@ public class ChunkUtil {
         NbtCompound compound = new NbtCompound();
         compound.putBoolean("old_noise", true);
         dst.setBlendingData(BlendingData.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound)).resultOrPartial(_msg -> {}).orElse(dst.getBlendingData()));
+    }
+
+    private static List<Triple<RegistryKey<World>, ChunkPos, Integer>> getInterdimensionalEquivalents(RegistryKey<World> currentDimension, ChunkPos chunk) {
+        return null; // TODO
+    }
+
+    public static void registerLoadEvent() {
+        ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
+            if (!Propulsive.EARTH_DIMENSIONS.isOneOf(world.getRegistryKey()) || chunk.getBlendingData() != null || IGNORED_CHUNKS.contains(chunk.getPos())) {
+                return;
+            }
+
+            NbtCompound compound = new NbtCompound();
+            compound.putBoolean("old_noise", true);
+            chunk.setBlendingData(BlendingData.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound)).resultOrPartial(_msg -> {}).orElse(chunk.getBlendingData()));
+
+            getInterdimensionalEquivalents(world.getRegistryKey(), chunk.getPos()).forEach(triple -> {
+                IGNORED_CHUNKS.add(triple.getMiddle());
+                ServerWorld destWorld = world.getServer().getWorld(triple.getLeft());
+                Chunk destChunk = destWorld.getChunk(triple.getMiddle().x, triple.getMiddle().z);
+                copyChunkBlocksAndBlend(chunk, destChunk, triple.getRight());
+                IGNORED_CHUNKS.remove(triple.getMiddle());
+            });
+        });
     }
 }
