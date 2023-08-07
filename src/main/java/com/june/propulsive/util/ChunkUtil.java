@@ -1,6 +1,7 @@
 package com.june.propulsive.util;
 
 import com.june.propulsive.Propulsive;
+import com.june.propulsive.types.PlanetDimensions;
 import com.mojang.serialization.Dynamic;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.minecraft.nbt.NbtCompound;
@@ -8,7 +9,10 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Pair;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
@@ -17,6 +21,8 @@ import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ChunkUtil {
     private static final HashSet<ChunkPos> IGNORED_CHUNKS = new HashSet<>();
@@ -74,8 +80,30 @@ public class ChunkUtil {
         dst.setBlendingData(BlendingData.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound)).resultOrPartial(_msg -> {}).orElse(dst.getBlendingData()));
     }
 
-    private static List<Triple<RegistryKey<World>, ChunkPos, Integer>> getInterdimensionalEquivalents(RegistryKey<World> currentDimension, ChunkPos chunk) {
-        return null; // TODO
+    private static List<Triple<RegistryKey<World>, ChunkPos, Integer>> getInterdimensionalEquivalents(RegistryKey<World> currentDimension, PlanetDimensions dimensions, ChunkPos chunk) {
+        Map<Pair<RegistryKey<World>, Direction>, Pair<RegistryKey<World>, Direction>> cubeMap = dimensions.getCubeMap();
+        int offsetBlocks = dimensions.faceRadius() * dimensions.getOffset(currentDimension);
+        BlockPos withoutOffset = chunk.getCenterAtY(0).add(-offsetBlocks, 0, 0);
+
+        HashSet<Direction> directions = new HashSet<>();
+        if (withoutOffset.getX() + 32 > dimensions.faceRadius()) {
+            directions.add(Direction.SOUTH);
+        }
+        if (withoutOffset.getX() - 32 < -dimensions.faceRadius()) {
+            directions.add(Direction.NORTH);
+        }
+        if (withoutOffset.getZ() + 32 > dimensions.faceRadius()) {
+            directions.add(Direction.EAST);
+        }
+        if (withoutOffset.getZ() - 32 < -dimensions.faceRadius()) {
+            directions.add(Direction.WEST);
+        }
+
+        return directions.stream().map(dir -> {
+            Pair<RegistryKey<World>, Direction> otherFace = cubeMap.get(new Pair<>(currentDimension, dir));
+
+            return Triple.of(otherFace.getLeft(), (ChunkPos)null /* TODO */, (dir.getHorizontal() - otherFace.getRight().getHorizontal() - 2) % 3);
+        }).collect(Collectors.toList());
     }
 
     public static void registerLoadEvent() {
@@ -88,7 +116,7 @@ public class ChunkUtil {
             compound.putBoolean("old_noise", true);
             chunk.setBlendingData(BlendingData.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound)).resultOrPartial(_msg -> {}).orElse(chunk.getBlendingData()));
 
-            getInterdimensionalEquivalents(world.getRegistryKey(), chunk.getPos()).forEach(triple -> {
+            getInterdimensionalEquivalents(world.getRegistryKey(), Propulsive.EARTH_DIMENSIONS, chunk.getPos()).forEach(triple -> {
                 IGNORED_CHUNKS.add(triple.getMiddle());
                 ServerWorld destWorld = world.getServer().getWorld(triple.getLeft());
                 Chunk destChunk = destWorld.getChunk(triple.getMiddle().x, triple.getMiddle().z);

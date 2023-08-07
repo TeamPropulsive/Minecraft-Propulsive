@@ -71,8 +71,7 @@ public class Propulsive implements ModInitializer {
     public static RegistryKey<World> DIM_OW_RIGHT = RegistryKey.of(RegistryKeys.WORLD, id("ow_right"));
     public static RegistryKey<World> DIM_OW_BACK = RegistryKey.of(RegistryKeys.WORLD, id("ow_back"));
 
-    public static PlanetDimensions EARTH_DIMENSIONS = new PlanetDimensions(DIM_OW_TOP, DIM_OW_BOTTOM, DIM_OW_LEFT, DIM_OW_RIGHT, DIM_OW_BACK, DIM_OW_FRONT);
-    public static final int WORLD_SIZE = 1000;
+    public static PlanetDimensions EARTH_DIMENSIONS = new PlanetDimensions(DIM_OW_TOP, DIM_OW_BOTTOM, DIM_OW_LEFT, DIM_OW_RIGHT, DIM_OW_BACK, DIM_OW_FRONT, 1024);
 
     public static final double OVERWORLD_HEIGHT = 128.0;
 
