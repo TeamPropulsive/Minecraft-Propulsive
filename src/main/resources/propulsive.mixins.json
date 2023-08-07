@@ -6,9 +6,9 @@
   "mixins": [
     "EntityMixin",
     "FogMixin",
+    "MinecraftServerMixin",
     "PlanetMixin",
-    "PlayerMixin",
-    "WorldBorderMixin"
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

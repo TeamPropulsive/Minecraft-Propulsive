@@ -61,11 +61,14 @@ public class Propulsive implements ModInitializer {
     public static RegistryKey<World> SPACE = RegistryKey.of(RegistryKeys.WORLD, id("space"));
 
     // Overworld faces
+    public static RegistryKey<World> DIM_OW_FRONT = World.OVERWORLD;
     public static RegistryKey<World> DIM_OW_TOP = RegistryKey.of(RegistryKeys.WORLD, id("ow_top"));
     public static RegistryKey<World> DIM_OW_BOTTOM = RegistryKey.of(RegistryKeys.WORLD, id("ow_bottom"));
     public static RegistryKey<World> DIM_OW_LEFT = RegistryKey.of(RegistryKeys.WORLD, id("ow_left"));
     public static RegistryKey<World> DIM_OW_RIGHT = RegistryKey.of(RegistryKeys.WORLD, id("ow_right"));
     public static RegistryKey<World> DIM_OW_BACK = RegistryKey.of(RegistryKeys.WORLD, id("ow_back"));
+
+    public static final int WORLD_SIZE = 1000;
 
     public static final double OVERWORLD_HEIGHT = 128.0;
 
