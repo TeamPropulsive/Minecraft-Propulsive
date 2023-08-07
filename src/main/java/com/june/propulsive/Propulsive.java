@@ -98,7 +98,8 @@ public class Propulsive implements ModInitializer {
             0.0f,
             new Identifier("propulsive:textures/celestial/terrestrial/moon_icon.png"),
             new Identifier("propulsive:textures/celestial/terrestrial/moon.png"),
-            EARTH_DIMENSIONS);
+            null
+    );
 
     public static RegistryKey<DamageType> STAR_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("star"));
     public static RegistryKey<DamageType> OXYGEN_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("oxygen"));
