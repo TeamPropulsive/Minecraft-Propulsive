@@ -16,6 +16,7 @@ import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -24,6 +25,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -31,6 +33,8 @@ import java.util.List;
 import static com.june.propulsive.Propulsive.*;
 
 public abstract class Planet {
+
+    public PlanetDimensions dimensions;
     public double planetSize;
     public Identifier texture2d;
     public Identifier texture3d;
@@ -42,7 +46,7 @@ public abstract class Planet {
     public Planet parent = null;
     protected EnumMap<Direction, BakedQuad> planetQuads = new EnumMap<>(Direction.class);
 
-    public Planet(double scale, double posX, double posY, double posZ, double orbitTime, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
+    public Planet(double scale, double posX, double posY, double posZ, double orbitTime, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d, PlanetDimensions dimensions) {
         // Will add more args in the future (Link a dimension, textures, etc)
         this.planetSize = scale;
         this.orbitalPeriod = orbitTime;
@@ -52,6 +56,7 @@ public abstract class Planet {
         this.texture3d = texture3d;
         this.planetRot[0] = horizontalRotation;
         this.planetRot[1] = verticalRotation;
+        this.dimensions = dimensions;
     }
 
     // TODO use an entity or something instead of individual quads

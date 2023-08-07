@@ -1,6 +1,7 @@
 package com.june.propulsive.mixin;
 
 import com.june.propulsive.Propulsive;
+import com.june.propulsive.types.Planet;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.WorldGenerationProgressListener;
@@ -17,13 +18,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import qouteall.imm_ptl.core.api.PortalAPI;
 import qouteall.imm_ptl.core.portal.Portal;
+import qouteall.q_misc_util.my_util.DQuaternion;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.june.propulsive.Propulsive.OVERWORLD_HEIGHT;
-import static com.june.propulsive.Propulsive.WORLD_SIZE;
+import static com.june.propulsive.Propulsive.*;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
@@ -76,7 +77,7 @@ public class MinecraftServerMixin {
                 Triple.of(new Vec3d(-1, 0, 0), Propulsive.DIM_OW_LEFT, new Vec3d(0, 0, -1)),
                 Triple.of(new Vec3d(0, 0, 1), Propulsive.DIM_OW_FRONT, new Vec3d(0, 0, -1)),
                 Triple.of(new Vec3d(1, 0, 0), Propulsive.DIM_OW_RIGHT, new Vec3d(0, 0, -1)),
-                Triple.of(new Vec3d(0, 0, -1), Propulsive.DIM_OW_BACK   , new Vec3d(0, 0, 1))
+                Triple.of(new Vec3d(0, 0, -1), Propulsive.DIM_OW_BACK, new Vec3d(0, 0, 1))
         );
 
         List<Triple<Vec3d, RegistryKey<World>, Vec3d>> backPortals = List.of(
@@ -114,5 +115,9 @@ public class MinecraftServerMixin {
             );
             PortalAPI.addGlobalPortal(this.worlds.get(world), portal);
         }));
+
     }
+
+
+
 }

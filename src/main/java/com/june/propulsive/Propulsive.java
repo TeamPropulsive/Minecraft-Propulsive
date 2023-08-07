@@ -1,8 +1,8 @@
 package com.june.propulsive;
 
-import com.june.propulsive.celestial.Star;
 import com.june.propulsive.celestial.Terrestrial;
 import com.june.propulsive.types.Planet;
+import com.june.propulsive.types.PlanetDimensions;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.damage.DamageType;
@@ -68,6 +68,7 @@ public class Propulsive implements ModInitializer {
     public static RegistryKey<World> DIM_OW_RIGHT = RegistryKey.of(RegistryKeys.WORLD, id("ow_right"));
     public static RegistryKey<World> DIM_OW_BACK = RegistryKey.of(RegistryKeys.WORLD, id("ow_back"));
 
+    public static PlanetDimensions EARTH_DIMENSIONS = new PlanetDimensions(DIM_OW_TOP, DIM_OW_BOTTOM, DIM_OW_LEFT, DIM_OW_RIGHT, DIM_OW_BACK, DIM_OW_FRONT);
     public static final int WORLD_SIZE = 1000;
 
     public static final double OVERWORLD_HEIGHT = 128.0;
@@ -75,7 +76,7 @@ public class Propulsive implements ModInitializer {
     // Misc config
     public static final double PLANET_3D_RENDER_DIST = 1000.0; // Distance at which planets go from 3D to 2D
     // Actually creating the planets
-    public static Star EARTH = new Star(
+    public static Terrestrial EARTH = new Terrestrial(
             10.0,
             0.0,
             0.0,
@@ -84,7 +85,8 @@ public class Propulsive implements ModInitializer {
             0.0f,
             0.0f,
             new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/earth.png")
+            new Identifier("propulsive:textures/celestial/terrestrial/earth.png"),
+            EARTH_DIMENSIONS
     );
     public static Terrestrial MOON = new Terrestrial(
             5.0,
@@ -95,8 +97,8 @@ public class Propulsive implements ModInitializer {
             0.0f,
             0.0f,
             new Identifier("propulsive:textures/celestial/terrestrial/moon_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/moon.png")
-    );
+            new Identifier("propulsive:textures/celestial/terrestrial/moon.png"),
+            EARTH_DIMENSIONS);
 
     public static RegistryKey<DamageType> STAR_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("star"));
     public static RegistryKey<DamageType> OXYGEN_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("oxygen"));
