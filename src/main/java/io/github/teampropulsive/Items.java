@@ -4,6 +4,7 @@ package io.github.teampropulsive;
 import io.github.teampropulsive.armor.SpaceArmorMaterial;
 import io.github.teampropulsive.types.GasCanister;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.Block;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -29,11 +30,14 @@ public class Items {
         registerItem("space_leggings", SPACE_LEGGINGS);
         registerItem("space_boots", SPACE_BOOTS);
 
-        Registry.register(Registries.ITEM, new Identifier("propulsive", "lunar_regolith"), new BlockItem(Blocks.MOON_REGOLITH, new FabricItemSettings()));
-        Registry.register(Registries.ITEM, new Identifier("propulsive", "volcanic_lunar_regolith"), new BlockItem(Blocks.VOLCANIC_MOON_REGOLITH, new FabricItemSettings()));
-        Registry.register(Registries.ITEM, new Identifier("propulsive", "anorthosite"), new BlockItem(Blocks.ANORTHOSITE, new FabricItemSettings()));
+        registerBlockItem("lunar_regolith", Blocks.MOON_REGOLITH);
+        registerBlockItem("volcanic_lunar_regolith", Blocks.VOLCANIC_MOON_REGOLITH);
+        registerBlockItem("anorthosite", Blocks.ANORTHOSITE);
     }
     private static void registerItem(String path, Item item) {
         Registry.register(Registries.ITEM, Propulsive.id(path), item);
+    }
+    private static void registerBlockItem(String path, Block block) {
+        Registry.register(Registries.ITEM, Propulsive.id(path), new BlockItem(block, new FabricItemSettings()));
     }
 }
