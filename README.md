@@ -35,7 +35,7 @@ The mod requires nothing special to build. You can simply clone the mod and run 
 
 `./gradlew build` (Linux)
 
-`gradlew.bat` (Windows)
+`gradlew.bat build` (Windows)
 
 However, doing this means there is more than likely going to be many problematic bugs/issues, so be warned! It is recommended to stick to the builds in the releases tab, or use the ones on Modrinth/Curseforge (As of writing, the mod is not on Curseforge or Modrinth yet)
 
