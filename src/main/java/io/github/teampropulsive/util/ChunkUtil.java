@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ChunkUtil {
-    private static final HashSet<ChunkPos> IGNORED_CHUNKS = new HashSet<>();
+    private static boolean IGNORE_NEW_CHUNKLOADS = false;
 
     public static void copyChunkBlocksAndBlend(Chunk src, Chunk dst, int rotation) {
         ChunkSection[] srcArray = src.getSectionArray();
@@ -86,17 +86,17 @@ public class ChunkUtil {
         BlockPos withoutOffset = chunk.getCenterAtY(0).add(-offsetBlocks, 0, 0);
 
         HashSet<Direction> directions = new HashSet<>();
-        if (withoutOffset.getX() + 32 > dimensions.faceRadius()) {
-            directions.add(Direction.SOUTH);
-        }
-        if (withoutOffset.getX() - 32 < -dimensions.faceRadius()) {
-            directions.add(Direction.NORTH);
-        }
-        if (withoutOffset.getZ() + 32 > dimensions.faceRadius()) {
+        if (withoutOffset.getX() + 32 > dimensions.faceRadius() && withoutOffset.getX() <= dimensions.faceRadius()) {
             directions.add(Direction.EAST);
         }
-        if (withoutOffset.getZ() - 32 < -dimensions.faceRadius()) {
+        if (withoutOffset.getX() - 32 < -dimensions.faceRadius() && withoutOffset.getX() >= -dimensions.faceRadius()) {
             directions.add(Direction.WEST);
+        }
+        if (withoutOffset.getZ() + 32 > dimensions.faceRadius() && withoutOffset.getZ() <= dimensions.faceRadius()) {
+            directions.add(Direction.SOUTH);
+        }
+        if (withoutOffset.getZ() - 32 < -dimensions.faceRadius() && withoutOffset.getZ() >= -dimensions.faceRadius()) {
+            directions.add(Direction.NORTH);
         }
 
         return directions.stream().map(dir -> {
@@ -125,24 +125,24 @@ public class ChunkUtil {
 
     public static void registerLoadEvent() {
         ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
-            if (!Propulsive.DIMENSIONS_LOADED || !Propulsive.EARTH_DIMENSIONS.isOneOf(world.getRegistryKey()) || chunk.usesOldNoise() || IGNORED_CHUNKS.contains(chunk.getPos())) {
+            if (!Propulsive.DIMENSIONS_LOADED || !Propulsive.EARTH_DIMENSIONS.isOneOf(world.getRegistryKey()) || chunk.usesOldNoise() || IGNORE_NEW_CHUNKLOADS) {
                 return;
             }
 
-            System.out.println("attempting to copy chunk " + chunk.getPos().toString() + " in " + world.getRegistryKey().getValue().toString());
+            IGNORE_NEW_CHUNKLOADS = true;
 
             NbtCompound compound = new NbtCompound();
             compound.putBoolean("old_noise", true);
             chunk.setBlendingData(BlendingData.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound)).resultOrPartial(_msg -> {}).orElse(chunk.getBlendingData()));
 
             getInterdimensionalEquivalents(world.getRegistryKey(), Propulsive.EARTH_DIMENSIONS, chunk.getPos()).forEach(triple -> {
-                IGNORED_CHUNKS.add(triple.getMiddle());
                 ServerWorld destWorld = world.getServer().getWorld(triple.getLeft());
-                System.out.println("copying " + chunk.getPos().toString() + " in " + world.getRegistryKey().getValue().toString() + " to " + triple.getMiddle().toString() + " in " + triple.getLeft().getValue().toString());
                 Chunk destChunk = destWorld.getChunk(triple.getMiddle().x, triple.getMiddle().z);
+                System.out.println("copying " + chunk.getPos().toString() + " in " + world.getRegistryKey().getValue().toString() + " to " + triple.getMiddle().toString() + " in " + triple.getLeft().getValue().toString());
                 copyChunkBlocksAndBlend(chunk, destChunk, triple.getRight());
-                IGNORED_CHUNKS.remove(triple.getMiddle());
             });
+
+            IGNORE_NEW_CHUNKLOADS = false;
         });
     }
 }
