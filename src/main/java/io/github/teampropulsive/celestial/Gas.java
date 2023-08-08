@@ -17,11 +17,6 @@ public class Gas extends Planet {
     public Gas(double scale, double posX, double posY, double posZ, float orbitTime, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
         super(scale, posX, posY, posZ, orbitTime, horizontalRotation, verticalRotation, texture2d, texture3d);
     }
-    @Override
-    public void collisionDetected(ServerPlayerEntity player) {
-        //player.kill();
-    }
-
 
     @Override
     public void render() {
@@ -62,4 +57,7 @@ public class Gas extends Planet {
         });
         super.render();
     }
+
+    @Override
+    public void collisionDetected(ServerPlayerEntity player) {}
 }
