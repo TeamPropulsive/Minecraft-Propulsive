@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void onInitialize() {
-
         if (FabricLoader.getInstance().isModLoaded("ad_astra")) {
             // Ad Astra compatibility
         }
