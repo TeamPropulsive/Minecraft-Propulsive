@@ -1,6 +1,16 @@
 package io.github.teampropulsive;
 
 
+import io.github.teampropulsive.armor.SpaceArmorMaterial;
+import io.github.teampropulsive.types.GasCanister;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+
 public class Items {
     public static final Item OXYGEN_CANISTER = new GasCanister(new FabricItemSettings(), new Identifier("propulsive:gas/oxygen"), 1000);
     public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), new Identifier("propulsive:gas/methane"), 1000);
@@ -18,6 +28,10 @@ public class Items {
         registerItem("space_chestplate", SPACE_CHESTPLATE);
         registerItem("space_leggings", SPACE_LEGGINGS);
         registerItem("space_boots", SPACE_BOOTS);
+
+        Registry.register(Registries.ITEM, new Identifier("propulsive", "lunar_regolith"), new BlockItem(Blocks.MOON_REGOLITH, new FabricItemSettings()));
+        Registry.register(Registries.ITEM, new Identifier("propulsive", "volcanic_lunar_regolith"), new BlockItem(Blocks.VOLCANIC_MOON_REGOLITH, new FabricItemSettings()));
+        Registry.register(Registries.ITEM, new Identifier("propulsive", "anorthosite"), new BlockItem(Blocks.ANORTHOSITE, new FabricItemSettings()));
     }
     private static void registerItem(String path, Item item) {
         Registry.register(Registries.ITEM, Propulsive.id(path), item);
