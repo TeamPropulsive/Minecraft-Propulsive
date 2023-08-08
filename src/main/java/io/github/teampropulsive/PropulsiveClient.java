@@ -8,9 +8,12 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import static io.github.teampropulsive.keybind.MapScreenKeybind.MapScreenKeybind
 
 @Environment(EnvType.CLIENT)
 public class PropulsiveClient implements ClientModInitializer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PropulsiveClient.class);
     public static List<String[]> capes = new ArrayList<>();
     @Override
     public void onInitializeClient() {
@@ -29,10 +33,13 @@ public class PropulsiveClient implements ClientModInitializer {
         capes.add(new String[] { "56db0044-9fc8-4ae3-83d6-1adee75aa799", "jamiscus" });
         capes.add(new String[] { "cd285b68-5039-412b-8ef1-35470223221d", "potato" });
         capes.add(new String[] { "b641da4d-908f-4848-8576-3bbe56ab2efa", "haskeller" });
-        capes.addAll(getContributors("https://raw.githubusercontent.com/Team-Propulsive/Minecraft-Propulsive/main/contributors.txt"));
+        capes.addAll(getContributors("https://raw.githubusercontent.com/TeamPropulsive/Minecraft-Propulsive/main/contributors.txt", "/contributors.txt"));
         // Rendering
         DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("space")), new SpaceSkyRenderer());
         DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("space"), new SpaceDimensionEffects());
+        DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("moon")), new SpaceSkyRenderer());
+        DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("moon"), new SpaceDimensionEffects());
+
         MOON.render();
         SUN.render();
         EARTH.render();
@@ -40,18 +47,39 @@ public class PropulsiveClient implements ClientModInitializer {
         MapScreenKeybindRegister();
     }
 
-    // Returns contributors from git repo
-    public static List<String[]> getContributors(String fileUrl) {
-        List<String[]> contentWithContributor = new ArrayList<>();
+    // Returns contributors from git repo or from the fallback list in the JAR if network is unavailable
+    public static List<String[]> getContributors(String fileUrl, String fallback) {
         try {
+            List<String[]> contentWithContributor = new ArrayList<>();
             URL url = new URL(fileUrl);
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String line;
-            while ((line = reader.readLine()) != null) contentWithContributor.add(new String[]{line, "contributor"});
+            while ((line = reader.readLine()) != null) {
+                contentWithContributor.add(new String[]{line, "contributor"});
+            }
             reader.close();
+            return contentWithContributor;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn("Could not load contributors list over the network ({}) - using fallback", e.toString());
+            List<String[]> contentWithContributor = new ArrayList<>();
+
+            try (InputStream fallbackStream = PropulsiveClient.class.getResourceAsStream(fallback)) {
+                if (fallbackStream == null) {
+                    LOGGER.warn("Mod JAR does not contain fallback contributors list - contributor capes will not be shown!");
+                    return contentWithContributor;
+                }
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(fallbackStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    contentWithContributor.add(new String[]{line, "contributor"});
+                }
+                reader.close();
+            } catch (IOException ex) {
+                LOGGER.warn("Failed to load fallback contributors list ({}) - contributor capes will not be shown!", ex.toString());
+            }
+
+            return contentWithContributor;
         }
-        return contentWithContributor;
     }
 }

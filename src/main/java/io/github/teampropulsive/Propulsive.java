@@ -92,8 +92,8 @@ public class Propulsive implements ModInitializer {
             50.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/earth.png"),
+            Propulsive.id("textures/celestial/terrestrial/earth_icon.png"),
+            Propulsive.id("textures/celestial/terrestrial/earth.png"),
             EARTH_DIMENSIONS
     );
 
@@ -105,8 +105,8 @@ public class Propulsive implements ModInitializer {
             50.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/sun_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/sun.png"),
+            Propulsive.id("textures/celestial/star/sun_icon.png"),
+            Propulsive.id("textures/celestial/star/sun.png"),
             null
     );
     public static Terrestrial MOON = new Terrestrial(
@@ -117,8 +117,8 @@ public class Propulsive implements ModInitializer {
             50.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/moon_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/moon.png"),
+            Propulsive.id("textures/celestial/star/sun_icon.png"),
+            Propulsive.id("textures/celestial/star/sun.png"),
             null
     );
 

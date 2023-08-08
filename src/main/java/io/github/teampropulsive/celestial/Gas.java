@@ -17,11 +17,6 @@ public class Gas extends Planet {
     public Gas(double scale, double posX, double posY, double posZ, float orbitTime, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d, PlanetDimensions dimensions) {
         super(scale, posX, posY, posZ, orbitTime, horizontalRotation, verticalRotation, texture2d, texture3d, dimensions);
     }
-    @Override
-    public void collisionDetected(ServerPlayerEntity player) {
-        //player.kill();
-    }
-
 
     @Override
     public void render() {
@@ -49,7 +44,7 @@ public class Gas extends Planet {
                 buffer.vertex(positionMatrix, (float) (this.planetSize * 4.0), (float) (this.planetSize), (float) (this.planetSize * 4.0)).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
 
                 RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
-                RenderSystem.setShaderTexture(0, new Identifier("propulsive", "some_file.png"));
+                RenderSystem.setShaderTexture(0, Propulsive.id("gas_default.png"));
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                 RenderSystem.disableCull();
                 RenderSystem.depthFunc(GL11.GL_ALWAYS);
@@ -62,4 +57,7 @@ public class Gas extends Planet {
         });
         super.render();
     }
+
+    @Override
+    public void collisionDetected(ServerPlayerEntity player) {}
 }

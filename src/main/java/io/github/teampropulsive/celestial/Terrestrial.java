@@ -15,7 +15,5 @@ public class Terrestrial extends Planet {
     }
 
     @Override
-    public void collisionDetected(ServerPlayerEntity player) {
-
-    }
+    public void collisionDetected(ServerPlayerEntity player) {}
 }
