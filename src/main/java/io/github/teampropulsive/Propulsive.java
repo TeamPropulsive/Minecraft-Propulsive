@@ -65,7 +65,7 @@ public class Propulsive implements ModInitializer {
             0.0f,
             0.0f,
             new Identifier("propulsive:textures/celestial/terrestrial/sun_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/sun_icon.png")
+            new Identifier("propulsive:textures/celestial/terrestrial/sun.png")
     );
     public static Terrestrial MOON = new Terrestrial(
             5.0,
