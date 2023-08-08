@@ -1,0 +1,42 @@
+{
+  "type": "propulsive:moon",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "propulsive:moon",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "propulsive:moon/maria",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": [
+              -2,
+              -1.0
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "propulsive:moon/highlands",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": [
+              -2,
+              -1.0
+            ],
+            "offset": 0
+          }
+        }
+      ]
+    }
+  }
+}
