@@ -9,7 +9,6 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
@@ -17,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.gen.chunk.BlendingData;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.HashSet;
@@ -100,17 +100,36 @@ public class ChunkUtil {
         }
 
         return directions.stream().map(dir -> {
-            Pair<RegistryKey<World>, Direction> otherFace = cubeMap.get(new Pair<>(currentDimension, dir));
+            Pair<RegistryKey<World>, Direction> otherFace = cubeMap.get(Pair.of(currentDimension, dir));
+            int rotation = MathUtil.mod(dir.getHorizontal() - 2 - otherFace.getRight().getHorizontal(), 4);
 
-            return Triple.of(otherFace.getLeft(), (ChunkPos)null /* TODO */, (dir.getHorizontal() - otherFace.getRight().getHorizontal() - 2) % 4);
+            BlockPos rotated = withoutOffset.rotate(switch (rotation) {
+                case 0 -> BlockRotation.NONE;
+                case 1 -> BlockRotation.COUNTERCLOCKWISE_90;
+                case 2 -> BlockRotation.CLOCKWISE_180;
+                case 3 -> BlockRotation.CLOCKWISE_90;
+                default -> throw new IllegalStateException("invalid rotation");
+            });
+            int offsetX = dimensions.getOffset(otherFace.getLeft()), offsetZ = 0;
+            switch (otherFace.getRight()) {
+                case NORTH -> offsetX -= dimensions.faceRadius() * 2;
+                case SOUTH -> offsetX += dimensions.faceRadius() * 2;
+                case EAST -> offsetZ += dimensions.faceRadius() * 2;
+                case WEST -> offsetZ -= dimensions.faceRadius() * 2;
+                default -> throw new IllegalStateException("invalid direction");
+            }
+
+            return Triple.of(otherFace.getLeft(), new ChunkPos(rotated.add(offsetX, 0, offsetZ)), rotation);
         }).collect(Collectors.toList());
     }
 
     public static void registerLoadEvent() {
         ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
-            if (!Propulsive.EARTH_DIMENSIONS.isOneOf(world.getRegistryKey()) || chunk.getBlendingData() != null || IGNORED_CHUNKS.contains(chunk.getPos())) {
+            if (!Propulsive.DIMENSIONS_LOADED || !Propulsive.EARTH_DIMENSIONS.isOneOf(world.getRegistryKey()) || chunk.usesOldNoise() || IGNORED_CHUNKS.contains(chunk.getPos())) {
                 return;
             }
+
+            System.out.println("attempting to copy chunk " + chunk.getPos().toString() + " in " + world.getRegistryKey().getValue().toString());
 
             NbtCompound compound = new NbtCompound();
             compound.putBoolean("old_noise", true);
@@ -119,6 +138,7 @@ public class ChunkUtil {
             getInterdimensionalEquivalents(world.getRegistryKey(), Propulsive.EARTH_DIMENSIONS, chunk.getPos()).forEach(triple -> {
                 IGNORED_CHUNKS.add(triple.getMiddle());
                 ServerWorld destWorld = world.getServer().getWorld(triple.getLeft());
+                System.out.println("copying " + chunk.getPos().toString() + " in " + world.getRegistryKey().getValue().toString() + " to " + triple.getMiddle().toString() + " in " + triple.getLeft().getValue().toString());
                 Chunk destChunk = destWorld.getChunk(triple.getMiddle().x, triple.getMiddle().z);
                 copyChunkBlocksAndBlend(chunk, destChunk, triple.getRight());
                 IGNORED_CHUNKS.remove(triple.getMiddle());

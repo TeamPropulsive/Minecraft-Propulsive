@@ -52,6 +52,8 @@ public class Propulsive implements ModInitializer {
             DimensionAPI.addDimension(levelStemRegistry, DIM_OW_LEFT.getValue(), dimTypeEntry, overworldGenerator);
             DimensionAPI.addDimension(levelStemRegistry, DIM_OW_RIGHT.getValue(), dimTypeEntry, overworldGenerator);
             DimensionAPI.addDimension(levelStemRegistry, DIM_OW_BACK.getValue(), dimTypeEntry, overworldGenerator);
+
+            DIMENSIONS_LOADED = true;
         });
 
         Blocks.register();
@@ -71,7 +73,8 @@ public class Propulsive implements ModInitializer {
     public static RegistryKey<World> DIM_OW_RIGHT = RegistryKey.of(RegistryKeys.WORLD, id("ow_right"));
     public static RegistryKey<World> DIM_OW_BACK = RegistryKey.of(RegistryKeys.WORLD, id("ow_back"));
 
-    public static PlanetDimensions EARTH_DIMENSIONS = new PlanetDimensions(DIM_OW_TOP, DIM_OW_BOTTOM, DIM_OW_LEFT, DIM_OW_RIGHT, DIM_OW_BACK, DIM_OW_FRONT, 1024);
+    public static PlanetDimensions EARTH_DIMENSIONS = new PlanetDimensions(DIM_OW_TOP, DIM_OW_BOTTOM, DIM_OW_LEFT, DIM_OW_RIGHT, DIM_OW_FRONT, DIM_OW_BACK, 1024);
+    public static boolean DIMENSIONS_LOADED = false;
 
     public static final double OVERWORLD_HEIGHT = 128.0;
 
