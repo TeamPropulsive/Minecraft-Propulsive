@@ -3,6 +3,7 @@ package io.github.teampropulsive;
 import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
 import io.github.teampropulsive.types.Planet;
+import io.github.teampropulsive.types.PlanetDimensions;
 import io.github.teampropulsive.util.ChunkUtil;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -105,7 +106,8 @@ public class Propulsive implements ModInitializer {
             0.0f,
             0.0f,
             new Identifier("propulsive:textures/celestial/terrestrial/sun_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/sun.png")
+            new Identifier("propulsive:textures/celestial/terrestrial/sun.png"),
+            null
     );
     public static Terrestrial MOON = new Terrestrial(
             5.0,

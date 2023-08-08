@@ -1,7 +1,7 @@
-package com.june.propulsive.util;
+package io.github.teampropulsive.util;
 
-import com.june.propulsive.Propulsive;
-import com.june.propulsive.types.PlanetDimensions;
+import io.github.teampropulsive.Propulsive;
+import io.github.teampropulsive.types.PlanetDimensions;
 import com.mojang.serialization.Dynamic;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.minecraft.nbt.NbtCompound;

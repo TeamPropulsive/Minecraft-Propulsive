@@ -1,4 +1,4 @@
-package com.june.propulsive.util;
+package io.github.teampropulsive.util;
 
 public class MathUtil {
     // fun fact: java's % operator isn't actually modulus
