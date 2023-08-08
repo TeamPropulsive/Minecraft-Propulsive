@@ -29,7 +29,7 @@ public class Propulsive implements ModInitializer {
         TICKABLE_PLANETS.add(SUN);
         TICKABLE_PLANETS.add(MOON);
         TICKABLE_PLANETS.add(EARTH);
-        SUN.parent = EARTH;
+        EARTH.parent = SUN;
         MOON.parent = EARTH;
 
         Blocks.register();
@@ -49,7 +49,7 @@ public class Propulsive implements ModInitializer {
             0.0,
             0.0,
             100.0,
-            0.0f,
+            50.0f,
             0.0f,
             0.0f,
             new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png"),
