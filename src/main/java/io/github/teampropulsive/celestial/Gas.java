@@ -49,7 +49,7 @@ public class Gas extends Planet {
                 buffer.vertex(positionMatrix, (float) (this.planetSize * 4.0), (float) (this.planetSize), (float) (this.planetSize * 4.0)).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
 
                 RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
-                RenderSystem.setShaderTexture(0, new Identifier("propulsive", "some_file.png"));
+                RenderSystem.setShaderTexture(0, Propulsive.id("gas_default.png"));
                 RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
                 RenderSystem.disableCull();
                 RenderSystem.depthFunc(GL11.GL_ALWAYS);

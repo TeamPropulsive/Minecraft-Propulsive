@@ -13,9 +13,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class Items {
-    public static final Item OXYGEN_CANISTER = new GasCanister(new FabricItemSettings(), new Identifier("propulsive:gas/oxygen"), 1000);
-    public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), new Identifier("propulsive:gas/methane"), 1000);
-    public static final Item HYDROGEN_CANISTER = new GasCanister(new FabricItemSettings(), new Identifier("propulsive:gas/hydrogen"), 1000);
+    public static final Item OXYGEN_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/oxygen"), 1000);
+    public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/methane"), 1000);
+    public static final Item HYDROGEN_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/hydrogen"), 1000);
     public static final ArmorItem SPACE_HELMET = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new FabricItemSettings());
     public static final ArmorItem SPACE_CHESTPLATE = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.CHESTPLATE, new FabricItemSettings());
     public static final ArmorItem SPACE_LEGGINGS = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.LEGGINGS, new FabricItemSettings());
