@@ -37,6 +37,9 @@ public class PropulsiveClient implements ClientModInitializer {
         // Rendering
         DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("space")), new SpaceSkyRenderer());
         DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("space"), new SpaceDimensionEffects());
+        DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("moon")), new SpaceSkyRenderer());
+        DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("moon"), new SpaceDimensionEffects());
+
         MOON.render();
         SUN.render();
         EARTH.render();

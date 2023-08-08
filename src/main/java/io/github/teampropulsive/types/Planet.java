@@ -64,8 +64,7 @@ public abstract class Planet {
         Sprite sprite = spriteId.getSprite();
         for (Direction direction : Direction.values()) {
             emitter.square(direction, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-            emitter.spriteBake(0, sprite, MutableQuadView.BAKE_LOCK_UV);
-            emitter.spriteColor(0, -1, -1, -1, -1);
+            emitter.spriteBake(sprite, MutableQuadView.BAKE_LOCK_UV);
             emitter.emit();
             Mesh mesh = builder.build();
             mesh.forEach(quadView -> this.planetQuads.put(direction, quadView.toBakedQuad(sprite)));

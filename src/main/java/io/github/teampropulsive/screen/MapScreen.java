@@ -31,7 +31,7 @@ public class MapScreen extends Screen {
         b.vertex(pm, (float) ((this.client.currentScreen.width / 2) + (10 / zoom)), (float) ((this.client.currentScreen.height / 2) + (10 / zoom)), 0).color(1f, 1f, 1f, 1f).texture(1f, 1f).next();
         b.vertex(pm, (float) ((this.client.currentScreen.width / 2) + (10 / zoom)), (float) ((this.client.currentScreen.height / 2) - (10 / zoom)), 0).color(1f, 1f, 1f, 1f).texture(1f, 0f).next();
         RenderSystem.setShader(GameRenderer::getPositionColorTexProgram);
-        RenderSystem.setShaderTexture(0, new Identifier("propulsive:/textures/gui/player.png"));
+        RenderSystem.setShaderTexture(0, Propulsive.id("textures/gui/player.png"));
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         t.draw();
         for (Planet planet : Propulsive.TICKABLE_PLANETS) { // Renders each of the planets relative to the player

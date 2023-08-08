@@ -52,8 +52,8 @@ public class Propulsive implements ModInitializer {
             50.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/earth.png")
+            Propulsive.id("textures/celestial/terrestrial/earth_icon.png"),
+            Propulsive.id("textures/celestial/terrestrial/earth.png")
     );
 
         public static Star SUN = new Star(
@@ -64,8 +64,8 @@ public class Propulsive implements ModInitializer {
             50.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/sun_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/sun.png")
+            Propulsive.id("textures/celestial/star/sun_icon.png"),
+            Propulsive.id("textures/celestial/star/sun.png")
     );
     public static Terrestrial MOON = new Terrestrial(
             5.0,
@@ -75,8 +75,8 @@ public class Propulsive implements ModInitializer {
             50.0f,
             0.0f,
             0.0f,
-            new Identifier("propulsive:textures/celestial/terrestrial/moon_icon.png"),
-            new Identifier("propulsive:textures/celestial/terrestrial/moon.png")
+            Propulsive.id("textures/celestial/terrestrial/moon_icon.png"),
+            Propulsive.id("textures/celestial/terrestrial/moon.png")
     );
 
     public static RegistryKey<DamageType> STAR_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("star"));

@@ -1,5 +1,6 @@
 package io.github.teampropulsive.mixin;
 
+import io.github.teampropulsive.Propulsive;
 import io.github.teampropulsive.PropulsiveClient;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
@@ -33,7 +34,7 @@ public final class CapeTextureMixin {
             if (Objects.equals(playerId, capeinfo[0])) {
                 this.textures.putIfAbsent(
                         MinecraftProfileTexture.Type.CAPE,
-                        new Identifier("propulsive:textures/capes/" + capeinfo[1] + ".png")
+                        Propulsive.id("textures/capes/" + capeinfo[1] + ".png")
                 );
                 return;
             }
