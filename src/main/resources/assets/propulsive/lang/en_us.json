@@ -1,0 +1,11 @@
+{
+  "category.propulsive.keys": "Propulsive Keybinds",
+  "key.propulsive.open": "Open Map Screen",
+  "death.attack.star": "%s flew too close to the sun",
+  "death.attack.star.item": "%s flew too close to the sun whilst trying to escape %s using %s",
+  "death.attack.star.player": "%s flew too close to the sun whilst trying to escape %s",
+  "death.attack.oxygen": "%s forgot to breathe",
+  "death.attack.oxygen.item": "%s forgot to breathe whilst trying to escape %s using %s",
+  "death.attack.oxygen.player": "%s forgot to breathe whilst trying to escape %s",
+  "itemGroup.propulsive.propulsive_group": "Propulsive"
+}
