@@ -12,10 +12,11 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
+import qouteall.q_misc_util.my_util.Vec2d;
 
 public class Gas extends Planet {
-    public Gas(double scale, double posX, double posY, double posZ, float orbitTime, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d) {
-        super(scale, posX, posY, posZ, orbitTime, horizontalRotation, verticalRotation, texture2d, texture3d);
+    public Gas(double scale, Vec3d pos, double orbitTime, double rotationTime, Vec2d rotationAngle, Identifier texture2d, Identifier texture3d) {
+        super(scale, pos, orbitTime, rotationTime, rotationAngle, texture2d, texture3d);
     }
 
     @Override
