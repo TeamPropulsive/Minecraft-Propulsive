@@ -26,8 +26,10 @@ public class Propulsive implements ModInitializer {
             // GC5 Compatibility
         }
 
+        TICKABLE_PLANETS.add(SUN);
         TICKABLE_PLANETS.add(MOON);
         TICKABLE_PLANETS.add(EARTH);
+        SUN.parent = EARTH;
         MOON.parent = EARTH;
 
         Blocks.register();
@@ -42,23 +44,35 @@ public class Propulsive implements ModInitializer {
     // Misc config
     public static final double PLANET_3D_RENDER_DIST = 1000.0; // Distance at which planets go from 3D to 2D
     // Actually creating the planets
-    public static Star EARTH = new Star(
+    public static Terrestrial EARTH = new Terrestrial(
             10.0,
             0.0,
             0.0,
-            0.0,
+            100.0,
             0.0f,
             0.0f,
             0.0f,
             new Identifier("propulsive:textures/celestial/terrestrial/earth_icon.png"),
             new Identifier("propulsive:textures/celestial/terrestrial/earth.png")
     );
+
+        public static Star SUN = new Star(
+            10.5,
+            0.0,
+            0.0,
+            0.0,
+            50.0f,
+            0.0f,
+            0.0f,
+            new Identifier("propulsive:textures/celestial/terrestrial/sun_icon.png"),
+            new Identifier("propulsive:textures/celestial/terrestrial/sun.png")
+    );
     public static Terrestrial MOON = new Terrestrial(
             5.0,
             0.0,
             0.0,
             50.0,
-            200.0f,
+            50.0f,
             0.0f,
             0.0f,
             new Identifier("propulsive:textures/celestial/terrestrial/moon_icon.png"),
