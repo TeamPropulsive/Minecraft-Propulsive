@@ -3,6 +3,7 @@ package io.github.teampropulsive.celestial;
 import io.github.teampropulsive.types.Planet;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.teampropulsive.Propulsive;
+import io.github.teampropulsive.types.PlanetDimensions;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;

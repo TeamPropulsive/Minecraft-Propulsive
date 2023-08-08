@@ -3,13 +3,8 @@ package io.github.teampropulsive.celestial;
 import io.github.teampropulsive.Propulsive;
 import io.github.teampropulsive.types.Planet;
 import io.github.teampropulsive.types.PlanetDimensions;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-
-import java.util.List;
-
-import static com.june.propulsive.Propulsive.SPACE;
 
 public class Star extends Planet {
     public Star(double scale, double posX, double posY, double posZ, float orbitTime, float horizontalRotation, float verticalRotation, Identifier texture2d, Identifier texture3d, PlanetDimensions dimensions) {
