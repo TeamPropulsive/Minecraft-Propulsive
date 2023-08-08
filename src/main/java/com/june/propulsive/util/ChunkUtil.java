@@ -102,7 +102,7 @@ public class ChunkUtil {
         return directions.stream().map(dir -> {
             Pair<RegistryKey<World>, Direction> otherFace = cubeMap.get(new Pair<>(currentDimension, dir));
 
-            return Triple.of(otherFace.getLeft(), (ChunkPos)null /* TODO */, (dir.getHorizontal() - otherFace.getRight().getHorizontal() - 2) % 3);
+            return Triple.of(otherFace.getLeft(), (ChunkPos)null /* TODO */, (dir.getHorizontal() - otherFace.getRight().getHorizontal() - 2) % 4);
         }).collect(Collectors.toList());
     }
 
