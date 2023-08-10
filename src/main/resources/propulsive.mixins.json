@@ -8,7 +8,10 @@
     "FogMixin",
     "MinecraftServerMixin",
     "PlanetMixin",
-    "PlayerMixin"
+    "PlayerMixin",
+    "ServerWorldMixin",
+    "StorageIoWorkerInvoker",
+    "StorageIoWorkerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

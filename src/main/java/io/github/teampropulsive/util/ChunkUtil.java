@@ -2,10 +2,7 @@ package io.github.teampropulsive.util;
 
 import io.github.teampropulsive.Propulsive;
 import io.github.teampropulsive.types.PlanetDimensions;
-import com.mojang.serialization.Dynamic;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.BlockRotation;
@@ -19,15 +16,21 @@ import net.minecraft.world.gen.chunk.BlendingData;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 
+import java.lang.reflect.Constructor;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ChunkUtil {
+    // TODO make this persistent
+    public static final HashSet<Pair<RegistryKey<World>, ChunkPos>> SOURCE_CHUNKS = new HashSet<>();
+    public static final HashSet<Pair<RegistryKey<World>, ChunkPos>> DEST_CHUNKS = new HashSet<>();
+
     private static boolean IGNORE_NEW_CHUNKLOADS = false;
 
-    public static void copyChunkBlocksAndBlend(Chunk src, Chunk dst, int rotation) {
+    public static void copyChunkRotated(Chunk src, Chunk dst, int rotation) {
         ChunkSection[] srcArray = src.getSectionArray();
         ChunkSection[] dstArray = dst.getSectionArray();
 
@@ -75,9 +78,13 @@ public class ChunkUtil {
             }
         }
 
-        NbtCompound compound = new NbtCompound();
-        compound.putBoolean("old_noise", true);
-        dst.setBlendingData(BlendingData.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound)).resultOrPartial(_msg -> {}).orElse(dst.getBlendingData()));
+        try {
+            Constructor<BlendingData> ctor = BlendingData.class.getDeclaredConstructor(int.class, int.class, Optional.class);
+            ctor.setAccessible(true);
+            dst.setBlendingData(ctor.newInstance(dst.getBottomSectionCoord(), dst.getTopSectionCoord(), Optional.empty()));
+        } catch (Exception e) {
+            throw new IllegalStateException("Failed to instantiate BlendingData object: " + e);
+        }
     }
 
     private static List<Triple<RegistryKey<World>, ChunkPos, Integer>> getInterdimensionalEquivalents(RegistryKey<World> currentDimension, PlanetDimensions dimensions, ChunkPos chunk) {
@@ -112,10 +119,10 @@ public class ChunkUtil {
             });
             int offsetX = dimensions.getOffset(otherFace.getLeft()), offsetZ = 0;
             switch (otherFace.getRight()) {
-                case NORTH -> offsetX -= dimensions.faceRadius() * 2;
-                case SOUTH -> offsetX += dimensions.faceRadius() * 2;
-                case EAST -> offsetZ += dimensions.faceRadius() * 2;
-                case WEST -> offsetZ -= dimensions.faceRadius() * 2;
+                case NORTH -> offsetZ -= dimensions.faceRadius() * 2;
+                case SOUTH -> offsetZ += dimensions.faceRadius() * 2;
+                case EAST -> offsetX += dimensions.faceRadius() * 2;
+                case WEST -> offsetX -= dimensions.faceRadius() * 2;
                 default -> throw new IllegalStateException("invalid direction");
             }
 
@@ -125,22 +132,21 @@ public class ChunkUtil {
 
     public static void registerLoadEvent() {
         ServerChunkEvents.CHUNK_LOAD.register((world, chunk) -> {
-            if (!Propulsive.DIMENSIONS_LOADED || !Propulsive.EARTH_DIMENSIONS.isOneOf(world.getRegistryKey()) || chunk.usesOldNoise() || IGNORE_NEW_CHUNKLOADS) {
+            if (!Propulsive.DIMENSIONS_LOADED || !Propulsive.EARTH_DIMENSIONS.isOneOf(world.getRegistryKey()) || IGNORE_NEW_CHUNKLOADS || SOURCE_CHUNKS.contains(Pair.of(world.getRegistryKey(), chunk.getPos())) || DEST_CHUNKS.contains(Pair.of(world.getRegistryKey(), chunk.getPos()))) {
                 return;
             }
 
             IGNORE_NEW_CHUNKLOADS = true;
 
-            NbtCompound compound = new NbtCompound();
-            compound.putBoolean("old_noise", true);
-            chunk.setBlendingData(BlendingData.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, compound)).resultOrPartial(_msg -> {}).orElse(chunk.getBlendingData()));
-
             getInterdimensionalEquivalents(world.getRegistryKey(), Propulsive.EARTH_DIMENSIONS, chunk.getPos()).forEach(triple -> {
+                DEST_CHUNKS.add(Pair.of(triple.getLeft(), triple.getMiddle()));
                 ServerWorld destWorld = world.getServer().getWorld(triple.getLeft());
                 Chunk destChunk = destWorld.getChunk(triple.getMiddle().x, triple.getMiddle().z);
                 System.out.println("copying " + chunk.getPos().toString() + " in " + world.getRegistryKey().getValue().toString() + " to " + triple.getMiddle().toString() + " in " + triple.getLeft().getValue().toString());
-                copyChunkBlocksAndBlend(chunk, destChunk, triple.getRight());
+                copyChunkRotated(chunk, destChunk, triple.getRight());
             });
+
+            SOURCE_CHUNKS.add(Pair.of(world.getRegistryKey(), chunk.getPos()));
 
             IGNORE_NEW_CHUNKLOADS = false;
         });
