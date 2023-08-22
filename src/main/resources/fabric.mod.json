@@ -12,6 +12,9 @@
   "icon": "assets/propulsive/icon.png",
   "environment": "*",
   "entrypoints": {
+    "fabric-datagen": [
+      "io.github.teampropulsive.util.DataGeneration"
+    ],
     "main": [
       "io.github.teampropulsive.Propulsive"
     ],
