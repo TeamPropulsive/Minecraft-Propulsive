@@ -2,10 +2,18 @@ package io.github.teampropulsive;
 
 import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
+import io.github.teampropulsive.space.rocket.RocketEntity;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
@@ -18,6 +26,11 @@ import java.util.ArrayList;
 
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
+    public static final EntityType<RocketEntity> TEST_ROCKET = Registry.register(
+            Registries.ENTITY_TYPE,
+            new Identifier("propulsive", "test_rocket"),
+            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RocketEntity::new).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build()
+    );
     @Override
     public void onInitialize() {
 
@@ -36,6 +49,8 @@ public class Propulsive implements ModInitializer {
 
         Blocks.register();
         Items.register();
+
+        FabricDefaultAttributeRegistry.register(TEST_ROCKET, RocketEntity.createMobAttributes());
     }
 
     // Dimensions
