@@ -1,8 +1,12 @@
 package io.github.teampropulsive.space.rocket;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 
@@ -32,13 +36,24 @@ public class RocketEntity extends AbstractHorseEntity {
     public void tick() {
         super.tick();
     }
+
     @Override
-    public void tickMovement() {
-        super.tickMovement();
+    public boolean isOnGround() { // it's on the ground I swear!
+        return true;
     }
     @Override
-    public void tickRiding() {
-        super.tickRiding();
+    protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
+        this.setInAir(false);
+        float f = controllingPlayer.sidewaysSpeed * 0.5f;
+        float g = controllingPlayer.forwardSpeed;
+        if (g <= 0.0f) {
+            g *= 0.25f;
+        }
+        return new Vec3d(0.0, 1.0, 0.0);
+    }
+    @Override
+    protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
+        return (float)this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
     }
 
     @Override
