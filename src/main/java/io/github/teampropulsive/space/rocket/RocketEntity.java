@@ -1,5 +1,6 @@
 package io.github.teampropulsive.space.rocket;
 
+import io.github.teampropulsive.types.Planet;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -11,7 +12,15 @@ import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.joml.Vector3f;
 
+import static io.github.teampropulsive.Propulsive.SPACE;
+import static io.github.teampropulsive.Propulsive.TICKABLE_PLANETS;
+
 public class RocketEntity extends AbstractHorseEntity {
+
+    public boolean hasWarpAbility = false;
+    public Vec3d velocity;
+    public float storedOxygen = 0;
+
     public RocketEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super((EntityType<? extends AbstractHorseEntity>) entityType, world);
     }
@@ -44,15 +53,10 @@ public class RocketEntity extends AbstractHorseEntity {
     }
     @Override
     protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
-        this.setInAir(false);
-        Vec3d a = controllingPlayer.getRotationVector();
+        Vec3d a = controllingPlayer.getRotationVecClient();
         float x = (float) a.x;
         float y = (float) a.y;
         float z = (float) a.z;
-
-        //if (g <= 0.0f) {
-        //    g *= 0.25f;
-        //}
         return new Vec3d(x, y, z);
     }
     @Override
@@ -67,6 +71,29 @@ public class RocketEntity extends AbstractHorseEntity {
 
     @Override
     public boolean canJump() {
-        return false;
+        return hasWarpAbility;
+    }
+
+    @Override
+    protected void jump(float strength, Vec3d movementInput) {
+        //super.jump(strength, movementInput);
+    }
+
+
+    protected Vec3d calculateGravity() {
+        Vec3d velocity = Vec3d.ZERO;
+        if (this.getWorld().getRegistryKey() == SPACE) {
+            for (Planet planet : TICKABLE_PLANETS) {
+                Vec3d distanceDirection = planet.currentPos.subtract(this.getPos());
+                velocity.add(
+                        new Vec3d(
+                                distanceDirection.x * planet.planetSize,
+                                distanceDirection.y * planet.planetSize,
+                                distanceDirection.z * planet.planetSize
+                        )
+                );
+            }
+        }
+        return velocity;
     }
 }
