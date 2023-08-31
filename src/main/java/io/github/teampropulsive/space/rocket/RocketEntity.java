@@ -1,25 +1,18 @@
 package io.github.teampropulsive.space.rocket;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.control.JumpControl;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 
-public class RocketEntity extends AbstractHorseEntity implements net.minecraft.entity.Saddleable {
+public class RocketEntity extends AbstractHorseEntity {
     public RocketEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super((EntityType<? extends AbstractHorseEntity>) entityType, world);
     }
     @Override
     public boolean canBeSaddled() {
         return false;
-    }
-    @Override
-    public void saddle(@Nullable SoundCategory sound) {
-
     }
     @Override
     public boolean isSaddled() {
