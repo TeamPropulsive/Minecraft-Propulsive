@@ -9,6 +9,7 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
+import org.joml.Vector3f;
 
 public class RocketEntity extends AbstractHorseEntity {
     public RocketEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
@@ -44,12 +45,15 @@ public class RocketEntity extends AbstractHorseEntity {
     @Override
     protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
         this.setInAir(false);
-        float f = controllingPlayer.sidewaysSpeed * 0.5f;
-        float g = controllingPlayer.forwardSpeed;
-        if (g <= 0.0f) {
-            g *= 0.25f;
-        }
-        return new Vec3d(0.0, 1.0, 0.0);
+        Vec3d a = controllingPlayer.getRotationVector();
+        float x = (float) a.x;
+        float y = (float) a.y;
+        float z = (float) a.z;
+
+        //if (g <= 0.0f) {
+        //    g *= 0.25f;
+        //}
+        return new Vec3d(x, y, z);
     }
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
