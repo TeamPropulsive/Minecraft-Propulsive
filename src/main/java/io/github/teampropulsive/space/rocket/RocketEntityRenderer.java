@@ -13,6 +13,6 @@ public class RocketEntityRenderer extends MobEntityRenderer<RocketEntity, Rocket
 
     @Override
     public Identifier getTexture(RocketEntity entity) {
-        return new Identifier("entitytesting", "textures/entity/cube/cube.png");
+        return new Identifier("propulsive", "textures/spacecraft/rocket.png");
     }
 }

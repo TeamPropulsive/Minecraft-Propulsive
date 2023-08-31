@@ -45,8 +45,6 @@ public class SpacecraftEntity extends AbstractHorseEntity {
         return true;
     }
 
-
-
     @Override
     public boolean isTame() {
         return true;
