@@ -16,24 +16,32 @@ public class Items {
     public static final Item OXYGEN_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/oxygen"), 1000);
     public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/methane"), 1000);
     public static final Item HYDROGEN_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/hydrogen"), 1000);
+    public static final Item RAW_ALUMINUM = new Item(new FabricItemSettings());
+    public static final Item ALUMINUM_INGOT = new Item(new FabricItemSettings());
     public static final ArmorItem SPACE_HELMET = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new FabricItemSettings());
     public static final ArmorItem SPACE_CHESTPLATE = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.CHESTPLATE, new FabricItemSettings());
     public static final ArmorItem SPACE_LEGGINGS = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.LEGGINGS, new FabricItemSettings());
     public static final ArmorItem SPACE_BOOTS = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.BOOTS, new FabricItemSettings());
     public static void register() {
+        // Canisters
         registerItem("oxygen_canister", OXYGEN_CANISTER);
         registerItem("methane_canister", METHANE_CANISTER);
         registerItem("hydrogen_canister", HYDROGEN_CANISTER);
 
+        // Space suit
         registerItem("space_helmet", SPACE_HELMET);
         registerItem("space_chestplate", SPACE_CHESTPLATE);
         registerItem("space_leggings", SPACE_LEGGINGS);
         registerItem("space_boots", SPACE_BOOTS);
 
+        // Moon blocks
         registerBlockItem("lunar_regolith", Blocks.MOON_REGOLITH);
         registerBlockItem("volcanic_lunar_regolith", Blocks.VOLCANIC_MOON_REGOLITH);
         registerBlockItem("anorthosite", Blocks.ANORTHOSITE);
 
+        // Aluminum
+        registerItem("raw_aluminum", RAW_ALUMINUM);
+        registerItem("aluminum_ingot", ALUMINUM_INGOT);
         registerBlockItem("aluminum_block", Blocks.ALUMINUM_BLOCK);
         registerBlockItem("aluminum_ore", Blocks.ALUMINUM_ORE);
         registerBlockItem("aluminum_deepslate_ore", Blocks.ALUMINUM_DEEPSLATE_ORE);
