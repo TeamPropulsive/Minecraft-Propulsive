@@ -41,9 +41,9 @@ public class RocketEntity extends SpacecraftEntity {
     protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
         Vec3d a = controllingPlayer.getRotationVecClient();
 
-        float x = (float) a.x;
-        float y = (float) a.y;
-        float z = (float) a.z;
+        float x = 0.0f;//(float) a.x;
+        float y = 0.0f;//(float) a.y;
+        float z = 0.0f;//(float) a.z;
         return new Vec3d(x, y, z);
     }
 

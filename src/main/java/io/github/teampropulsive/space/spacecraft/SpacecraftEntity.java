@@ -1,36 +1,43 @@
 package io.github.teampropulsive.space.spacecraft;
 
+import io.github.teampropulsive.Propulsive;
+import io.github.teampropulsive.space.rocket.RocketEntity;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypeFilter;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static io.github.teampropulsive.Propulsive.SPACE;
-import static io.github.teampropulsive.Propulsive.TICKABLE_PLANETS;
+import static io.github.teampropulsive.Propulsive.*;
 import static io.github.teampropulsive.keybind.DockShipKeybind.dockShipKey;
 
 public class SpacecraftEntity extends AbstractHorseEntity {
 
     public int seatCount = 1;
+    public boolean canMove = true;
     public ArrayList<Vec3d> playerPositionOffsets = new ArrayList<>();
     public ArrayList<Float> playerYawOffsets = new ArrayList<>();
     public ArrayList<Vec3d> dockingPortPositions = new ArrayList<>();
     public ArrayList<SpacecraftEntity> dockedCraft = new ArrayList<>();
-    public Vec3d velocity;
+    public Vec3d velocity = Vec3d.ZERO;
     public float storedOxygen = 0;
     public float maxOxygen = 1000; // We can settle on a number here later
 
     protected SpacecraftEntity(EntityType<? extends AbstractHorseEntity> entityType, World world) {
         super(entityType, world);
+
         for (int i = 0; i < seatCount; i++) {
             playerPositionOffsets.add(new Vec3d(0.0, 0.0, 0.0));
             playerYawOffsets.add(0.0F);
@@ -58,6 +65,35 @@ public class SpacecraftEntity extends AbstractHorseEntity {
 
 
     public void onDockingTrigger() {
+            List<RocketEntity> craft = this.getWorld().getEntitiesByType(
+                    Propulsive.TEST_ROCKET,
+                    new Box(
+                            this.getPos().subtract(new Vec3d(10.0, 10.0, 10.0)),
+                            this.getPos().subtract(new Vec3d(-10.0, -10.0, -10.0))
+                    ),
+                    Entity::isAlive
+            );
+            SpacecraftEntity target = null;
+            for (SpacecraftEntity entity : craft) {
+                if (!entity.dockingPortPositions.isEmpty())
+                    target = entity;
+                if (target != null)
+                    break;
+            }
+
+            if (target != null) {
+                double dist = 1000;
+                Vec3d targetPort;
+                for (Vec3d portPosition : target.dockingPortPositions) { // Get closest port
+                    double d = portPosition.add(target.getPos()).distanceTo(this.getPos());
+                    if (d < dist) {
+                        dist = d;
+                        targetPort = portPosition;
+                    }
+                }
+
+                // TODO : Move and improve this code
+            }
 
     }
     @Override
@@ -81,6 +117,7 @@ public class SpacecraftEntity extends AbstractHorseEntity {
     @Override
     public void tick() {
         super.tick();
+        this.moveWithModules(this.velocity);
     }
 
     @Override
@@ -93,6 +130,15 @@ public class SpacecraftEntity extends AbstractHorseEntity {
         return true;
     }
 
+    public void move(Vec3d offset) {
+        this.setPosition(this.getPos().add(offset));
+    }
+    public void moveWithModules(Vec3d offset) {
+        this.move(offset);
+        for (SpacecraftEntity craft : this.dockedCraft) { // Could maybe be optimised later? Could be a little intensive with larger ships
+            craft.moveWithModules(offset);
+        }
+    }
     protected Vec3d calculateGravity() { // This probably works idk
         Vec3d velocity = Vec3d.ZERO;
         if (this.getWorld().getRegistryKey() == SPACE) {
