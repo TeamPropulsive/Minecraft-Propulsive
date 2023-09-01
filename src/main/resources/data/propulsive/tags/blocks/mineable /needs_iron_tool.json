@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "propulsive:deepslate_aluminum_ore",
+    "propulsive:aluminum_ore",
+    "propulsive:aluminum_block"
+  ]
+}
+

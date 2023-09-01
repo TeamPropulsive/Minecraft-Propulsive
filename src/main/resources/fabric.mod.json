@@ -13,7 +13,7 @@
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "io.github.teampropulsive.util.DataGeneration"
+      "io.github.teampropulsive.DataGeneration"
     ],
     "main": [
       "io.github.teampropulsive.Propulsive"

@@ -12,6 +12,18 @@ public class Blocks {
     public static final Block VOLCANIC_MOON_REGOLITH = new Block(
             FabricBlockSettings.create().requiresTool().strength(4.0f, 10.0f)
     );
+    public static final Block ALUMINUM_DEEPSLATE_ORE = new Block(
+            FabricBlockSettings.create().requiresTool().strength(4.5f, 3.0f).requiresTool()
+    );
+    public static final Block ALUMINUM_ORE = new Block(
+            FabricBlockSettings.create().requiresTool().strength(1.5f, 6.0f).requiresTool()
+    );
+    public static final Block ALUMINUM_BLOCK = new Block(
+            FabricBlockSettings.create().requiresTool().strength(5.0f, 6.0f).requiresTool()
+    );
+    public static final Block ALUMINUM_ORE_BLOCK = new Block(
+            FabricBlockSettings.create().requiresTool().strength(5.0f, 6.0f).requiresTool()
+    );
     public static final Block ANORTHOSITE = new Block(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
     );
@@ -19,6 +31,11 @@ public class Blocks {
         registerBlock(MOON_REGOLITH, "lunar_regolith");
         registerBlock(VOLCANIC_MOON_REGOLITH, "volcanic_lunar_regolith");
         registerBlock(ANORTHOSITE, "anorthosite");
+
+        registerBlock(ALUMINUM_BLOCK, "aluminum_block");
+        registerBlock(ALUMINUM_ORE_BLOCK, "aluminum_ore_block");
+        registerBlock(ALUMINUM_ORE, "aluminum_ore");
+        registerBlock(ALUMINUM_DEEPSLATE_ORE, "aluminum_deepslate_ore");
     }
 
     private static void registerBlock(Block block, String name) {

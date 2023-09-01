@@ -1,5 +1,6 @@
 package io.github.teampropulsive.celestial;
 
+import io.github.teampropulsive.types.AtmoCompositionGas;
 import io.github.teampropulsive.types.Planet;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.teampropulsive.Propulsive;
@@ -9,14 +10,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
-import qouteall.q_misc_util.my_util.Vec2d;
 
 public class Gas extends Planet {
-    public Gas(double scale, Vec3d pos, double orbitTime, double rotationTime, Vec2d rotationAngle, Identifier texture2d, Identifier texture3d) {
-        super(scale, pos, orbitTime, rotationTime, rotationAngle, texture2d, texture3d);
+    public Gas(double scale, Vec3d pos, double orbitTime, double rotationTime, Vec2f rotationAngle, Identifier texture2d, Identifier texture3d, AtmoCompositionGas[] composition) {
+        super(scale, pos, orbitTime, rotationTime, rotationAngle, texture2d, texture3d, composition);
     }
 
     @Override

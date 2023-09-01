@@ -20,11 +20,7 @@ import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
-import qouteall.q_misc_util.my_util.Vec2d;
+import net.minecraft.util.math.*;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -36,17 +32,18 @@ public abstract class Planet {
     public double planetSize;
     public Identifier texture2d;
     public Identifier texture3d;
-    public Vec2d planetRot;
+    public Vec2f planetRot;
     public Vec3d currentPos;
     public Vec3d startingPos;
     boolean is3D = true;
     public double orbitalPeriod;
     public Planet parent = null;
     public double rotSpeed;
-    public Vec2d rotAngle;
+    public Vec2f rotAngle;
     protected EnumMap<Direction, BakedQuad> planetQuads = new EnumMap<>(Direction.class);
+    public AtmoCompositionGas[] atmoComposition;
 
-    public Planet(double scale, Vec3d pos, double orbitTime, double rotationTime, Vec2d rotationAngle, Identifier texture2d, Identifier texture3d) {
+    public Planet(double scale, Vec3d pos, double orbitTime, double rotationTime, Vec2f rotationAngle, Identifier texture2d, Identifier texture3d, AtmoCompositionGas[] composition) {
         this.planetSize = scale;
         this.orbitalPeriod = orbitTime;
         this.startingPos = pos;
@@ -56,6 +53,7 @@ public abstract class Planet {
         this.planetRot = rotationAngle;
         this.rotSpeed = rotationTime;
         this.rotAngle = rotationAngle;
+        this.atmoComposition = composition;
     }
 
 
@@ -86,8 +84,8 @@ public abstract class Planet {
                     matrices.push();
                     Vec3i vec = direction.getVector();
                     matrices.scale(planetSize, planetSize, planetSize);
-                    matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees((float) this.planetRot.x()));
-                    matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float) this.planetRot.y()));
+                    matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees((float) this.planetRot.x));
+                    matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees((float) this.planetRot.y));
                     matrices.translate(vec.getX(), vec.getY(), vec.getZ());
                     Objects.requireNonNull(context.consumers()).getBuffer(RenderLayer.getSolid()).quad(matrices.peek(), this.planetQuads.get(direction), 1.0f, 1.0f, 1.0f, 9999, OverlayTexture.DEFAULT_UV);
                     matrices.pop();
@@ -114,7 +112,7 @@ public abstract class Planet {
         if (this.parent != null)
             this.currentPos = PlanetGravityHandler.currentPosition(this, this.parent, Objects.requireNonNull(server.getWorld(SPACE)).getTime());
 
-        this.planetRot = new Vec2d(this.rotAngle.x() * this.rotSpeed * Objects.requireNonNull(server.getWorld(SPACE)).getTime(), this.rotAngle.y() * this.rotSpeed * Objects.requireNonNull(server.getWorld(SPACE)).getTime());
+        this.planetRot = new Vec2f((float) (this.rotAngle.x * this.rotSpeed * Objects.requireNonNull(server.getWorld(SPACE)).getTime()), (float) (this.rotAngle.y * this.rotSpeed * Objects.requireNonNull(server.getWorld(SPACE)).getTime()));
 
     };
 

@@ -2,12 +2,18 @@ package io.github.teampropulsive;
 
 import io.github.teampropulsive.client.world.SpaceDimensionEffects;
 import io.github.teampropulsive.client.world.SpaceSkyRenderer;
+import io.github.teampropulsive.space.rocket.RocketEntityModel;
+import io.github.teampropulsive.space.rocket.RocketEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,12 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.teampropulsive.Propulsive.*;
+import static io.github.teampropulsive.keybind.DockShipKeybind.DockKeybindRegister;
 import static io.github.teampropulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
 
 @Environment(EnvType.CLIENT)
 public class PropulsiveClient implements ClientModInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(PropulsiveClient.class);
     public static List<String[]> capes = new ArrayList<>();
+    public static final EntityModelLayer MODEL_CUBE_LAYER = new EntityModelLayer(new Identifier("entitytesting", "cube"), "main");
     @Override
     public void onInitializeClient() {
         // Capes
@@ -45,6 +53,10 @@ public class PropulsiveClient implements ClientModInitializer {
         EARTH.render();
         // Key binds
         MapScreenKeybindRegister();
+        DockKeybindRegister();
+        // Rocket go space c:
+        EntityRendererRegistry.register(TEST_ROCKET, RocketEntityRenderer::new);
+        EntityModelLayerRegistry.registerModelLayer(MODEL_CUBE_LAYER, RocketEntityModel::getTexturedModelData);
     }
 
     // Returns contributors from git repo or from the fallback list in the JAR if network is unavailable

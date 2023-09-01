@@ -1,0 +1,20 @@
+{
+  "type": "propulsive:terrestrial",
+  "identifier": "propulsive:earth",
+  "surface": {
+    "gravity": 1.0,
+    "space_cutoff": 128,
+    "atmosphere_composition": [
+      "propulsive:gas/hydrogen",
+      "propulsive:gas/oxygen"
+    ],
+    "dimension": "minecraft:overworld"
+  },
+  "parent": "propulsive:planet/sun",
+  "orbital_radius": 16,
+  "orbital_velocity": 16,
+  "yaw_spin": 16,
+  "roll_spin": 16,
+  "spin_speed": 16
+}
+
