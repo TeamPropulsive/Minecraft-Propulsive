@@ -12,10 +12,12 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+import static io.github.teampropulsive.util.Gases.*;
+
 public class Items {
-    public static final Item OXYGEN_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/oxygen"), 1000);
-    public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/methane"), 1000);
-    public static final Item HYDROGEN_CANISTER = new GasCanister(new FabricItemSettings(), Propulsive.id("gas/hydrogen"), 1000);
+    public static final Item OXYGEN_CANISTER = new GasCanister(new FabricItemSettings(), OXYGEN, 1000);
+    public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), METHANE, 1000);
+    public static final Item HYDROGEN_CANISTER = new GasCanister(new FabricItemSettings(), HYDROGEN, 1000);
     public static final Item ALUMINUM_NUGGET = new Item(new FabricItemSettings());
     public static final Item RAW_ALUMINUM = new Item(new FabricItemSettings());
     public static final Item ALUMINUM_INGOT = new Item(new FabricItemSettings());
