@@ -6,6 +6,8 @@ import io.github.teampropulsive.space.rocket.RocketEntity;
 import io.github.teampropulsive.space.spacecraft.SpacecraftEntity;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.loader.api.FabricLoader;
@@ -20,6 +22,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.PlacedFeature;
 import qouteall.q_misc_util.my_util.Vec2d;
 
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ public class Propulsive implements ModInitializer {
                     RocketEntity::new
             ).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build()
     );
+    public static final RegistryKey<PlacedFeature> ALUMINUM_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_aluminum"));
     @Override
     public void onInitialize() {
 
@@ -55,6 +60,9 @@ public class Propulsive implements ModInitializer {
         Items.register();
 
         FabricDefaultAttributeRegistry.register(TEST_ROCKET, RocketEntity.createMobAttributes());
+
+        // Ores
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, ALUMINUM_ORE_PLACED_KEY);
     }
 
     // Dimensions
