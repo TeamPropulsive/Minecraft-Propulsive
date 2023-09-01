@@ -1,8 +1,6 @@
 package io.github.teampropulsive.space.station;
 
 import io.github.teampropulsive.PropulsiveClient;
-import io.github.teampropulsive.space.rocket.RocketEntity;
-import io.github.teampropulsive.space.rocket.RocketEntityModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;

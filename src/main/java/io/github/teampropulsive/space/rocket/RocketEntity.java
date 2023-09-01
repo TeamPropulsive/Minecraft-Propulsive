@@ -12,6 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.joml.Vector3f;
+import qouteall.q_misc_util.my_util.Vec2d;
 
 import static io.github.teampropulsive.Propulsive.SPACE;
 import static io.github.teampropulsive.Propulsive.TICKABLE_PLANETS;
@@ -19,10 +20,7 @@ import static io.github.teampropulsive.Propulsive.TICKABLE_PLANETS;
 public class RocketEntity extends SpacecraftEntity {
 
     public boolean hasWarpAbility = false;
-    public Vec3d velocity;
-    public Vec3d dockingPosition;
-    public float storedOxygen = 0;
-    public float maxOxygen = 1000; // We can settle on a number here later
+
     public RocketEntity(EntityType<? extends SpacecraftEntity> entityType, World world) {
         super(entityType, world);
     }

@@ -6,8 +6,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.sound.SoundCategory;
-import org.jetbrains.annotations.Nullable;
 
 public class RocketEntityModel extends EntityModel<RocketEntity> {
 
@@ -29,9 +27,7 @@ public class RocketEntityModel extends EntityModel<RocketEntity> {
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-        ImmutableList.of(this.base).forEach((modelRenderer) -> {
-            modelRenderer.render(matrices, vertices, light, overlay, red, green, blue, alpha);
-        });
+        ImmutableList.of(this.base).forEach((modelRenderer) -> modelRenderer.render(matrices, vertices, light, overlay, red, green, blue, alpha));
     }
 
 }

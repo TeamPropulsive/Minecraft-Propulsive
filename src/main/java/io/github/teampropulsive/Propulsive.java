@@ -3,6 +3,7 @@ package io.github.teampropulsive;
 import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
 import io.github.teampropulsive.space.rocket.RocketEntity;
+import io.github.teampropulsive.space.spacecraft.SpacecraftEntity;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -29,7 +30,10 @@ public class Propulsive implements ModInitializer {
     public static final EntityType<RocketEntity> TEST_ROCKET = Registry.register(
             Registries.ENTITY_TYPE,
             new Identifier("propulsive", "test_rocket"),
-            FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RocketEntity::new).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build()
+            FabricEntityTypeBuilder.create(
+                    SpawnGroup.CREATURE,
+                    RocketEntity::new
+            ).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build()
     );
     @Override
     public void onInitialize() {
