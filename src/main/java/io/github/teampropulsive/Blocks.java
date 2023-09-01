@@ -29,9 +29,9 @@ public class Blocks {
         registerBlock(VOLCANIC_MOON_REGOLITH, "volcanic_lunar_regolith");
         registerBlock(ANORTHOSITE, "anorthosite");
 
-        registerBlock(ALUMINUM_BLOCK, "lunar_regolith");
-        registerBlock(ALUMINUM_ORE, "lunar_regolith");
-        registerBlock(ALUMINUM_DEEPSLATE_ORE, "lunar_regolith");
+        registerBlock(ALUMINUM_BLOCK, "aluminum_block");
+        registerBlock(ALUMINUM_ORE, "aluminum_ore");
+        registerBlock(ALUMINUM_DEEPSLATE_ORE, "aluminum_deepslate_ore");
     }
 
     private static void registerBlock(Block block, String name) {
