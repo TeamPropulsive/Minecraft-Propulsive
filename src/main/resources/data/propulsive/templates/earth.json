@@ -1,8 +1,6 @@
 {
   "type": "propulsive:terrestrial",
-  "model": "propulsive:models/planet/earth",
-  "texture": "propulsive:textures/planet/earth",
-  "icon": "propulsive:textures/gui/planet/earth",
+  "identifier": "propulsive:earth",
   "surface": {
     "gravity": 1.0,
     "space_cutoff": 128,
