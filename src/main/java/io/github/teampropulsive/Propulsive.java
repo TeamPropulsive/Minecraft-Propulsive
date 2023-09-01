@@ -4,6 +4,7 @@ import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
 import io.github.teampropulsive.space.rocket.RocketEntity;
 import io.github.teampropulsive.space.spacecraft.SpacecraftEntity;
+import io.github.teampropulsive.types.AtmoCompositionGas;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -25,6 +26,7 @@ import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
@@ -34,6 +36,8 @@ import qouteall.q_misc_util.my_util.Vec2d;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import static io.github.teampropulsive.util.Gases.*;
 
 
 public class Propulsive implements ModInitializer {
@@ -83,20 +87,26 @@ public class Propulsive implements ModInitializer {
     public static final double PLANET_3D_RENDER_DIST = 1000.0; // Distance at which planets go from 3D to 2D
     // Actually creating the planets
     public static Terrestrial EARTH = new Terrestrial(
-            10.0, new Vec3d(-50, 0, 0), 50.0, 0,new Vec2d(0, 0),
+            10.0, new Vec3d(-50, 0, 0), 50.0, 0,new Vec2f(0, 0),
             Propulsive.id("textures/celestial/terrestrial/earth_icon.png"),
-            Propulsive.id("textures/celestial/terrestrial/earth.png")
+            Propulsive.id("textures/celestial/terrestrial/earth.png"),
+            new AtmoCompositionGas[]{
+                    new AtmoCompositionGas(OXYGEN, 1.0),
+                    new AtmoCompositionGas(HYDROGEN, 0.01),
+                    new AtmoCompositionGas(METHANE, 0.05)
+            }
     );
 
-        public static Star SUN = new Star(
-             20, new Vec3d(0, 0, 0), 50.0, 0, new Vec2d(0, 0),
+    public static Star SUN = new Star(
+            20, new Vec3d(0, 0, 0), 50.0, 0, new Vec2f(0, 0),
             Propulsive.id("textures/celestial/star/sun_icon.png"),
             Propulsive.id("textures/celestial/star/sun.png")
     );
     public static Terrestrial MOON = new Terrestrial(
-            2.5, new Vec3d(-60, 0, 0), 60.0, 0, new Vec2d(0, 0),
+            2.5, new Vec3d(-60, 0, 0), 60.0, 0, new Vec2f(0, 0),
             Propulsive.id("textures/celestial/terrestrial/moon_icon.png"),
-            Propulsive.id("textures/celestial/terrestrial/moon.png")
+            Propulsive.id("textures/celestial/terrestrial/moon.png"),
+            null
     );
 
     public static RegistryKey<DamageType> STAR_DAMAGE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, id("star"));

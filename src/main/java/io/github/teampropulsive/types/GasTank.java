@@ -1,17 +1,14 @@
 package io.github.teampropulsive.types;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.block.Block;
 
-public class GasCanister extends Item {
+public class GasTank extends Block {
     public Gas gas;
     public int maxCapacity;
     public int currentlyFilled;
-
-    public GasCanister(Settings settings, Gas gas, int maxCapacity) {
+    public GasTank(Settings settings, int maxCapacity) {
         super(settings);
-        this.gas = gas;
+        this.gas = null;
         this.maxCapacity = maxCapacity;
         this.currentlyFilled = 0;
     }
