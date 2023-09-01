@@ -1,4 +1,6 @@
 {
-  "parent": "propulsive:block/aluminum_ingot"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "propulsive:item/aluminum_ingot"
+  }
 }
-

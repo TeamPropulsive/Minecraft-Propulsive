@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "propulsive:raw_aluminum_block"
+    }
+  ],
+  "result": {
+    "item": "propulsive:raw_aluminum",
+    "count": 9
+  }
+}

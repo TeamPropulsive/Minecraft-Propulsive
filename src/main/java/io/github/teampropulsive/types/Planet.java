@@ -77,7 +77,6 @@ public abstract class Planet {
 
                 float planetSize = (float) this.planetSize;
 
-
                 MatrixStack matrices = context.matrixStack();
                 matrices.push();
                 matrices.translate(transformedPosition.x, transformedPosition.y, transformedPosition.z);

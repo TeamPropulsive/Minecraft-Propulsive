@@ -21,6 +21,9 @@ public class Blocks {
     public static final Block ALUMINUM_BLOCK = new Block(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 6.0f).requiresTool()
     );
+    public static final Block ALUMINUM_ORE_BLOCK = new Block(
+            FabricBlockSettings.create().requiresTool().strength(5.0f, 6.0f).requiresTool()
+    );
     public static final Block ANORTHOSITE = new Block(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
     );
@@ -30,6 +33,7 @@ public class Blocks {
         registerBlock(ANORTHOSITE, "anorthosite");
 
         registerBlock(ALUMINUM_BLOCK, "aluminum_block");
+        registerBlock(ALUMINUM_ORE_BLOCK, "aluminum_ore_block");
         registerBlock(ALUMINUM_ORE, "aluminum_ore");
         registerBlock(ALUMINUM_DEEPSLATE_ORE, "aluminum_deepslate_ore");
     }
