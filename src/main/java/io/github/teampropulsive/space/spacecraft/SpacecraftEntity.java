@@ -23,7 +23,8 @@ public class SpacecraftEntity extends AbstractHorseEntity {
     public int seatCount = 1;
     public ArrayList<Vec3d> playerPositionOffsets = new ArrayList<>();
     public ArrayList<Float> playerYawOffsets = new ArrayList<>();
-    public Vec3d dockingPosition;
+    public ArrayList<Vec3d> dockingPortPositions = new ArrayList<>();
+    public ArrayList<SpacecraftEntity> dockedCraft = new ArrayList<>();
     public Vec3d velocity;
     public float storedOxygen = 0;
     public float maxOxygen = 1000; // We can settle on a number here later
@@ -35,9 +36,8 @@ public class SpacecraftEntity extends AbstractHorseEntity {
             playerYawOffsets.add(0.0F);
         }
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (dockShipKey.wasPressed()) {
+            if (dockShipKey.wasPressed())
                 onDockingTrigger();
-            }
         });
     }
     @Override
@@ -58,7 +58,7 @@ public class SpacecraftEntity extends AbstractHorseEntity {
 
 
     public void onDockingTrigger() {
-        System.out.println("AAAAAAAAAAAAAAAAAAAaa");
+
     }
     @Override
     public boolean canBeSaddled() {
