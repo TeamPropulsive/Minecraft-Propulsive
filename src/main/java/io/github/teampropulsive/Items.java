@@ -33,6 +33,10 @@ public class Items {
         registerBlockItem("lunar_regolith", Blocks.MOON_REGOLITH);
         registerBlockItem("volcanic_lunar_regolith", Blocks.VOLCANIC_MOON_REGOLITH);
         registerBlockItem("anorthosite", Blocks.ANORTHOSITE);
+
+        registerBlockItem("aluminum_block", Blocks.ALUMINUM_BLOCK);
+        registerBlockItem("aluminum_ore", Blocks.ALUMINUM_ORE);
+        registerBlockItem("aluminum_deepslate_ore", Blocks.ALUMINUM_DEEPSLATE_ORE);
     }
     private static void registerItem(String path, Item item) {
         Registry.register(Registries.ITEM, Propulsive.id(path), item);

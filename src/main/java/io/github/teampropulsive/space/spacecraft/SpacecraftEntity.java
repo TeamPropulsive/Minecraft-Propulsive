@@ -4,14 +4,12 @@ import io.github.teampropulsive.Propulsive;
 import io.github.teampropulsive.space.rocket.RocketEntity;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.loader.impl.lib.sat4j.core.Vec;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EntityView;
@@ -135,9 +133,19 @@ public class SpacecraftEntity extends AbstractHorseEntity {
     }
     public void moveWithModules(Vec3d offset) {
         this.move(offset);
+        ArrayList<SpacecraftEntity> done = new ArrayList<>();
+        done.add(this);
+        moveWithModulesIter(offset, done);
+    }
+
+    private void moveWithModulesIter(Vec3d offset, ArrayList<SpacecraftEntity> done) {
+        this.move(offset);
         for (SpacecraftEntity craft : this.dockedCraft) { // Could maybe be optimised later? Could be a little intensive with larger ships
-            craft.moveWithModules(offset);
+            if (!done.contains(craft)) {
+                craft.moveWithModulesIter(offset, done);
+            }
         }
+        done.add(this);
     }
     protected Vec3d calculateGravity() { // This probably works idk
         Vec3d velocity = Vec3d.ZERO;
