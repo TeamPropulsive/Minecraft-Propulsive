@@ -7,7 +7,7 @@ import net.minecraft.advancement.Advancement;
 import java.util.function.Consumer;
 
 public class AdvancementProvider extends FabricAdvancementProvider {
-    protected AdvancementProvider(FabricDataOutput dataGenerator) {
+    public AdvancementProvider(FabricDataOutput dataGenerator) {
         super(dataGenerator);
     }
 
