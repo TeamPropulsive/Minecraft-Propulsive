@@ -21,7 +21,7 @@ import java.util.List;
 import static io.github.teampropulsive.Propulsive.*;
 import static io.github.teampropulsive.keybind.DockShipKeybind.dockShipKey;
 
-public class SpacecraftEntity extends AbstractHorseEntity {
+public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not horse
 
     public int seatCount = 1;
     public boolean canMove = true;
