@@ -1,6 +1,7 @@
 {
-  "variants": {
-    "": { "model": "propulsive:block/deepslate_aluminum_ore" }
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "propulsive:block/deepslate_aluminum_ore"
   }
 }
 
