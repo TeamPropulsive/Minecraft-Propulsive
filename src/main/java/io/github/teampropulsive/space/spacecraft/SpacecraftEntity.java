@@ -1,6 +1,7 @@
 package io.github.teampropulsive.space.spacecraft;
 
 import io.github.teampropulsive.types.Planet;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.AbstractHorseEntity;
@@ -10,12 +11,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
-import qouteall.q_misc_util.my_util.Vec2d;
 
 import java.util.ArrayList;
 
 import static io.github.teampropulsive.Propulsive.SPACE;
 import static io.github.teampropulsive.Propulsive.TICKABLE_PLANETS;
+import static io.github.teampropulsive.keybind.DockShipKeybind.dockShipKey;
 
 public class SpacecraftEntity extends AbstractHorseEntity {
 
@@ -33,6 +34,11 @@ public class SpacecraftEntity extends AbstractHorseEntity {
             playerPositionOffsets.add(new Vec3d(0.0, 0.0, 0.0));
             playerYawOffsets.add(0.0F);
         }
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (dockShipKey.wasPressed()) {
+                onDockingTrigger();
+            }
+        });
     }
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -48,7 +54,11 @@ public class SpacecraftEntity extends AbstractHorseEntity {
         passenger.setPosition(this.getPos().add(this.playerPositionOffsets.get(i)));
         passenger.setYaw((this.getYaw() + this.playerYawOffsets.get(i)));
         positionUpdater.accept(passenger, passenger.getX(), passenger.getY(), passenger.getZ());
+    }
 
+
+    public void onDockingTrigger() {
+        System.out.println("AAAAAAAAAAAAAAAAAAAaa");
     }
     @Override
     public boolean canBeSaddled() {

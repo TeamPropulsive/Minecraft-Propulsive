@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.teampropulsive.Propulsive.*;
+import static io.github.teampropulsive.keybind.DockShipKeybind.DockKeybindRegister;
 import static io.github.teampropulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
 
 @Environment(EnvType.CLIENT)
@@ -52,7 +53,7 @@ public class PropulsiveClient implements ClientModInitializer {
         EARTH.render();
         // Key binds
         MapScreenKeybindRegister();
-
+        DockKeybindRegister();
         // Rocket go space c:
         EntityRendererRegistry.register(TEST_ROCKET, RocketEntityRenderer::new);
         EntityModelLayerRegistry.registerModelLayer(MODEL_CUBE_LAYER, RocketEntityModel::getTexturedModelData);

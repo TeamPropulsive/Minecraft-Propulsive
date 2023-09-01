@@ -1,7 +1,9 @@
 package io.github.teampropulsive.space.rocket;
 
+import io.github.teampropulsive.screen.MapScreen;
 import io.github.teampropulsive.space.spacecraft.SpacecraftEntity;
 import io.github.teampropulsive.types.Planet;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -16,9 +18,9 @@ import qouteall.q_misc_util.my_util.Vec2d;
 
 import static io.github.teampropulsive.Propulsive.SPACE;
 import static io.github.teampropulsive.Propulsive.TICKABLE_PLANETS;
+import static io.github.teampropulsive.keybind.DockShipKeybind.dockShipKey;
 
 public class RocketEntity extends SpacecraftEntity {
-
     public boolean hasWarpAbility = false;
 
     public RocketEntity(EntityType<? extends SpacecraftEntity> entityType, World world) {
@@ -38,11 +40,13 @@ public class RocketEntity extends SpacecraftEntity {
     @Override
     protected Vec3d getControlledMovementInput(PlayerEntity controllingPlayer, Vec3d movementInput) {
         Vec3d a = controllingPlayer.getRotationVecClient();
+
         float x = (float) a.x;
         float y = (float) a.y;
         float z = (float) a.z;
         return new Vec3d(x, y, z);
     }
+
 
     @Override
     protected float getSaddledSpeed(PlayerEntity controllingPlayer) {
