@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "propulsive:aluminum_ore"
+          "name": "propulsive:raw_aluminum"
         }
       ],
       "conditions": [
