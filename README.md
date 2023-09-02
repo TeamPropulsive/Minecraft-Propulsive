@@ -6,10 +6,7 @@
 [![Crowdin](https://badges.crowdin.net/propulsive/localized.svg)](https://crowdin.com/project/propulsive)
 
 
-<img src="https://i.imgur.com/Ol1Tcf8.png" width="250" title="hover text">
-<br>
-<img src="https://cdn.discordapp.com/attachments/1134211614166487190/1137829402567254166/quilt_available_dark.png" width="250" title="hover text">
-
+<img alt="Requires Fabric API" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/fabric-api_vector.svg"> <img alt="Available for Quilt" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/quilt_vector.svg"> <a href="https://discord.gg/JBVHbYtTRS" ><img alt="Chat with us on the Propulsive Discord" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-plural_vector.svg"></a> <a href="https://crowdin.com/project/propulsive/"><img alt="Translate on Crowdin" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/translate/crowdin_vector.svg"></a>
 
 Going to space one block at a time!
 > [!NOTE]
