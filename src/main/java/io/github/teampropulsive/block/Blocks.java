@@ -1,5 +1,6 @@
-package io.github.teampropulsive;
+package io.github.teampropulsive.block;
 
+import io.github.teampropulsive.Propulsive;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registries;
@@ -34,7 +35,7 @@ public class Blocks {
     public static final Block LAUNCH_TOWER = new Block(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
     );
-    public static final Block BLUEPRINT_TABLE = new Block(
+    public static final Block BLUEPRINT_TABLE = new BlueprintTable(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
     );
 

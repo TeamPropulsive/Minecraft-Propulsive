@@ -2,6 +2,7 @@ package io.github.teampropulsive;
 
 
 import io.github.teampropulsive.armor.SpaceArmorMaterial;
+import io.github.teampropulsive.block.Blocks;
 import io.github.teampropulsive.types.GasCanister;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -13,7 +14,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import static io.github.teampropulsive.util.Gases.*;
 
