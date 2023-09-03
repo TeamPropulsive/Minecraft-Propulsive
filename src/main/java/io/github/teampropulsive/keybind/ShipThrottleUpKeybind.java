@@ -11,7 +11,7 @@ public class ShipThrottleUpKeybind {
     private static KeyBinding shipThrottleUpKeybind;
     public static void ShipThrottleUpKeybind() {
         shipThrottleUpKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.propulsive.open",
+                "key.propulsive.ship.tup",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_SEMICOLON,
                 "category.propulsive.keys"

@@ -11,7 +11,7 @@ public class ShipThrottleDownKeybind {
     private static KeyBinding shipThrottleDownKeybind;
     public static void ShipThrottleDownKeybind() {
         shipThrottleDownKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.propulsive.open",
+                "key.propulsive.ship.tdown",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_SEMICOLON,
                 "category.propulsive.keys"

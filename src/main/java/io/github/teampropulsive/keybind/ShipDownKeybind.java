@@ -9,7 +9,7 @@ public class ShipDownKeybind {
     private static KeyBinding shipDownKeybind;
     public static void ShipDownKeybind() {
         shipDownKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.propulsive.open",
+                "key.propulsive.ship.down",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_SEMICOLON,
                 "category.propulsive.keys"
