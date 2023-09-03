@@ -13,7 +13,7 @@ public class ShipThrottleUpKeybind {
         shipThrottleUpKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.propulsive.ship.tup",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_SEMICOLON,
+                GLFW.GLFW_KEY_BACKSLASH,
                 "category.propulsive.keys"
         ));
 

@@ -11,7 +11,7 @@ public class ShipDownKeybind {
         shipDownKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.propulsive.ship.down",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_SEMICOLON,
+                GLFW.GLFW_KEY_C,
                 "category.propulsive.keys"
         ));
 

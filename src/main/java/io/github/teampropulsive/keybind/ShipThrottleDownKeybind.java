@@ -13,7 +13,7 @@ public class ShipThrottleDownKeybind {
         shipThrottleDownKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.propulsive.ship.tdown",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_SEMICOLON,
+                GLFW.GLFW_KEY_LEFT_CONTROL,
                 "category.propulsive.keys"
         ));
 
