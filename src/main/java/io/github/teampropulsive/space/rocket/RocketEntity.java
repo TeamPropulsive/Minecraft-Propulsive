@@ -25,6 +25,7 @@ public class RocketEntity extends SpacecraftEntity {
 
     public RocketEntity(EntityType<? extends SpacecraftEntity> entityType, World world) {
         super(entityType, world);
+        this.dockingPortPositions.add(Vec3d.ZERO);
     }
 
     @Override

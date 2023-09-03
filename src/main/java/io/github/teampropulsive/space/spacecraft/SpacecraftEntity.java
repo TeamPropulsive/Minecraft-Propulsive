@@ -103,6 +103,7 @@ public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not ho
     }
     public void onDockingTrigger() {
         SpacecraftEntity target = getClosestSpacecraft();
+        System.out.println(target);
         if (target != null) {
             Vec3d sourcePortOffset = new Vec3d(0.0, 1.0, 0.0);
             Vec3d targetPortOffset = new Vec3d(0.0, -1.0, 0.0);
@@ -112,7 +113,7 @@ public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not ho
             double dockingDistanceThreshold = 0.1;
             while (sourcePort.distanceTo(targetPort) > dockingDistanceThreshold) {
                 Vec3d direction = targetPort.subtract(sourcePort).normalize();
-                double speed = 0.1;
+                double speed = 1;
                 this.move(direction.multiply(speed));
                 target.move(direction.multiply(-speed));
                 sourcePort = this.getClosestPort(target).add(sourcePortOffset);
@@ -158,7 +159,8 @@ public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not ho
     }
 
     public void move(Vec3d offset) {
-        this.setPosition(this.getPos().add(offset));
+        Vec3d p = this.getPos().add(offset);
+        this.setPos(p.x, p.y, p.z);
     }
     public void moveWithModules(Vec3d offset) {
         this.move(offset);
