@@ -61,13 +61,16 @@ public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not ho
         });
     }
 
+
     public void throttle_up() {
         if (throttle < 1.0f)
             throttle += throttle_sensitivity;
+        this.jumpStrength = throttle;
     }
     public void throttle_down() {
         if (throttle > 0.0f)
             throttle -= throttle_sensitivity;
+        this.jumpStrength = throttle;
     }
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
