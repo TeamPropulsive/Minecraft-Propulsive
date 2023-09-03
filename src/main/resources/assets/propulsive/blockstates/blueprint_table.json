@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "active": { "model": "propulsive:block/blueprint_table_active" },
+    "inactive": { "model": "propulsive:block/blueprint_table_inactive" }
+  }
+}
+

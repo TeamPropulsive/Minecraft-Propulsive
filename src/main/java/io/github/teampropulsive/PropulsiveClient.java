@@ -43,6 +43,7 @@ public class PropulsiveClient implements ClientModInitializer {
         capes.add(new String[] { "cd285b68-5039-412b-8ef1-35470223221d", "potato" });
         capes.add(new String[] { "b641da4d-908f-4848-8576-3bbe56ab2efa", "haskeller" });
         capes.addAll(getContributors("https://raw.githubusercontent.com/TeamPropulsive/Minecraft-Propulsive/main/contributors.txt", "/contributors.txt"));
+
         // Rendering
         DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("space")), new SpaceSkyRenderer());
         DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("space"), new SpaceDimensionEffects());
@@ -52,6 +53,7 @@ public class PropulsiveClient implements ClientModInitializer {
         MOON.render();
         SUN.render();
         EARTH.render();
+
         // Key binds
         MapScreenKeybindRegister();
         DockKeybindRegister();

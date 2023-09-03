@@ -53,6 +53,11 @@ public class Items {
         registerBlockItem("volcanic_lunar_regolith", Blocks.VOLCANIC_MOON_REGOLITH, true);
         registerBlockItem("anorthosite", Blocks.ANORTHOSITE, true);
 
+        // Launch pad blocks
+        registerBlockItem("launch_pad", Blocks.LAUNCH_PAD, true);
+        registerBlockItem("launch_tower", Blocks.LAUNCH_TOWER, true);
+        registerBlockItem("blueprint_table", Blocks.BLUEPRINT_TABLE, true);
+
         // Aluminum
         registerItem("raw_aluminum", RAW_ALUMINUM, true);
         registerItem("aluminum_ingot", ALUMINUM_INGOT, true);

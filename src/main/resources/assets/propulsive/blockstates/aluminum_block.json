@@ -1,7 +1,6 @@
 {
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "propulsive:block/aluminum_block"
+  "variants": {
+    "": { "model": "propulsive:block/aluminum_block" }
   }
 }
 

@@ -27,10 +27,25 @@ public class Blocks {
     public static final Block ANORTHOSITE = new Block(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
     );
+
+    public static final Block LAUNCH_PAD = new Block(
+            FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
+    );
+    public static final Block LAUNCH_TOWER = new Block(
+            FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
+    );
+    public static final Block BLUEPRINT_TABLE = new Block(
+            FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
+    );
+
     public static void register() {
         registerBlock(MOON_REGOLITH, "lunar_regolith");
         registerBlock(VOLCANIC_MOON_REGOLITH, "volcanic_lunar_regolith");
         registerBlock(ANORTHOSITE, "anorthosite");
+
+        registerBlock(LAUNCH_PAD, "launch_pad");
+        registerBlock(LAUNCH_TOWER, "launch_tower");
+        registerBlock(BLUEPRINT_TABLE, "blueprint_table");
 
         registerBlock(ALUMINUM_BLOCK, "aluminum_block");
         registerBlock(ALUMINUM_ORE_BLOCK, "aluminum_ore_block");
