@@ -52,7 +52,6 @@ public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not ho
         }
         return ActionResult.success(this.getWorld().isClient);
     }
-
     @Override
     protected void updatePassengerPosition(Entity passenger, Entity.PositionUpdater positionUpdater) {
         int i = this.getPassengerList().indexOf(passenger);
@@ -60,40 +59,70 @@ public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not ho
         passenger.setYaw((this.getYaw() + this.playerYawOffsets.get(i)));
         positionUpdater.accept(passenger, passenger.getX(), passenger.getY(), passenger.getZ());
     }
-
-
-    public void onDockingTrigger() {
-            List<RocketEntity> craft = this.getWorld().getEntitiesByType(
-                    Propulsive.TEST_ROCKET,
-                    new Box(
-                            this.getPos().subtract(new Vec3d(10.0, 10.0, 10.0)),
-                            this.getPos().subtract(new Vec3d(-10.0, -10.0, -10.0))
-                    ),
-                    Entity::isAlive
-            );
-            SpacecraftEntity target = null;
-            for (SpacecraftEntity entity : craft) {
-                if (!entity.dockingPortPositions.isEmpty())
-                    target = entity;
-                if (target != null)
-                    break;
-            }
-
-            if (target != null) {
-                double dist = 1000;
-                Vec3d targetPort;
-                for (Vec3d portPosition : target.dockingPortPositions) { // Get closest port
-                    double d = portPosition.add(target.getPos()).distanceTo(this.getPos());
-                    if (d < dist) {
-                        dist = d;
-                        targetPort = portPosition;
-                    }
-                }
-
-                // TODO : Move and improve this code
-            }
-
+    public SpacecraftEntity getClosestSpacecraft() {
+        List<RocketEntity> craft = this.getWorld().getEntitiesByType(
+                Propulsive.TEST_ROCKET,
+                new Box(
+                        this.getPos().subtract(new Vec3d(10.0, 10.0, 10.0)),
+                        this.getPos().subtract(new Vec3d(-10.0, -10.0, -10.0))
+                ),
+                Entity::isAlive
+        );
+        SpacecraftEntity target = null;
+        for (SpacecraftEntity entity : craft) {
+            if (!entity.dockingPortPositions.isEmpty())
+                target = entity;
+            if (target != null)
+                break;
+        }
+        return target;
     }
+    public Vec3d getClosestPort(SpacecraftEntity target) {
+        Vec3d sourcePos = this.getPos();
+        List<Vec3d> dockingPorts = this.dockingPortPositions;
+        Vec3d closestPort = null;
+        double closestDistance = Double.MAX_VALUE;
+        for (Vec3d portPosition : dockingPorts) {
+            Vec3d portWorldPos = portPosition.add(sourcePos);
+            double distance = portWorldPos.distanceTo(target.getPos());
+            if (distance < closestDistance) {
+                closestPort = portWorldPos;
+                closestDistance = distance;
+            }
+        }
+        return closestPort;
+    }
+    public void applyRotation(SpacecraftEntity target) {
+        Vec3d sourceCenter = this.getPos();
+        Vec3d targetCenter = target.getPos();
+        Vec3d sourceToTarget = targetCenter.subtract(sourceCenter).normalize();
+        double yaw = Math.atan2(sourceToTarget.z, sourceToTarget.x);
+        double pitch = Math.asin(-sourceToTarget.y);
+        this.setYaw((float) yaw);
+        this.setPitch((float) pitch);
+    }
+    public void onDockingTrigger() {
+        SpacecraftEntity target = getClosestSpacecraft();
+        if (target != null) {
+            Vec3d sourcePortOffset = new Vec3d(0.0, 1.0, 0.0);
+            Vec3d targetPortOffset = new Vec3d(0.0, -1.0, 0.0);
+            Vec3d sourcePort = this.getClosestPort(target).add(sourcePortOffset);
+            Vec3d targetPort = target.getClosestPort(this).add(targetPortOffset);
+            this.applyRotation(target);
+            double dockingDistanceThreshold = 0.1;
+            while (sourcePort.distanceTo(targetPort) > dockingDistanceThreshold) {
+                Vec3d direction = targetPort.subtract(sourcePort).normalize();
+                double speed = 0.1;
+                this.move(direction.multiply(speed));
+                target.move(direction.multiply(-speed));
+                sourcePort = this.getClosestPort(target).add(sourcePortOffset);
+                targetPort = target.getClosestPort(this).add(targetPortOffset);
+            }
+            this.dockedCraft.add(target);
+            target.dockedCraft.add(this);
+        }
+    }
+
     @Override
     public boolean canBeSaddled() {
         return false;
