@@ -1,6 +1,8 @@
 package io.github.teampropulsive.space.spacecraft;
 
 import io.github.teampropulsive.Propulsive;
+import io.github.teampropulsive.keybind.ShipThrottleDownKeybind;
+import io.github.teampropulsive.keybind.ShipThrottleUpKeybind;
 import io.github.teampropulsive.space.rocket.RocketEntity;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -23,6 +25,8 @@ import static io.github.teampropulsive.keybind.DockShipKeybind.dockShipKey;
 
 public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not horse https://github.com/Terra-Studios/WackyVessels/blob/master/src/main/java/dev/sebastianb/wackyvessels/entity/SitEntity.java
 
+    public float throttle = 0.0F;
+    public float throttle_sensitivity = 0.05F;
     public int seatCount = 1;
     public boolean canMove = true;
     public ArrayList<Vec3d> playerPositionOffsets = new ArrayList<>();
@@ -44,6 +48,26 @@ public class SpacecraftEntity extends AbstractHorseEntity { // TODO: Make not ho
             if (dockShipKey.wasPressed())
                 onDockingTrigger();
         });
+
+        // Ship throttle
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (this.canMove)
+                while (ShipThrottleUpKeybind.shipThrottleUpKeybind.isPressed()) throttle_up();
+        });
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (this.canMove)
+                while (ShipThrottleDownKeybind.shipThrottleDownKeybind.isPressed()) throttle_down();
+        });
+    }
+
+    public void throttle_up() {
+        if (throttle < 1.0f)
+            throttle += throttle_sensitivity;
+    }
+    public void throttle_down() {
+        if (throttle > 0.0f)
+            throttle -= throttle_sensitivity;
     }
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {

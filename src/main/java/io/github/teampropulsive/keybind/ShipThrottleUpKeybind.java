@@ -8,7 +8,7 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 public class ShipThrottleUpKeybind {
-    private static KeyBinding shipThrottleUpKeybind;
+    public static KeyBinding shipThrottleUpKeybind;
     public static void ShipThrottleUpKeybind() {
         shipThrottleUpKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.propulsive.ship.tup",
