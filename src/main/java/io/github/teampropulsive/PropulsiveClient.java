@@ -5,8 +5,6 @@ import io.github.teampropulsive.client.world.SpaceSkyRenderer;
 import io.github.teampropulsive.keybind.ShipDownKeybind;
 import io.github.teampropulsive.keybind.ShipThrottleDownKeybind;
 import io.github.teampropulsive.keybind.ShipThrottleUpKeybind;
-import io.github.teampropulsive.space.rocket.RocketEntityModel;
-import io.github.teampropulsive.space.rocket.RocketEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -60,9 +58,6 @@ public class PropulsiveClient implements ClientModInitializer {
         ShipThrottleUpKeybind.ShipThrottleUpKeybind();
         ShipThrottleDownKeybind.ShipThrottleDownKeybind();
         ShipDownKeybind.ShipDownKeybind();
-        // Rocket go space c:
-        EntityRendererRegistry.register(TEST_ROCKET, RocketEntityRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(MODEL_CUBE_LAYER, RocketEntityModel::getTexturedModelData);
     }
 
     // Returns contributors from git repo or from the fallback list in the JAR if network is unavailable
