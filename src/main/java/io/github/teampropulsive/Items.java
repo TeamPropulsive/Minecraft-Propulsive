@@ -2,6 +2,7 @@ package io.github.teampropulsive;
 
 
 import io.github.teampropulsive.armor.SpaceArmorMaterial;
+import io.github.teampropulsive.block.Blocks;
 import io.github.teampropulsive.types.GasCanister;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -13,7 +14,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import static io.github.teampropulsive.util.Gases.*;
 
@@ -53,10 +53,16 @@ public class Items {
         registerBlockItem("volcanic_lunar_regolith", Blocks.VOLCANIC_MOON_REGOLITH, true);
         registerBlockItem("anorthosite", Blocks.ANORTHOSITE, true);
 
+        // Launch pad blocks
+        registerBlockItem("launch_pad", Blocks.LAUNCH_PAD, true);
+        registerBlockItem("launch_tower", Blocks.LAUNCH_TOWER, true);
+        registerBlockItem("blueprint_table", Blocks.BLUEPRINT_TABLE, true);
+
         // Aluminum
         registerItem("raw_aluminum", RAW_ALUMINUM, true);
         registerItem("aluminum_ingot", ALUMINUM_INGOT, true);
         registerItem("aluminum_nugget", ALUMINUM_NUGGET, true);
+        registerBlockItem("bauxite", Blocks.BAUXITE, true);
         registerBlockItem("aluminum_block", Blocks.ALUMINUM_BLOCK, true);
         registerBlockItem("aluminum_ore_block", Blocks.ALUMINUM_ORE_BLOCK, true);
         registerBlockItem("aluminum_ore", Blocks.ALUMINUM_ORE, true);

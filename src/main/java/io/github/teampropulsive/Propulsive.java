@@ -1,40 +1,24 @@
 package io.github.teampropulsive;
 
+import io.github.teampropulsive.block.Blocks;
 import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
-import io.github.teampropulsive.space.rocket.RocketEntity;
-import io.github.teampropulsive.space.spacecraft.SpacecraftEntity;
 import io.github.teampropulsive.types.AtmoCompositionGas;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.damage.DamageType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.PlacedFeature;
-import qouteall.q_misc_util.my_util.Vec2d;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import static io.github.teampropulsive.util.Gases.*;
@@ -42,15 +26,8 @@ import static io.github.teampropulsive.util.Gases.*;
 
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
-    public static final EntityType<RocketEntity> TEST_ROCKET = Registry.register(
-            Registries.ENTITY_TYPE,
-            new Identifier("propulsive", "test_rocket"),
-            FabricEntityTypeBuilder.create(
-                    SpawnGroup.CREATURE,
-                    RocketEntity::new
-            ).dimensions(EntityDimensions.fixed(0.75f, 0.75f)).build()
-    );
     public static final RegistryKey<PlacedFeature> ALUMINUM_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_aluminum"));
+    public static final RegistryKey<PlacedFeature> BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_bauxite_cluster"));
     @Override
     public void onInitialize() {
 
@@ -70,10 +47,9 @@ public class Propulsive implements ModInitializer {
         Blocks.register();
         Items.register();
 
-        FabricDefaultAttributeRegistry.register(TEST_ROCKET, RocketEntity.createMobAttributes());
-
         // Ores
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, ALUMINUM_ORE_PLACED_KEY);
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, BAUXITE_CLUSTER_PLACED_KEY);
 
 
     }
