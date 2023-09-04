@@ -3,7 +3,6 @@ package io.github.teampropulsive.physics
 import io.github.teampropulsive.Propulsive.TICKABLE_PLANETS
 import io.github.teampropulsive.types.Planet
 import net.minecraft.util.math.Vec3d
-import kotlin.math.pow
 
 class Gravity {
     fun calculate(position : Vec3d): Vec3d? {
