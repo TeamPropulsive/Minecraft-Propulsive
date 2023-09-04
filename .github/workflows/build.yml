@@ -18,6 +18,10 @@ jobs:
           java-version: 17
           distribution: temurin
 
+      - name: Setup Kotlin
+        uses: fwilhe2/setup-kotlin@main
+
+
       - name: Build
         id: build
         uses: gradle/gradle-build-action@v2
