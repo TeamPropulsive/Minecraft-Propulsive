@@ -9,14 +9,16 @@ class Gravity {
     fun calculate(position : Vec3d): Vec3d? {
         val planet = get_parent_planet(position)
         if (planet != null) {
-            var force = Vec3d(planet.currentPos.x - position.x, planet.currentPos.y - position.y, planet.currentPos.z - position.z)
+            var force = Vec3d(
+                planet.currentPos.x - position.x,
+                planet.currentPos.y - position.y,
+                planet.currentPos.z - position.z
+            )
             val d = planet.currentPos.squaredDistanceTo(position)
             val m = ((planet.planetSize + 1.0) * (planet.planetSize + 1.0) * (planet.planetSize + 1.0) * (planet.planetSize + 1.0))
             val g = 6.1
-
             force = force.normalize()
             force = force.multiply(m * g)
-
             return Vec3d(
                     force.x / d,
                     force.y / d,
