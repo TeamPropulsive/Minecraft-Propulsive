@@ -16,6 +16,9 @@ public class Blocks {
     public static final Block ALUMINUM_DEEPSLATE_ORE = new Block(
             FabricBlockSettings.create().requiresTool().strength(4.5f, 3.0f).requiresTool()
     );
+    public static final Block BAUXITE = new Block(
+            FabricBlockSettings.create().requiresTool().strength(1.5f, 6.0f).requiresTool()
+    );
     public static final Block ALUMINUM_ORE = new Block(
             FabricBlockSettings.create().requiresTool().strength(1.5f, 6.0f).requiresTool()
     );
@@ -48,6 +51,7 @@ public class Blocks {
         registerBlock(LAUNCH_TOWER, "launch_tower");
         registerBlock(BLUEPRINT_TABLE, "blueprint_table");
 
+        registerBlock(BAUXITE, "bauxite");
         registerBlock(ALUMINUM_BLOCK, "aluminum_block");
         registerBlock(ALUMINUM_ORE_BLOCK, "aluminum_ore_block");
         registerBlock(ALUMINUM_ORE, "aluminum_ore");

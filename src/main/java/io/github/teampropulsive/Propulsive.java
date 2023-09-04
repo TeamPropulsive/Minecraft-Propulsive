@@ -27,6 +27,7 @@ import static io.github.teampropulsive.util.Gases.*;
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
     public static final RegistryKey<PlacedFeature> ALUMINUM_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_aluminum"));
+    public static final RegistryKey<PlacedFeature> BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_bauxite_cluster"));
     @Override
     public void onInitialize() {
 
@@ -48,6 +49,7 @@ public class Propulsive implements ModInitializer {
 
         // Ores
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, ALUMINUM_ORE_PLACED_KEY);
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, BAUXITE_CLUSTER_PLACED_KEY);
 
 
     }
