@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.2-SNAPSHOT'
     id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.10'
 }
 
 version = project.mod_version
@@ -18,6 +19,7 @@ repositories {
 
     // Cloth Config (dependency of Immersive Portals)
     maven { url "https://maven.shedaniel.me" }
+    mavenCentral()
 }
 
 dependencies {
@@ -49,6 +51,7 @@ dependencies {
     // Mixin Extras (Immersive Portals dependency)
     api("com.github.LlamaLad7:MixinExtras:${mixin_extras_version}")
     annotationProcessor("com.github.LlamaLad7:MixinExtras:${mixin_extras_version}")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 processResources {
@@ -141,4 +144,7 @@ sourceSets {
             ]
         }
     }
+}
+kotlin {
+    jvmToolchain(19)
 }
