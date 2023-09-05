@@ -1,6 +1,5 @@
 package io.github.teampropulsive.block;
 
-import io.github.teampropulsive.screen.BlueprintScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

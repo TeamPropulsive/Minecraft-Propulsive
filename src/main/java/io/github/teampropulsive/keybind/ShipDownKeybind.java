@@ -7,7 +7,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class ShipDownKeybind {
     private static KeyBinding shipDownKeybind;
-    public static void ShipDownKeybind() {
+    public static void shipDownKeybind() {
         shipDownKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.propulsive.ship.down",
                 InputUtil.Type.KEYSYM,

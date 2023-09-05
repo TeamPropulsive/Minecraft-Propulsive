@@ -7,7 +7,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class DockShipKeybind {
     public static KeyBinding dockShipKey;
-    public static void DockKeybindRegister() {
+    public static void dockKeybindRegister() {
         dockShipKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.propulsive.dock",
                 InputUtil.Type.KEYSYM,

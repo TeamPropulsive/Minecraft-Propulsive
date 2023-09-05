@@ -1,35 +1,20 @@
 package io.github.teampropulsive;
 
-import io.github.teampropulsive.block.Blocks;
-import io.github.teampropulsive.block.BlueprintTable;
-import io.github.teampropulsive.block.BlueprintTableBlockEntity;
 import io.github.teampropulsive.block.BlueprintTableBlockEntityRenderer;
 import io.github.teampropulsive.client.world.SpaceDimensionEffects;
 import io.github.teampropulsive.client.world.SpaceSkyRenderer;
 import io.github.teampropulsive.keybind.ShipDownKeybind;
 import io.github.teampropulsive.keybind.ShipThrottleDownKeybind;
 import io.github.teampropulsive.keybind.ShipThrottleUpKeybind;
-import io.github.teampropulsive.screen.BlueprintScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.screen.CraftingScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,8 +29,8 @@ import java.util.List;
 
 import static io.github.teampropulsive.Propulsive.*;
 import static io.github.teampropulsive.block.Blocks.BLUEPRINT_TABLE_BLOCK_ENTITY;
-import static io.github.teampropulsive.keybind.DockShipKeybind.DockKeybindRegister;
-import static io.github.teampropulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
+import static io.github.teampropulsive.keybind.DockShipKeybind.dockKeybindRegister;
+import static io.github.teampropulsive.keybind.MapScreenKeybind.mapScreenKeybindRegister;
 
 @Environment(EnvType.CLIENT)
 public class PropulsiveClient implements ClientModInitializer {
@@ -75,14 +60,12 @@ public class PropulsiveClient implements ClientModInitializer {
         EARTH.render();
 
         // Key binds
-        MapScreenKeybindRegister();
-        DockKeybindRegister();
-        ShipThrottleUpKeybind.ShipThrottleUpKeybind();
-        ShipThrottleDownKeybind.ShipThrottleDownKeybind();
-        ShipDownKeybind.ShipDownKeybind();
+        mapScreenKeybindRegister();
+        dockKeybindRegister();
+        ShipThrottleUpKeybind.shipThrottleUpKeybind();
+        ShipThrottleDownKeybind.shipThrottleDownKeybind();
+        ShipDownKeybind.shipDownKeybind();
 
-        // Screen handler
-        HandledScreens.register(BLUEPRINT_SCREEN_HANDLER, BlueprintScreen::new);
     }
 
     // Returns contributors from git repo or from the fallback list in the JAR if network is unavailable
