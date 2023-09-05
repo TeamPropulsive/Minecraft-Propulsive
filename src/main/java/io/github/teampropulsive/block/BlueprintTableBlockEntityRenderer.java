@@ -27,19 +27,19 @@ public class BlueprintTableBlockEntityRenderer implements BlockEntityRenderer<Bl
                     o.getY(),
                     o.getZ()
             );
-            Vec3d a = new Vec3d(
-                    1 + (-entity.pad_size + 1),
-                    1,
-                    0 + (entity.pad_size + 1)
-            );
-            Vec3d b = new Vec3d(
-                    0 + (entity.pad_size),
-                    1 + entity.tower_size,
-                    1 + (-entity.pad_size + 1)
-            );
+            offset.multiply(entity.pad_size);
 
-            a.add(offset.multiply(entity.pad_size + 1));
-            b.add(offset.multiply(entity.pad_size + 1));
+
+            Vec3d a = new Vec3d(
+                    1 + (-entity.pad_size ),
+                    1,
+                    1 + (entity.pad_size)
+            ).add(offset);
+            Vec3d b = new Vec3d(
+                    1 + (entity.pad_size),
+                    1 + entity.tower_size,
+                    1 + (-entity.pad_size)
+            ).add(offset);
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getLines());
             WorldRenderer.drawBox(matrices, vertexConsumer, a.x, a.y, a.z, b.x, b.y, b.z, 0.9f, 0.9f, 0.9f, 0.50f, 0.5f, 0.5f, 0.5f);
 
