@@ -5,13 +5,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.util.ArrayList;
 
 import static io.github.teampropulsive.block.Blocks.LAUNCH_PAD;
 import static io.github.teampropulsive.block.Blocks.LAUNCH_TOWER;
@@ -23,67 +19,81 @@ public class BlueprintTable extends Block {
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-        super.onPlaced(world, pos, state, placer, itemStack);
         get_area(world, pos);
+        super.onPlaced(world, pos, state, placer, itemStack);
 
     }
 
     public void get_area(World world, BlockPos pos) {
-        ArrayList<BlockPos> pad = new ArrayList<>();
-        int max_y = pos.getY();
-        max_y = get_adjacent_pads(world, pos, pad, max_y); // Returns all launch pad block positions and the max y
-        int max_x = Integer.MIN_VALUE;
-        int max_z = Integer.MIN_VALUE;
-        int min_x = Integer.MAX_VALUE;
-        int min_z = Integer.MAX_VALUE;
-        for (BlockPos blockPos : pad) {
-            if (blockPos.getX() > max_x)
-                max_x = blockPos.getX();
-            if (blockPos.getZ() > max_z)
-                max_z = blockPos.getZ();
-            if (blockPos.getX() < min_x)
-                min_x = blockPos.getX();
-            if (blockPos.getZ() < min_z)
-                min_z = blockPos.getZ();
+        int max_pad_size = 10;
+        int max_tower_size = 10;
+        BlockPos pad_offset = get_pad_offset(world, pos);
+        if (pad_offset != null) {
+            int pad_scale = get_pad_size(max_pad_size, world, pos, pad_offset);
+            int tower_height = get_tower_size(pad_scale, max_tower_size, world, pos, pad_offset);
+            System.out.println(pad_scale);
+            System.out.println(tower_height);
         }
 
-        Vec3i point_a = new Vec3i(max_x, max_y, max_z);
-        Vec3i point_b = new Vec3i(min_x, pos.getY(), min_z);
-        System.out.println(pad);
-        System.out.println(point_a);
-        System.out.println(point_b);
     }
 
-    public int get_adjacent_pads(World world, BlockPos pos, ArrayList<BlockPos> pad, int tower_y) {
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                BlockPos p = pos.add(new Vec3i(x, pos.getY(), z));
-                boolean exists = false;
-                for (BlockPos blockPos : pad) {
-                    if (blockPos == p) {
-                        exists = true;
-                        break;
-                    }
-                }
-                if (!exists) {
-                    Block block = world.getBlockState(p).getBlock();
-                    if (block == LAUNCH_PAD)  {
-                        pad.add(p);
-                        tower_y = get_adjacent_pads(world, p, pad, tower_y); // Update tower_y recursively
-                    } else if (block == LAUNCH_TOWER) {
-                        BlockPos height = p.up();
-                        while (world.getBlockState(height).getBlock() == LAUNCH_TOWER) {
-                            height = height.up();
-                        }
-                        if (height.getY() > tower_y) {
-                            tower_y = height.getY();
-                        }
-                    }
-                }
 
+    private int get_tower_size(int pad_size, int max, World world, BlockPos pos, BlockPos offset) {
+        BlockPos tower_pos = find_tower(
+                pad_size+1,
+                world,
+                pos.add(offset.multiply(pad_size+2))
+        );
+        if (tower_pos != null) {
+            for (int y = 0; y <= max; y++) {
+                if (!(world.getBlockState(tower_pos.add(new Vec3i(0, y, 0))).getBlock() == LAUNCH_TOWER))
+                    return y-1;
             }
         }
-        return tower_y;
-    }
+        return 0;
+    } // Gets the height of the launch tower
+    private BlockPos find_tower(int size, World world, BlockPos pos) {
+        for (int x = -size; x <= size; x++) {
+            for (int z = -size; z <= size; z++) {
+                System.out.println(pos.add(new Vec3i(x, 0, z)));
+                System.out.println(world.getBlockState(pos.add(new Vec3i(x, 0, z))).getBlock());
+                if (world.getBlockState(pos.add(new Vec3i(x, 0, z))).getBlock() == LAUNCH_TOWER)
+                    return pos.add(new Vec3i(x, 0, z));
+            }
+        }
+        return null;
+    } // Finds the base position of the launch tower
+    private boolean check_square(int size, World world, BlockPos pos) {
+        for (int x = -size; x <= size; x++) {
+            for (int z = -size; z <= size; z++) {
+                if (!(world.getBlockState(pos.add(new Vec3i(x, 0, z))).getBlock() == LAUNCH_PAD))
+                    return false;
+            }
+        }
+        return true;
+    } // Checks if a given square is a valid pad base
+    private int get_pad_size(int max, World world, BlockPos pos, BlockPos offset) {
+        for (int scale = 1; scale <= max; scale++) {
+            boolean fits = check_square(
+                    scale,
+                    world,
+                    pos.add(offset.multiply(scale+1))
+            );
+            if (!fits)
+                return scale - 1;
+        }
+        return max;
+    } // Gets the size of the launch pad base
+    private BlockPos get_pad_offset(World world, BlockPos pos) {
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
+                if ((x == -1 && z == -1) || (x == 1 && z == 1) || (x == 1 && z == -1) || (x == -1 && z == 1))
+                    continue;
+                if (world.getBlockState(pos.add(new Vec3i(x, 0, z))).getBlock() == LAUNCH_PAD)
+                    return new BlockPos(x, 0, z);
+            }
+        }
+        return null;
+    } // Gets the relative position of the pad base's center
 
 }
