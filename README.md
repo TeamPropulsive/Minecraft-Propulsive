@@ -12,8 +12,6 @@
 
 
 Going to space one block at a time!
-> [!NOTE]
-> [See our discord server](https://discord.gg/JBVHbYtTRS)
 
 > [!IMPORTANT]
 > [Contribution guidelines](CONTRIBUTING.md)
