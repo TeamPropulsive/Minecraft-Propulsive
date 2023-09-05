@@ -31,15 +31,15 @@ public class BlueprintTableBlockEntityRenderer implements BlockEntityRenderer<Bl
 
 
             Vec3d a = new Vec3d(
-                    0 + (-entity.pad_size ),
-                    1,
-                    1 + (entity.pad_size)
+                    0,
+                    0,
+                    0
             ).add(offset);
             Vec3d b = new Vec3d(
-                    1 + (entity.pad_size),
-                    1 + entity.tower_size,
-                    1 + (-entity.pad_size)
-            ).add(offset);
+                    1,
+                    1,
+                    1,
+            ).add(offset); // TODO : Fix - make render above pad
             VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getLines());
             WorldRenderer.drawBox(matrices, vertexConsumer, a.x, a.y, a.z, b.x, b.y, b.z, 0.9f, 0.9f, 0.9f, 0.50f, 0.5f, 0.5f, 0.5f);
 
