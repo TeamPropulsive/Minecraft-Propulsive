@@ -31,7 +31,7 @@ public class BlueprintTableBlockEntityRenderer implements BlockEntityRenderer<Bl
 
 
             Vec3d a = new Vec3d(
-                    1 + (-entity.pad_size ),
+                    0 + (-entity.pad_size ),
                     1,
                     1 + (entity.pad_size)
             ).add(offset);
