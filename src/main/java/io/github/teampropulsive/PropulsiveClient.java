@@ -9,6 +9,7 @@ import io.github.teampropulsive.client.world.SpaceSkyRenderer;
 import io.github.teampropulsive.keybind.ShipDownKeybind;
 import io.github.teampropulsive.keybind.ShipThrottleDownKeybind;
 import io.github.teampropulsive.keybind.ShipThrottleUpKeybind;
+import io.github.teampropulsive.screen.BlueprintScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -18,12 +19,17 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SignBlockEntity;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.screen.CraftingScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +80,9 @@ public class PropulsiveClient implements ClientModInitializer {
         ShipThrottleUpKeybind.ShipThrottleUpKeybind();
         ShipThrottleDownKeybind.ShipThrottleDownKeybind();
         ShipDownKeybind.ShipDownKeybind();
+
+        // Screen handler
+        HandledScreens.register(BLUEPRINT_SCREEN_HANDLER, BlueprintScreen::new);
     }
 
     // Returns contributors from git repo or from the fallback list in the JAR if network is unavailable

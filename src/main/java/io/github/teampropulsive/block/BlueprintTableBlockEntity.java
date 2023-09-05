@@ -3,16 +3,23 @@ package io.github.teampropulsive.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import static io.github.teampropulsive.block.Blocks.*;
 import static io.github.teampropulsive.block.Blocks.LAUNCH_PAD;
 
-public class BlueprintTableBlockEntity extends BlockEntity {
+public class BlueprintTableBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
     public int tower_size = 0;
     public int pad_size = 0;
+    public boolean show_bounding_box = false;
     public BlueprintTableBlockEntity(BlockPos pos, BlockState state) {
         super(BLUEPRINT_TABLE_BLOCK_ENTITY, pos, state);
     }
@@ -44,8 +51,6 @@ public class BlueprintTableBlockEntity extends BlockEntity {
     private BlockPos find_tower(int size, World world, BlockPos pos) {
         for (int x = -size; x <= size; x++) {
             for (int z = -size; z <= size; z++) {
-                System.out.println(pos.add(new Vec3i(x, 0, z)));
-                System.out.println(world.getBlockState(pos.add(new Vec3i(x, 0, z))).getBlock());
                 if (world.getBlockState(pos.add(new Vec3i(x, 0, z))).getBlock() == LAUNCH_TOWER)
                     return pos.add(new Vec3i(x, 0, z));
             }
@@ -85,5 +90,15 @@ public class BlueprintTableBlockEntity extends BlockEntity {
         return null;
     } // Gets the relative position of the pad base's center
 
+    @Override
+    public Text getDisplayName() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        return null;
+    }
 }
 
