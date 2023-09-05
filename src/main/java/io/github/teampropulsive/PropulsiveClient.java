@@ -1,5 +1,9 @@
 package io.github.teampropulsive;
 
+import io.github.teampropulsive.block.Blocks;
+import io.github.teampropulsive.block.BlueprintTable;
+import io.github.teampropulsive.block.BlueprintTableBlockEntity;
+import io.github.teampropulsive.block.BlueprintTableBlockEntityRenderer;
 import io.github.teampropulsive.client.world.SpaceDimensionEffects;
 import io.github.teampropulsive.client.world.SpaceSkyRenderer;
 import io.github.teampropulsive.keybind.ShipDownKeybind;
@@ -8,9 +12,15 @@ import io.github.teampropulsive.keybind.ShipThrottleUpKeybind;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.DimensionRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.SignBlockEntity;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
+import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -27,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.teampropulsive.Propulsive.*;
+import static io.github.teampropulsive.block.Blocks.BLUEPRINT_TABLE_BLOCK_ENTITY;
 import static io.github.teampropulsive.keybind.DockShipKeybind.DockKeybindRegister;
 import static io.github.teampropulsive.keybind.MapScreenKeybind.MapScreenKeybindRegister;
 
@@ -35,6 +46,7 @@ public class PropulsiveClient implements ClientModInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(PropulsiveClient.class);
     public static List<String[]> capes = new ArrayList<>();
     public static final EntityModelLayer MODEL_CUBE_LAYER = new EntityModelLayer(new Identifier("entitytesting", "cube"), "main");
+
     @Override
     public void onInitializeClient() {
         // Capes
@@ -49,6 +61,8 @@ public class PropulsiveClient implements ClientModInitializer {
         DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("space"), new SpaceDimensionEffects());
         DimensionRenderingRegistry.registerSkyRenderer(RegistryKey.of(RegistryKeys.WORLD, Propulsive.id("moon")), new SpaceSkyRenderer());
         DimensionRenderingRegistry.registerDimensionEffects(Propulsive.id("moon"), new SpaceDimensionEffects());
+
+        BlockEntityRendererFactories.register(BLUEPRINT_TABLE_BLOCK_ENTITY, BlueprintTableBlockEntityRenderer::new);
 
         MOON.render();
         SUN.render();

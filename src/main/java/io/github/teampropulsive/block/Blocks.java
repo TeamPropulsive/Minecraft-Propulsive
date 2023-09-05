@@ -2,11 +2,15 @@ package io.github.teampropulsive.block;
 
 import io.github.teampropulsive.Propulsive;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.StructureBlockBlockEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 public class Blocks {
+
     public static final Block MOON_REGOLITH = new Block(
            FabricBlockSettings.create().requiresTool().strength(3.0f, 9.0f)
     );
@@ -40,6 +44,11 @@ public class Blocks {
     );
     public static final Block BLUEPRINT_TABLE = new BlueprintTable(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 11.0f)
+    );
+    public static final BlockEntityType<BlueprintTableBlockEntity> BLUEPRINT_TABLE_BLOCK_ENTITY = Registry.register(
+            Registries.BLOCK_ENTITY_TYPE,
+            Propulsive.id("blueprint_table"),
+            FabricBlockEntityTypeBuilder.create(BlueprintTableBlockEntity::new, BLUEPRINT_TABLE).build()
     );
 
     public static void register() {
