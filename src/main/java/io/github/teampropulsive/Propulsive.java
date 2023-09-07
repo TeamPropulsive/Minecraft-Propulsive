@@ -9,11 +9,14 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.Block;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
@@ -30,9 +33,8 @@ public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
     public static final RegistryKey<PlacedFeature> ALUMINUM_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_aluminum"));
     public static final RegistryKey<PlacedFeature> BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_bauxite_cluster"));
-    public static final RegistryKey<ConfiguredFeature<?, ?>> BAUXITE_CLUSTER_CONFIGURED_KEY = RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier("propulsive","ore_bauxite_cluster"));
+    public static final RegistryKey<PlacedFeature> PURE_BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_pure_bauxite"));
 
-    //public static final RegistryKey<PlacedFeature> ORE_BAUXITE = PlacedFeatures.of("ore_bauxite_cluster");
     @Override
     public void onInitialize() {
 
@@ -54,8 +56,8 @@ public class Propulsive implements ModInitializer {
 
         // Ores
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, ALUMINUM_ORE_PLACED_KEY);
-        //BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, ORE_BAUXITE);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, BAUXITE_CLUSTER_PLACED_KEY);
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, PURE_BAUXITE_CLUSTER_PLACED_KEY);
     }
 
     // Dimensions

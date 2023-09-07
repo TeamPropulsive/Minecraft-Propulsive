@@ -1,9 +1,9 @@
 {
-  "feature": "propulsive:ore_bauxite_cluster",
+  "feature": "propulsive:ore_pure_bauxite",
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 4
+      "count": 6
     },
     {
       "type": "minecraft:in_square"

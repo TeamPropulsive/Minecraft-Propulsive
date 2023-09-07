@@ -2,17 +2,18 @@
   "type": "minecraft:ore",
   "config": {
     "discard_chance_on_air_exposure": 0.0,
-    "size": 32,
+    "size": 12,
     "targets": [
       {
         "state": {
-          "Name": "propulsive:bauxite"
+          "Name": "propulsive:pure_bauxite"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",
-          "tag": "minecraft:base_stone_overworld"
+          "tag": "propulsive:bauxite_ore_replaceables"
         }
       }
     ]
   }
 }
+
