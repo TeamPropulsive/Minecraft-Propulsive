@@ -62,6 +62,7 @@ public class Items {
         registerItem("raw_aluminum", RAW_ALUMINUM, true);
         registerItem("aluminum_ingot", ALUMINUM_INGOT, true);
         registerItem("aluminum_nugget", ALUMINUM_NUGGET, true);
+        registerBlockItem("pure_bauxite", Blocks.PURE_BAUXITE, true);
         registerBlockItem("bauxite", Blocks.BAUXITE, true);
         registerBlockItem("aluminum_block", Blocks.ALUMINUM_BLOCK, true);
         registerBlockItem("aluminum_ore_block", Blocks.ALUMINUM_ORE_BLOCK, true);
