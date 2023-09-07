@@ -17,22 +17,16 @@ public class Blocks {
     public static final Block VOLCANIC_MOON_REGOLITH = new Block(
             FabricBlockSettings.create().requiresTool().strength(4.0f, 10.0f)
     );
-    public static final Block ALUMINUM_DEEPSLATE_ORE = new Block(
-            FabricBlockSettings.create().requiresTool().strength(4.5f, 3.0f).requiresTool()
-    );
     public static final Block BAUXITE = new Block(
             FabricBlockSettings.create().requiresTool().strength(1.5f, 6.0f).requiresTool()
     );
     public static final Block PURE_BAUXITE = new Block(
             FabricBlockSettings.create().requiresTool().strength(1.5f, 6.0f).requiresTool()
     );
-    public static final Block ALUMINUM_ORE = new Block(
-            FabricBlockSettings.create().requiresTool().strength(1.5f, 6.0f).requiresTool()
-    );
     public static final Block ALUMINUM_BLOCK = new Block(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 6.0f).requiresTool()
     );
-    public static final Block ALUMINUM_ORE_BLOCK = new Block(
+    public static final Block RAW_BAUXITE_BLOCK = new Block(
             FabricBlockSettings.create().requiresTool().strength(5.0f, 6.0f).requiresTool()
     );
     public static final Block ANORTHOSITE = new Block(
@@ -66,9 +60,7 @@ public class Blocks {
         registerBlock(PURE_BAUXITE, "pure_bauxite");
         registerBlock(BAUXITE, "bauxite");
         registerBlock(ALUMINUM_BLOCK, "aluminum_block");
-        registerBlock(ALUMINUM_ORE_BLOCK, "aluminum_ore_block");
-        registerBlock(ALUMINUM_ORE, "aluminum_ore");
-        registerBlock(ALUMINUM_DEEPSLATE_ORE, "aluminum_deepslate_ore");
+        registerBlock(RAW_BAUXITE_BLOCK, "raw_bauxite_block");
     }
 
     private static void registerBlock(Block block, String name) {

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "propulsive:raw_bauxite"
+    },
+    {
+      "item": "propulsive:raw_bauxite"
+    },
+    {
+      "item": "propulsive:raw_bauxite"
+    },
+    {
+      "item": "propulsive:raw_bauxite"
+    },
+    {
+      "item": "propulsive:raw_bauxite"
+    },
+    {
+      "item": "propulsive:raw_bauxite"
+    },
+    {
+      "item": "propulsive:raw_bauxite"
+    },
+    {
+      "item": "propulsive:raw_bauxite"
+    },
+    {
+      "item": "propulsive:raw_bauxite"
+    }
+  ],
+  "result": {
+    "item": "propulsive:raw_bauxite_block",
+    "count": 1
+  }
+}

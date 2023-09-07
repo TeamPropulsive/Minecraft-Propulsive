@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "propulsive:raw_aluminum"
+          "name": "propulsive:raw_bauxite"
         }
       ],
       "conditions": [

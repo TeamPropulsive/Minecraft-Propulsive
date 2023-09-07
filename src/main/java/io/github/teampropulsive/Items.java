@@ -23,7 +23,7 @@ public class Items {
     public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), METHANE, 1000);
     public static final Item HYDROGEN_CANISTER = new GasCanister(new FabricItemSettings(), HYDROGEN, 1000);
     public static final Item ALUMINUM_NUGGET = new Item(new FabricItemSettings());
-    public static final Item RAW_ALUMINUM = new Item(new FabricItemSettings());
+    public static final Item RAW_BAUXITE = new Item(new FabricItemSettings());
     public static final Item ALUMINUM_INGOT = new Item(new FabricItemSettings());
     public static final ArmorItem SPACE_HELMET = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new FabricItemSettings());
     public static final ArmorItem SPACE_CHESTPLATE = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.CHESTPLATE, new FabricItemSettings());
@@ -59,15 +59,13 @@ public class Items {
         registerBlockItem("blueprint_table", Blocks.BLUEPRINT_TABLE, true);
 
         // Aluminum
-        registerItem("raw_aluminum", RAW_ALUMINUM, true);
+        registerItem("raw_bauxite", RAW_BAUXITE, true);
         registerItem("aluminum_ingot", ALUMINUM_INGOT, true);
         registerItem("aluminum_nugget", ALUMINUM_NUGGET, true);
         registerBlockItem("pure_bauxite", Blocks.PURE_BAUXITE, true);
         registerBlockItem("bauxite", Blocks.BAUXITE, true);
         registerBlockItem("aluminum_block", Blocks.ALUMINUM_BLOCK, true);
-        registerBlockItem("aluminum_ore_block", Blocks.ALUMINUM_ORE_BLOCK, true);
-        registerBlockItem("aluminum_ore", Blocks.ALUMINUM_ORE, true);
-        registerBlockItem("deepslate_aluminum_ore", Blocks.ALUMINUM_DEEPSLATE_ORE, true);
+        registerBlockItem("raw_bauxite_block", Blocks.RAW_BAUXITE_BLOCK, true);
     }
     private static void registerItem(String path, Item item, boolean addToItemGroup) {
         Registry.register(Registries.ITEM, Propulsive.id(path), item);
