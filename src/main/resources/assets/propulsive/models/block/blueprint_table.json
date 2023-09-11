@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "propulsive:block/blueprint_table_inactive"
+    "all": "propulsive:block/blueprint_table"
   }
 }
 

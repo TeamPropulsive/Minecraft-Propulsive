@@ -19,11 +19,10 @@ import static io.github.teampropulsive.block.Blocks.LAUNCH_PAD;
 public class BlueprintTableBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
     public int tower_size = 0;
     public int pad_size = 0;
-    public boolean show_bounding_box = false;
+    public boolean show_bounding_box = true;
     public BlueprintTableBlockEntity(BlockPos pos, BlockState state) {
         super(BLUEPRINT_TABLE_BLOCK_ENTITY, pos, state);
     }
-
 
     public void update_area(World world, BlockPos pos) {
         int max_pad_size = 10;
@@ -89,12 +88,10 @@ public class BlueprintTableBlockEntity extends BlockEntity implements NamedScree
         }
         return null;
     } // Gets the relative position of the pad base's center
-
     @Override
     public Text getDisplayName() {
         return null;
     }
-
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
