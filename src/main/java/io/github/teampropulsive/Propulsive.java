@@ -3,26 +3,26 @@ package io.github.teampropulsive;
 import io.github.teampropulsive.block.Blocks;
 import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
+import io.github.teampropulsive.screen.BlueprintTableScreenHandler;
 import io.github.teampropulsive.types.AtmoCompositionGas;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Block;
 import net.minecraft.entity.damage.DamageType;
-import net.minecraft.registry.Registerable;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.PlacedFeature;
 
 import java.util.ArrayList;
 
@@ -31,9 +31,12 @@ import static io.github.teampropulsive.util.Gases.*;
 
 public class Propulsive implements ModInitializer {
     public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
-    public static final RegistryKey<PlacedFeature> ALUMINUM_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_aluminum"));
-    public static final RegistryKey<PlacedFeature> BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_bauxite_cluster"));
-    public static final RegistryKey<PlacedFeature> PURE_BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier("propulsive","ore_pure_bauxite"));
+    public static final RegistryKey<PlacedFeature> ALUMINUM_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("ore_aluminum"));
+    public static final RegistryKey<PlacedFeature> BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("ore_bauxite_cluster"));
+    public static final RegistryKey<PlacedFeature> PURE_BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("ore_pure_bauxite"));
+
+    public static final ScreenHandlerType<BlueprintTableScreenHandler> BLUEPRINT_TABLE_SCREEN = Registry.register(Registries.SCREEN_HANDLER, id("blueprint_table"),
+            new ExtendedScreenHandlerType<>(((syncId, inventory, buf) -> new BlueprintTableScreenHandler(syncId, buf))));
 
     @Override
     public void onInitialize() {

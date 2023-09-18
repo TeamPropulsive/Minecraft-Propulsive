@@ -6,7 +6,6 @@ import io.github.teampropulsive.block.Blocks;
 import io.github.teampropulsive.types.GasCanister;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -29,55 +28,58 @@ public class Items {
     public static final ArmorItem SPACE_CHESTPLATE = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.CHESTPLATE, new FabricItemSettings());
     public static final ArmorItem SPACE_LEGGINGS = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.LEGGINGS, new FabricItemSettings());
     public static final ArmorItem SPACE_BOOTS = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.BOOTS, new FabricItemSettings());
-    private static final ItemGroup PROPULSIVE_ITEMS = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(OXYGEN_TANK))
-            .displayName(Text.translatable("itemGroup.propulsive.item"))
-            .build();
+    private static final RegistryKey<ItemGroup> ITEM_GROUP = RegistryKey.of(RegistryKeys.ITEM_GROUP, Propulsive.id("items"));
 
     public static void register() {
-        Registry.register(Registries.ITEM_GROUP, Propulsive.id("propulsive_items"), PROPULSIVE_ITEMS);
-        // Canisters
-        registerItem("oxygen_tank", OXYGEN_TANK, true);
-        registerItem("oxygen_canister", OXYGEN_CANISTER, true);
-        registerItem("methane_canister", METHANE_CANISTER, true);
-        registerItem("hydrogen_canister", HYDROGEN_CANISTER, true);
+        Item[] items = {
+            // Canisters
+            registerItem("oxygen_tank", OXYGEN_TANK),
+            registerItem("oxygen_canister", OXYGEN_CANISTER),
+            registerItem("methane_canister", METHANE_CANISTER),
+            registerItem("hydrogen_canister", HYDROGEN_CANISTER),
 
-        // Space suit
-        registerItem("space_helmet", SPACE_HELMET, true);
-        registerItem("space_chestplate", SPACE_CHESTPLATE, true);
-        registerItem("space_leggings", SPACE_LEGGINGS, true);
-        registerItem("space_boots", SPACE_BOOTS, true);
+            // Space suit
+            registerItem("space_helmet", SPACE_HELMET),
+            registerItem("space_chestplate", SPACE_CHESTPLATE),
+            registerItem("space_leggings", SPACE_LEGGINGS),
+            registerItem("space_boots", SPACE_BOOTS),
 
-        // Moon blocks
-        registerBlockItem("lunar_regolith", Blocks.MOON_REGOLITH, true);
-        registerBlockItem("volcanic_lunar_regolith", Blocks.VOLCANIC_MOON_REGOLITH, true);
-        registerBlockItem("anorthosite", Blocks.ANORTHOSITE, true);
+            // Moon blocks
+            registerBlockItem("lunar_regolith", Blocks.MOON_REGOLITH),
+            registerBlockItem("volcanic_lunar_regolith", Blocks.VOLCANIC_MOON_REGOLITH),
+            registerBlockItem("anorthosite", Blocks.ANORTHOSITE),
 
-        // Launch pad blocks
-        registerBlockItem("launch_pad", Blocks.LAUNCH_PAD, true);
-        registerBlockItem("launch_tower", Blocks.LAUNCH_TOWER, true);
-        registerBlockItem("blueprint_table", Blocks.BLUEPRINT_TABLE, true);
+            // Launch pad blocks
+            registerBlockItem("launch_pad", Blocks.LAUNCH_PAD),
+            registerBlockItem("launch_tower", Blocks.LAUNCH_TOWER),
+            registerBlockItem("blueprint_table", Blocks.BLUEPRINT_TABLE),
 
-        // Aluminum
-        registerItem("raw_bauxite", RAW_BAUXITE, true);
-        registerItem("aluminum_ingot", ALUMINUM_INGOT, true);
-        registerItem("aluminum_nugget", ALUMINUM_NUGGET, true);
-        registerBlockItem("pure_bauxite", Blocks.PURE_BAUXITE, true);
-        registerBlockItem("bauxite", Blocks.BAUXITE, true);
-        registerBlockItem("aluminum_block", Blocks.ALUMINUM_BLOCK, true);
-        registerBlockItem("raw_bauxite_block", Blocks.RAW_BAUXITE_BLOCK, true);
+            // Aluminum
+            registerItem("raw_bauxite", RAW_BAUXITE),
+            registerItem("aluminum_ingot", ALUMINUM_INGOT),
+            registerItem("aluminum_nugget", ALUMINUM_NUGGET),
+            registerBlockItem("pure_bauxite", Blocks.PURE_BAUXITE),
+            registerBlockItem("bauxite", Blocks.BAUXITE),
+            registerBlockItem("aluminum_block", Blocks.ALUMINUM_BLOCK),
+            registerBlockItem("raw_bauxite_block", Blocks.RAW_BAUXITE_BLOCK),
+        };
+
+        Registry.register(Registries.ITEM_GROUP, ITEM_GROUP,
+                FabricItemGroup.builder()
+                        .icon(() -> new ItemStack(OXYGEN_TANK))
+                        .displayName(Text.translatable("itemGroup.propulsive.items"))
+                        .entries(((displayContext, entries) -> {
+                            for (Item item : items)
+                                entries.add(item);
+                        })).build());
     }
-    private static void registerItem(String path, Item item, boolean addToItemGroup) {
-        Registry.register(Registries.ITEM, Propulsive.id(path), item);
-        if (addToItemGroup) {
-            ItemGroupEvents.modifyEntriesEvent(RegistryKey.of(RegistryKeys.ITEM_GROUP, Propulsive.id("propulsive_items"))).register(content -> {
-                content.add(item);
-            });
-        }
 
+    private static Item registerItem(String path, Item item) {
+        return Registry.register(Registries.ITEM, Propulsive.id(path), item);
     }
-    private static void registerBlockItem(String path, Block block,  boolean addToItemGroup) {
+
+    private static Item registerBlockItem(String path, Block block) {
         BlockItem item = new BlockItem(block, new FabricItemSettings());
-        registerItem(path, item, addToItemGroup);
+        return registerItem(path, item);
     }
 }

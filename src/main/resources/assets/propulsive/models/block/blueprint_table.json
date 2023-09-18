@@ -1,7 +1,12 @@
 {
-  "parent": "block/cube_all",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "all": "propulsive:block/blueprint_table"
+    "down": "minecraft:block/oak_planks",
+    "east": "propulsive:block/blueprint_table_side",
+    "north": "propulsive:block/blueprint_table_front",
+    "particle": "propulsive:block/blueprint_table_front",
+    "south": "propulsive:block/blueprint_table_side",
+    "up": "propulsive:block/blueprint_table_top",
+    "west": "propulsive:block/blueprint_table_front"
   }
 }
-

@@ -1,7 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "propulsive:block/launch_pad"
+    "all": "propulsive:block/launch_pad_single"
   }
 }
-
