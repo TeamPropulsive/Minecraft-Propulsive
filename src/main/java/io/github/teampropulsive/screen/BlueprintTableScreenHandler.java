@@ -1,7 +1,7 @@
 package io.github.teampropulsive.screen;
 
 import io.github.teampropulsive.Propulsive;
-import io.github.teampropulsive.block.BlueprintTableBlockEntity;
+import io.github.teampropulsive.block.blueprint_table.BlueprintTableBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;

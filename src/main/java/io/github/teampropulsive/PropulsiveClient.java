@@ -1,6 +1,6 @@
 package io.github.teampropulsive;
 
-import io.github.teampropulsive.block.BlueprintTableBlockEntityRenderer;
+import io.github.teampropulsive.block.blueprint_table.BlueprintTableBlockEntityRenderer;
 import io.github.teampropulsive.client.world.SpaceDimensionEffects;
 import io.github.teampropulsive.client.world.SpaceSkyRenderer;
 import io.github.teampropulsive.keybind.ShipDownKeybind;

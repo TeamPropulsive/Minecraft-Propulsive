@@ -1,11 +1,12 @@
 package io.github.teampropulsive.block;
 
 import io.github.teampropulsive.Propulsive;
+import io.github.teampropulsive.block.blueprint_table.BlueprintTable;
+import io.github.teampropulsive.block.blueprint_table.BlueprintTableBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.StructureBlockBlockEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 

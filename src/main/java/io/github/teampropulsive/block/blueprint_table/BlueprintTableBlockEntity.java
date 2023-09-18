@@ -1,4 +1,4 @@
-package io.github.teampropulsive.block;
+package io.github.teampropulsive.block.blueprint_table;
 
 import io.github.teampropulsive.screen.BlueprintTableScreenHandler;
 import io.github.teampropulsive.util.BlockBox;

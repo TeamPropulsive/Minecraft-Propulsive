@@ -1,5 +1,6 @@
-package io.github.teampropulsive.block;
+package io.github.teampropulsive.block.blueprint_table;
 
+import io.github.teampropulsive.block.Blocks;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
