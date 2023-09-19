@@ -3,12 +3,14 @@ package io.github.teampropulsive;
 import io.github.teampropulsive.block.Blocks;
 import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
+import io.github.teampropulsive.data.RocketReloadListener;
 import io.github.teampropulsive.screen.BlueprintTableScreenHandler;
 import io.github.teampropulsive.types.AtmoCompositionGas;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.damage.DamageType;
@@ -16,6 +18,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
@@ -23,6 +26,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.PlacedFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
@@ -30,6 +35,7 @@ import static io.github.teampropulsive.util.Gases.*;
 
 
 public class Propulsive implements ModInitializer {
+    public static final Logger LOGGER = LoggerFactory.getLogger("Propulsive");
     public static ArrayList<Planet> TICKABLE_PLANETS = new ArrayList<>();
     public static final RegistryKey<PlacedFeature> ALUMINUM_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("ore_aluminum"));
     public static final RegistryKey<PlacedFeature> BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("ore_bauxite_cluster"));
@@ -61,6 +67,8 @@ public class Propulsive implements ModInitializer {
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, ALUMINUM_ORE_PLACED_KEY);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, BAUXITE_CLUSTER_PLACED_KEY);
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, PURE_BAUXITE_CLUSTER_PLACED_KEY);
+
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new RocketReloadListener());
     }
 
     // Dimensions
