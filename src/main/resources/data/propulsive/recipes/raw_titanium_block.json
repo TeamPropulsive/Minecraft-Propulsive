@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "propulsive:raw_titanium"
+    },
+    {
+      "item": "propulsive:raw_titanium"
+    },
+    {
+      "item": "propulsive:raw_titanium"
+    },
+    {
+      "item": "propulsive:raw_titanium"
+    },
+    {
+      "item": "propulsive:raw_titanium"
+    },
+    {
+      "item": "propulsive:raw_titanium"
+    },
+    {
+      "item": "propulsive:raw_titanium"
+    },
+    {
+      "item": "propulsive:raw_titanium"
+    },
+    {
+      "item": "propulsive:raw_titanium"
+    }
+  ],
+  "result": {
+    "item": "propulsive:raw_titanium_block",
+    "count": 1
+  }
+}

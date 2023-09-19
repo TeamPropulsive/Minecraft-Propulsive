@@ -11,6 +11,15 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 public class Blocks {
+    public static final Block TITANIUM_ORE = new Block(
+            FabricBlockSettings.create().requiresTool().strength(1.5f, 6.0f).requiresTool()
+    );
+    public static final Block RAW_TITANIUM_BLOCK = new Block(
+            FabricBlockSettings.create().requiresTool().strength(5.0f, 6.0f).requiresTool()
+    );
+    public static final Block TITANIUM_BLOCK = new Block(
+            FabricBlockSettings.create().requiresTool().strength(5.0f, 6.0f).requiresTool()
+    );
 
     public static final Block MOON_REGOLITH = new Block(
            FabricBlockSettings.create().requiresTool().strength(3.0f, 9.0f)
@@ -62,6 +71,10 @@ public class Blocks {
         registerBlock(BAUXITE, "bauxite");
         registerBlock(ALUMINUM_BLOCK, "aluminum_block");
         registerBlock(RAW_BAUXITE_BLOCK, "raw_bauxite_block");
+
+        registerBlock(TITANIUM_BLOCK, "titanium_block");
+        registerBlock(TITANIUM_ORE, "titanium_ore");
+        registerBlock(RAW_TITANIUM_BLOCK, "raw_titanium_block");
     }
 
     private static void registerBlock(Block block, String name) {

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "propulsive:titanium_ingot"
+    },
+    {
+      "item": "propulsive:titanium_ingot"
+    },
+    {
+      "item": "propulsive:titanium_ingot"
+    },
+    {
+      "item": "propulsive:titanium_ingot"
+    },
+    {
+      "item": "propulsive:titanium_ingot"
+    },
+    {
+      "item": "propulsive:titanium_ingot"
+    },
+    {
+      "item": "propulsive:titanium_ingot"
+    },
+    {
+      "item": "propulsive:titanium_ingot"
+    },
+    {
+      "item": "propulsive:titanium_ingot"
+    }
+  ],
+  "result": {
+    "item": "propulsive:titanium_block",
+    "count": 1
+  }
+}

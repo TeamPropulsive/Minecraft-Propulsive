@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "propulsive:titanium_block"
+    }
+  ],
+  "result": {
+    "item": "propulsive:titanium_ingot",
+    "count": 9
+  }
+}

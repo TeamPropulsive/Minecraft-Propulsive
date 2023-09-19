@@ -24,6 +24,9 @@ public class Items {
     public static final Item ALUMINUM_NUGGET = new Item(new FabricItemSettings());
     public static final Item RAW_BAUXITE = new Item(new FabricItemSettings());
     public static final Item ALUMINUM_INGOT = new Item(new FabricItemSettings());
+    public static final Item TITANIUM_INGOT = new Item(new FabricItemSettings());
+    public static final Item TITANIUM_NUGGET = new Item(new FabricItemSettings());
+    public static final Item RAW_TITANIUM = new Item(new FabricItemSettings());
     public static final ArmorItem SPACE_HELMET = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.HELMET, new FabricItemSettings());
     public static final ArmorItem SPACE_CHESTPLATE = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.CHESTPLATE, new FabricItemSettings());
     public static final ArmorItem SPACE_LEGGINGS = new ArmorItem(SpaceArmorMaterial.INSTANCE, ArmorItem.Type.LEGGINGS, new FabricItemSettings());
@@ -62,6 +65,14 @@ public class Items {
             registerBlockItem("bauxite", Blocks.BAUXITE),
             registerBlockItem("aluminum_block", Blocks.ALUMINUM_BLOCK),
             registerBlockItem("raw_bauxite_block", Blocks.RAW_BAUXITE_BLOCK),
+
+            // Titanium
+            registerItem("raw_titanium", RAW_TITANIUM),
+            registerItem("titanium_ingot", TITANIUM_INGOT),
+            registerItem("titanium_nugget", TITANIUM_NUGGET),
+            registerBlockItem("raw_titanium_block", Blocks.RAW_TITANIUM_BLOCK),
+            registerBlockItem("titanium_block", Blocks.TITANIUM_BLOCK),
+            registerBlockItem("titanium_ore", Blocks.TITANIUM_ORE),
         };
 
         Registry.register(Registries.ITEM_GROUP, ITEM_GROUP,
