@@ -3,6 +3,7 @@ package io.github.teampropulsive;
 import io.github.teampropulsive.block.Blocks;
 import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
+import io.github.teampropulsive.data.GasReloadListener;
 import io.github.teampropulsive.data.RocketReloadListener;
 import io.github.teampropulsive.screen.BlueprintTableScreenHandler;
 import io.github.teampropulsive.types.AtmoCompositionGas;
@@ -69,6 +70,7 @@ public class Propulsive implements ModInitializer {
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, PURE_BAUXITE_CLUSTER_PLACED_KEY);
 
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new RocketReloadListener());
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GasReloadListener());
     }
 
     // Dimensions

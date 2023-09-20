@@ -85,7 +85,7 @@ public class Items {
                         })).build());
     }
 
-    private static Item registerItem(String path, Item item) {
+    public static Item registerItem(String path, Item item) {
         return Registry.register(Registries.ITEM, Propulsive.id(path), item);
     }
 
