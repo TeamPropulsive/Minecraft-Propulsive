@@ -1,1 +1,19 @@
-{}
+{
+  "key": {
+    "G": {
+      "block": "minecraft:gold_block"
+    },
+    "C": {
+      "block": "minecraft:cobblestone"
+    },
+    "D": {
+      "block": "minecraft:diamond_block"
+    }
+  },
+  "layers": [
+    [" C ", "CCC", " C "],
+    ["C C", " D ", "C C"],
+    ["GCG", "CCC", "GCG"]
+  ],
+  "result": "propulsive:nether_reactor"
+}
