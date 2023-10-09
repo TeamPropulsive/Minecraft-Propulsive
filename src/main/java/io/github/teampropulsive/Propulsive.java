@@ -4,9 +4,11 @@ import io.github.teampropulsive.block.Blocks;
 import io.github.teampropulsive.celestial.Star;
 import io.github.teampropulsive.celestial.Terrestrial;
 import io.github.teampropulsive.data.GasReloadListener;
+import io.github.teampropulsive.data.PlanetReloadListener;
 import io.github.teampropulsive.data.RocketReloadListener;
 import io.github.teampropulsive.screen.BlueprintTableScreenHandler;
 import io.github.teampropulsive.types.AtmoCompositionGas;
+import io.github.teampropulsive.types.Gas;
 import io.github.teampropulsive.types.Planet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -19,8 +21,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.ResourceReloader;
 import net.minecraft.resource.ResourceType;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
@@ -31,6 +36,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Set;
 
 import static io.github.teampropulsive.util.Gases.*;
 
@@ -73,6 +80,7 @@ public class Propulsive implements ModInitializer {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GasReloadListener());
     }
 
+    public static Dictionary<String, Gas> gasDictionary;
     // Dimensions
     public static RegistryKey<World> SPACE = RegistryKey.of(RegistryKeys.WORLD, new Identifier("propulsive:space"));
 
@@ -86,9 +94,9 @@ public class Propulsive implements ModInitializer {
             Propulsive.id("textures/celestial/terrestrial/earth_icon.png"),
             Propulsive.id("textures/celestial/terrestrial/earth.png"),
             new AtmoCompositionGas[]{
-                    new AtmoCompositionGas(OXYGEN, 1.0),
-                    new AtmoCompositionGas(HYDROGEN, 0.01),
-                    new AtmoCompositionGas(METHANE, 0.05)
+                    new AtmoCompositionGas(gasDictionary.get("gas/oxygen"), 1.0),
+                    new AtmoCompositionGas(gasDictionary.get("gas/hydrogen"), 0.01),
+                    new AtmoCompositionGas(gasDictionary.get("gas/methane"), 0.05)
             }
     );
 

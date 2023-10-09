@@ -14,13 +14,14 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 
+import static io.github.teampropulsive.Propulsive.gasDictionary;
 import static io.github.teampropulsive.util.Gases.*;
 
 public class Items {
-    public static final Item OXYGEN_TANK = new GasCanister(new FabricItemSettings(), OXYGEN, 1000);
-    public static final Item OXYGEN_CANISTER = new GasCanister(new FabricItemSettings(), OXYGEN, 1000);
-    public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), METHANE, 1000);
-    public static final Item HYDROGEN_CANISTER = new GasCanister(new FabricItemSettings(), HYDROGEN, 1000);
+    public static final Item OXYGEN_TANK = new GasCanister(new FabricItemSettings(), gasDictionary.get("gas/oxygen"), 1000);
+    public static final Item OXYGEN_CANISTER = new GasCanister(new FabricItemSettings(), gasDictionary.get("gas/oxygen"), 1000);
+    public static final Item METHANE_CANISTER = new GasCanister(new FabricItemSettings(), gasDictionary.get("gas/methane"), 1000);
+    public static final Item HYDROGEN_CANISTER = new GasCanister(new FabricItemSettings(), gasDictionary.get("gas/hydrogen"), 1000);
     public static final Item ALUMINUM_NUGGET = new Item(new FabricItemSettings());
     public static final Item RAW_BAUXITE = new Item(new FabricItemSettings());
     public static final Item ALUMINUM_INGOT = new Item(new FabricItemSettings());

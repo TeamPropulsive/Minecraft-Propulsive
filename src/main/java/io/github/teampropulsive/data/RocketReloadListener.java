@@ -42,7 +42,7 @@ public class RocketReloadListener implements SimpleSynchronousResourceReloadList
                 JsonObject object = JsonHelper.deserialize(contents);
                 JsonObject jsonKey = object.getAsJsonObject("key");
                 Map<String, BlockPredicate> key = parseKey(jsonKey);
-
+                Propulsive.LOGGER.info(key.toString());
 
                 Propulsive.LOGGER.info("Pretend like this is doing something useful with " + object.toString());
             } catch (Exception e) {
