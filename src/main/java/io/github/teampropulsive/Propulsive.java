@@ -48,9 +48,10 @@ public class Propulsive implements ModInitializer {
     public static final RegistryKey<PlacedFeature> ALUMINUM_ORE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("ore_aluminum"));
     public static final RegistryKey<PlacedFeature> BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("ore_bauxite_cluster"));
     public static final RegistryKey<PlacedFeature> PURE_BAUXITE_CLUSTER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id("ore_pure_bauxite"));
-
     public static final ScreenHandlerType<BlueprintTableScreenHandler> BLUEPRINT_TABLE_SCREEN = Registry.register(Registries.SCREEN_HANDLER, id("blueprint_table"),
             new ExtendedScreenHandlerType<>(((syncId, inventory, buf) -> new BlueprintTableScreenHandler(syncId, buf))));
+
+    public static Dictionary<String, Gas> gasDictionary;
 
     @Override
     public void onInitialize() {
@@ -80,7 +81,7 @@ public class Propulsive implements ModInitializer {
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new GasReloadListener());
     }
 
-    public static Dictionary<String, Gas> gasDictionary;
+
     // Dimensions
     public static RegistryKey<World> SPACE = RegistryKey.of(RegistryKeys.WORLD, new Identifier("propulsive:space"));
 

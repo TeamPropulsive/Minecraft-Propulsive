@@ -40,7 +40,7 @@ public class GasReloadListener implements SimpleSynchronousResourceReloadListene
                 double density = densityJsonKey.getAsDouble();
                 JsonObject identifierJsonKey = object.getAsJsonObject("density");
                 String identifier = identifierJsonKey.getAsString();
-                Gas gas = new Gas(id(identifier), density);
+                Gas gas = new Gas(new Identifier(resource.getResourcePackName(), identifier), density);
                 gasDictionary.put(identifier, gas);
             } catch (Exception e) {
                 Propulsive.LOGGER.error("Error occurred while loading gas " + id.toString(), e);
