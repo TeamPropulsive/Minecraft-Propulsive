@@ -3,28 +3,25 @@
   "id": "propulsive",
   "version": "${version}",
   "name": "Propulsive",
-  "description": "Going to space one block at a time!",
+  "description": "",
   "authors": [],
   "contact": {
-    "repo": "https://github.com/TeamPropulsive/Minecraft-Propulsive"
+    "repo": "https://github.com/june/Propulsive"
   },
   "license": "MIT",
   "icon": "assets/propulsive/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.teampropulsive.Propulsive"
-    ],
-    "client": [
-      "io.github.teampropulsive.PropulsiveClient"
+      "io.github.teampropulsive.propulsive.Propulsive"
     ]
   },
   "mixins": [
     "propulsive.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.21",
+    "fabricloader": ">=${loader_version}",
     "fabric": "*",
-    "minecraft": "1.20.1"
+    "minecraft": "${minecraft_version}"
   }
 }

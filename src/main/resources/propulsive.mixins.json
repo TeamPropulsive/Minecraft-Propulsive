@@ -1,19 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.github.teampropulsive.mixin",
+  "package": "io.github.teampropulsive.propulsive.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EntityMixin",
-    "FogMixin",
-    "PlanetMixin",
-    "PlayerMixin",
-    "WorldBorderMixin"
+  ],
+  "client": [
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "client": [
-    "CapeTextureMixin"
-  ]
+  }
 }
