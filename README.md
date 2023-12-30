@@ -42,3 +42,9 @@ Contributors:
 <a href="https://github.com/Team-Propulsive/Minecraft-Propulsive/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Team-Propulsive/Minecraft-Propulsive" />
 </a>
+
+## License
+
+**MIT License**
+
+Look at [https://github.com/TeamPropulsive/Minecraft-Propulsive/LICENSE](https://github.com/TeamPropulsive/Minecraft-Propulsive/LICENSE) for more info.
