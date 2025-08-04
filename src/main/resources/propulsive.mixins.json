@@ -4,11 +4,7 @@
   "package": "io.github.teampropulsive.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EntityMixin",
-    "FogMixin",
-    "PlanetMixin",
-    "PlayerMixin",
-    "WorldBorderMixin"
+    "FogMixin"
   ],
   "injectors": {
     "defaultRequire": 1

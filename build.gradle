@@ -29,26 +29,8 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    // Immersive Portals Core
-    modImplementation ("com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:${immersive_portals_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-        transitive(false)
-    }
-
-    // Immersive Portals utility library
-    modImplementation ("com.github.iPortalTeam.ImmersivePortalsMod:q_misc_util:${immersive_portals_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-        transitive(false)
-    }
-
-    // Cloth Config (Immersive Portals dependency)
-    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
-
-    // Mixin Extras (Immersive Portals dependency)
-    api("com.github.LlamaLad7:MixinExtras:${mixin_extras_version}")
-    annotationProcessor("com.github.LlamaLad7:MixinExtras:${mixin_extras_version}")
+    // Valkyrien skies!
+    modApi("org.valkyrienskies:valkyrienskies-118-fabric:${rootProject.vs2_version}")
 }
 
 processResources {
