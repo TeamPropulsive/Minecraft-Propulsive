@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'fabric-loom' version '1.5-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -12,12 +12,10 @@ repositories {
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
-
-    // Immersive Portals
-    maven { url "https://jitpack.io" }
-
-    // Cloth Config (dependency of Immersive Portals)
-    maven { url "https://maven.shedaniel.me" }
+    maven {
+        name = "Valkyrien Skies"
+        url = "https://maven.valkyrienskies.org"
+    }
 }
 
 dependencies {
@@ -30,7 +28,20 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Valkyrien skies!
-    modApi("org.valkyrienskies:valkyrienskies-118-fabric:${rootProject.vs2_version}")
+    modApi("org.valkyrienskies:valkyrienskies-120-fabric:${project.vs2_version}") {
+        exclude group: 'com.simibubi', module: ''
+        exclude group: 'dev.engine-room', module: ''
+        exclude group: 'com.jozufozu', module: ''
+    }
+    implementation("org.valkyrienskies.core:api:${project.vscore_version}") {
+        exclude group: 'org.joml', module: ''
+    }
+    implementation("org.valkyrienskies.core:api-game:${project.vscore_version}") {
+        exclude group: 'org.joml', module: ''
+    }
+    implementation("org.valkyrienskies.core:util:${project.vscore_version}") {
+        exclude group: 'org.joml', module: ''
+    }
 }
 
 processResources {
